@@ -1,0 +1,68 @@
+@import "common/_normalize";
+@import "common/_rule";
+
+@function c($n) {
+    @return #{$n/50}rem;
+}
+
+body{
+    font: c(24)/1.5 Helvetica,Roboto,Arial,'Microsoft Yahei',sans-serif;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.spike{}
+.spike-main{
+    background: #35b2f2 url("../img/spike-bn.png") top center no-repeat;
+    background-size: c(750) auto;
+    .rules-btn{
+        padding: c(305) 0 c(10);
+        text-align: center;
+        .btn{
+            display: inline-block;
+            box-sizing: border-box;
+            height: c(52);
+            padding: 0 c(40);
+            border: c(3) solid #fff;
+            border-radius: c(26);
+            color: #fff;
+            font-size: c(30);
+            line-height: c(46);
+            text-decoration: none;
+        }
+    }
+    .spike-time{
+
+    }
+}
+.spike-rules{
+    background: #0082ae;
+    .rules-title{
+        height:c(48);
+        margin: 0;
+        padding-top: c(110);
+        background: #35b2f2 url("../img/spike-title.png") bottom center no-repeat;
+        background-size: c(750) auto;
+        color: #fff;
+        font-size: c(28);
+        line-height: c(40);
+        text-align: center;
+        font-weight: normal;
+    }
+    .rules-inner{
+        color: #fff;
+        width: c(690);
+        padding: c(30);
+        margin: 0 auto;
+        line-height:1.4;
+        .rules-inner-title{
+            font-size: c(30);
+            font-weight: bold;
+            margin: 0;
+        }
+        .rules-inner-txt{
+            font-size: c(28);
+            padding-bottom: c(30);
+            margin: 0;
+        }
+    }
+}
