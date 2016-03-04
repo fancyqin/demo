@@ -6,10 +6,22 @@
 }
 
 body{
-    font: c(24)/1.5 Helvetica,Roboto,Arial,'Microsoft Yahei',sans-serif;
+    font: c(24)/1.5 Arial,'Microsoft Yahei',sans-serif;
     -webkit-tap-highlight-color: transparent;
 }
 
+:focus{
+    outline: none;
+}
+.cf:before,
+.cf:after {
+    content: "";
+    display: table;
+}
+
+.cf:after {
+    clear: both;
+}
 .spike{}
 .spike-main{
     background: #35b2f2 url("../img/spike-bn.png") top center no-repeat;
@@ -31,7 +43,129 @@ body{
         }
     }
     .spike-time{
+        padding-bottom: c(40);
+        text-align: center;
+        color: #fff;
+        .count-people{
+            font-size: c(26);
+            line-height: c(30);
+            padding-bottom: c(10);
+            color: #004b72;
 
+        }
+        .count-title{
+            display: inline-block;
+            padding: 0 c(60);
+            height: c(35);
+            margin-bottom: c(36);
+            border-bottom: 1px  solid #fff;
+            .count-title-txt{
+                display: inline-block;
+                height: c(70);
+                padding: 0 c(20);
+                line-height: c(70);
+                background: #35b2f2;
+                font-size: c(30);
+            }
+        }
+        .num{
+            display: inline-block;
+            height: c(70);
+            width: c(50);
+            margin: 0 c(10);
+            line-height: c(70);
+            vertical-align: top;
+            border-radius: c(6);
+            background: #0b1b28;
+            font-size: c(36);
+            text-align: center;
+        }
+        .active-time{
+            height: c(70);
+            font-size: c(26);
+            line-height: c(70);
+        }
+        .time-line{
+            position: relative;
+            height: c(20);
+            padding-bottom: c(40);
+            margin: c(30) 0 0;
+            background: url(../img/time-line.png) no-repeat top center;
+            background-size: c(664) auto;
+            .day{
+                display: inline-block;
+                width: c(22);
+                height: c(22);
+                margin: c(-5) c(46) 0;
+                vertical-align: top;
+                background: url("../img/time-dot.png") no-repeat;
+                background-size: cover;
+            }
+            .today{
+                background: url("../img/time-dot-today.png") no-repeat;
+                background-size: cover;
+            }
+        }
+        .countdown{
+            line-height: c(70);
+            .board{
+                display: inline-block;
+                .num{
+                    width: c(40);
+                    margin: 0 c(3);
+                }
+            }
+            i{
+                font-size: c(30);
+                font-style: normal;
+                margin: 0 c(6);
+            }
+        }
+    }
+    .spike-award{
+        width: c(750);
+        margin: 0 auto;
+        padding-bottom: c(50);
+        .award-box{
+            margin-left: c(20);
+            .award-item{
+                float: left;
+                box-sizing: border-box;
+                width: 50%;
+                padding-right: c(20);
+                text-align: center;
+                .img-box{
+                    min-height: c(280);
+                }
+                img{
+                    display: block;
+                    width:100%;
+                    margin-bottom: c(30);
+                }
+                .btn{
+                    box-sizing: border-box;
+                    width: c(290);
+                    height: c(78);
+                    padding: 0;
+                    line-height: c(70);
+                    background: #e5e5ec;
+                    border: 0;
+                    border-bottom: c(8) solid #b9b9c5;
+                    font-size: c(32);
+                    border-radius: c(6);
+                    color: #666;
+                }
+                .btn-main{
+                    background: #ff6e4e;
+                    border-bottom-color: #d75b40;
+                    color: #fff;
+                }
+                .btn:active{
+                    border-top: c(8) solid #35b2f2;
+                    border-bottom: 0;
+                }
+            }
+        }
     }
 }
 .spike-rules{
