@@ -46,8 +46,8 @@ $(function(){
        		showCountdown('.J-min',mm);
         	showCountdown('.J-sec',ss);
             $countdownTxt.text('距离活动开始时间还剩');
-            if (hh === mm === ss === '00'){//?????????
-                alert(1);
+            if (hh === mm && mm === ss && ss === '00'){//?????????
+                alert("let's cook");
                 clearInterval(firstCountdown);
             }
         }
@@ -72,7 +72,7 @@ $(function(){
 
 
     //秒杀开始时间
-    var beginTime = new Date(2016,2,7,17,20,0);
+    var beginTime = new Date(2016,2,7,17,36,0);
 
     //////
     var firstCountdown = setInterval(function(){
