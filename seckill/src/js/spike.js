@@ -34,21 +34,29 @@ $(function(){
         hh = checkTime(hh);
         mm = checkTime(mm);
         ss = checkTime(ss);
+        if (diff < 0){
+            return false;
+        }else{
+            if (dd > 0) {
+                $beforeTime.show().text(dd);
+                $countdown.hide();
+            }else if (dd === 0){
+                $countdown.show();
+                $beforeTime.hide();
 
-        if (dd > 0) {
-        	$beforeTime.show().text(dd);
-        	$countdown.hide();
-        }else if (dd === 0){
-        	$countdown.show();
-            $beforeTime.hide();
+                showCountdown('.J-hour',hh);
+                showCountdown('.J-min',mm);
+                showCountdown('.J-sec',ss);
+                $countdownTxt.text('距离活动开始时间还剩');
+                if (hh === mm && mm === ss && ss === '00'){
 
-        	showCountdown('.J-hour',hh);
-       		showCountdown('.J-min',mm);
-        	showCountdown('.J-sec',ss);
-            $countdownTxt.text('距离活动开始时间还剩');
-            if (hh === mm && mm === ss && ss === '00'){//?????????
-                alert("let's cook");
-                clearInterval(firstCountdown);
+                    $countdownTxt.text('秒杀进行中');
+                    clearInterval(firstCountdown);
+                    $countdown.find('.num').text('-');
+                    $('.J-btn').addClass('btn-main').text('开始秒杀');
+
+
+                }
             }
         }
 
@@ -58,7 +66,7 @@ $(function(){
         if (i < 10) {
             i = "0" + i;
         }else {
-            i = i.toString()
+            i = i.toString();
         }
         return i;
     }
@@ -72,7 +80,7 @@ $(function(){
 
 
     //秒杀开始时间
-    var beginTime = new Date(2016,2,7,17,36,0);
+    var beginTime = new Date(2016,2,7,21,45,0);
 
     //////
     var firstCountdown = setInterval(function(){
@@ -80,7 +88,7 @@ $(function(){
     },1000);
 
 
-    
+
 
     //goto活动规则
     $('#goToRules').click(function(){
@@ -91,7 +99,12 @@ $(function(){
     });
 
 
+    //弹框关闭
 
+    $('.J-popup').on('click','.J-popupClose',function(){
+        $(this).parents('.J-popup:first').removeClass("open");
+        return false;
+    })
 
 
 

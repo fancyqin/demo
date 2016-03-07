@@ -160,7 +160,7 @@ body{
                     border-bottom-color: #d75b40;
                     color: #fff;
                 }
-                .btn:active{
+                .btn-main:active{
                     border-top: c(8) solid #35b2f2;
                     border-bottom: 0;
                 }
@@ -216,4 +216,115 @@ body{
         }
     }
     
+}
+.popup-wrap{
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.6);
+    z-index: 200;
+    &.open{
+        display: block;
+    }
+    .popup{
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        width: c(540);
+        margin: auto;
+        background: #fff;
+        z-index: 201;
+        border-radius: c(10);
+        .popup-close{
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: c(70);
+            height: c(70);
+            z-index: 202;
+            background: #f4f4f4 url("../img/popup-close.png") no-repeat center;
+            background-size: c(24) c(24);
+            background-position: c(30) c(12);
+            border-radius: 0 c(10) 0 c(70);
+        }
+    }
+    .popup-spike{
+        height: c(610);
+        .spike-code{
+            height: c(86);
+            text-align: center;
+            padding: c(100) 0;
+            img{
+                height: c(86);
+                vertical-align: top;
+            }
+        }
+        .spike-word{
+            margin: 0;
+            text-align: center;
+            font-size: c(32);
+            color: #666;
+            padding-bottom: c(12);
+        }
+        .code-in{
+            width: c(440);
+            margin: 0 auto;
+            input{
+                box-sizing: border-box;
+                width: 100%;
+                height: c(90);
+                border-radius: c(46);
+                padding: 0;
+                border: c(3) solid #999;
+                font-size: c(36);
+                text-align: center;
+            }
+        }
+        .code-btn{
+            margin-top: c(50);
+            button{
+                float: left;
+                width: c(240);
+                height: c(78);
+                margin-left: c(20);
+                color: #fff;
+                border: 0;
+                font-size: c(38);
+                border-radius: c(6);
+            }
+            .btn-submit{
+                background: #ff6e4e;
+            }
+            .btn-cancel{
+                background: #c9d0da;
+            }
+        }
+    }
+    .spike-stats{
+        height: c(370);
+        .stats{
+            height: c(280);
+            background-size: c(152) !important;
+        }
+        .stats-ok{
+            background: url("../img/spike-ok.png") no-repeat center;
+        }
+        .stats-fail{
+            background: url("../img/spike-fail.png") no-repeat center;
+        }
+        .stats-ing{
+            background: url("../img/spike-ing.png") no-repeat center;
+        }
+        .stats-txt{
+            margin: 0;
+            text-align: center;
+            font-size: c(32);
+            line-height: c(40);
+        }
+    }
 }
