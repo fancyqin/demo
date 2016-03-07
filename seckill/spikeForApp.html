@@ -10,28 +10,28 @@
 <div class="spike">
     <div class="spike-main">
         <div class="rules-btn">
-            <a href="" class="btn">活动规则</a>
+            <a id="goToRules" href="#rulesTitle" class="btn">活动规则</a>
         </div>
-        <div class="spike-time">
+        <div id="J-timeWrap" class="spike-time">
             <div class="count-people">
-                已有<span>10000</span>人在等待秒杀
+                已有<span class="J-visits">10000</span>人在等待秒杀
             </div>
             <div class="count-title">
-                <div class="count-title-txt">距离活动还有<span class="num">3</span>天</div>
+                <div class="count-title-txt J-countdownTxt">距离活动还有<span class="num J-beforeTime"></span>天</div>
             </div>
-            <div class="countdown">
-                <div class="board J-hour"><span class="num">2</span><span class="num">2</span></div>
+            <div class="countdown J-countdown">
+                <div class="board J-hour"><span class="num"></span><span class="num"></span></div>
                 <i>时</i>
-                <div class="board J-min"><span class="num">2</span><span class="num">2</span></div>
+                <div class="board J-min"><span class="num"></span><span class="num"></span></div>
                 <i>分</i>
-                <div class="board J-sec"><span class="num">2</span><span class="num">2</span></div>
+                <div class="board J-sec"><span class="num"></span><span class="num"></span></div>
                 <i>秒</i>
             </div>
             <div class="active-time">2016年3月14-18日每天的10:00准时开抢</div>
-            <div class="time-line">
+            <div class="time-line J-timeline">
                 <span class="day J-day"></span>
                 <span class="day J-day"></span>
-                <span class="day J-day today"></span>
+                <span class="day J-day"></span>
                 <span class="day J-day"></span>
                 <span class="day J-day"></span>
             </div>
@@ -54,7 +54,7 @@
         </div>
     </div>
     <div class="spike-rules">
-        <h3 class="rules-title">2016年3月14-18日每天10:00开始秒杀</h3>
+        <h3 id="rulesTitle" class="rules-title">2016年3月14-18日每天10:00开始秒杀</h3>
         <div class="rules-inner">
             <h4 class="rules-inner-title">参与条件：</h4>
             <p class="rules-inner-txt">国际站认证供应商会员，主账户和子账户均可参加</p>
@@ -76,5 +76,19 @@
         </div>
     </div>
 </div>
+
+<!--没权限-->
+
+<div class="spike no-competence">
+    <div class="spike-main">
+        <div class="no-competence-wrap">
+            <div class="txt">抱歉！我们的活动主要是针对已经登录的国际站认证供应商会员。<br><br>感谢您对本活动的关注！</div>
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript" src="http://libs.baidu.com/jquery/1.7.1/jquery.min.js"></script>
+<script type="text/javascript" src="src/js/spike.js"></script>
 </body>
 </html>

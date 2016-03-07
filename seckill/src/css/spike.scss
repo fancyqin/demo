@@ -200,3 +200,20 @@ body{
         }
     }
 }
+.no-competence{
+    .spike-main{
+        padding-top: c(358);
+    }
+    .no-competence-wrap{
+        padding: c(100) c(70) 0;
+        background: #fff;
+        border-radius: c(10) c(10) 0 0;
+        .txt{
+            font-size: c(32);
+            padding-left: c(88);
+            background: url("../img/no-competence.png") no-repeat left c(6);
+            background-size: c(70) c(70);
+        }
+    }
+    
+}
