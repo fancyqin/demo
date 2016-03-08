@@ -8,6 +8,10 @@
 </head>
 <body>
 <div class="spike">
+    <input type="hidden" id="checkTime" value="1457404571635">
+    <input type="hidden" id="beginTime" value="1457418480000">
+    <input type="hidden" id="activeKey" value="aaa">
+    <input type="hidden" id="nextActiveKey" value="bbb">
     <div class="spike-main">
         <div class="rules-btn">
             <a id="goToRules" href="#rulesTitle" class="btn">活动规则</a>
@@ -42,13 +46,13 @@
                     <div class="img-box">
                         <img src="src/img/award1.jpg" alt="">
                     </div>
-                    <button class="btn J-btn">即将开始</button>
+                    <button class="btn J-btn" data-prod='0'>即将开始</button>
                 </div>
                 <div class="award-item">
                     <div class="img-box">
                         <img src="src/img/award2.jpg" alt="">
                     </div>
-                    <button class="btn J-btn">即将开始</button>
+                    <button class="btn J-btn" data-prod='1'>即将开始</button>
                 </div>
             </div>
         </div>
@@ -88,7 +92,7 @@
 </div>
 
 
-<div class="popup-wrap J-popup open">
+<div id="beginSpike" class="popup-wrap J-popup">
     <div class="popup popup-spike">
         <span class="popup-close J-popupClose"></span>
         <div class="spike-code">
@@ -96,38 +100,16 @@
         </div>
         <p class="spike-word">输入秒杀口令，开启幸运大门</p>
         <form action="">
-            <div class="code-in"><input name="" type=""/></div>
+            <div class="code-in"><input id="verCode" name="" type=""/></div>
             <div class="code-btn cf">
                 <button class="btn-cancel J-popupClose">取消</button>
-                <button class="btn-submit" type="submit">确定</button>
+                <button id="spikePost" class="btn-submit" type="submit">确定</button>
             </div>
         </form>
     </div>
 </div>
-<div class="popup-wrap J-popup open">
-    <div class="popup spike-stats">
-        <span class="popup-close J-popupClose"></span>
-        <div class="stats stats-ok">
-        </div>
-        <div class="stats-txt">恭喜，秒杀成功，好运爆棚！</div>
-    </div>
-</div>
-<div class="popup-wrap J-popup open">
-    <div class="popup spike-stats">
-        <span class="popup-close J-popupClose"></span>
-        <div class="stats stats-fail">
-        </div>
-        <div class="stats-txt">Sorry，手慢了点，明天再来！</div>
-    </div>
-</div>
-<div class="popup-wrap J-popup open">
-    <div class="popup spike-stats">
-        <span class="popup-close J-popupClose"></span>
-        <div class="stats stats-ing">
-        </div>
-        <div class="stats-txt">秒杀中...</div>
-    </div>
-</div>
+<div id="spikeStatusPopup" class="popup-wrap J-popup"></div>
+
 <script type="text/javascript" src="http://libs.baidu.com/jquery/1.7.1/jquery.min.js"></script>
 <script type="text/javascript" src="src/js/spike.js"></script>
 </body>
