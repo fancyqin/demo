@@ -127,6 +127,10 @@ $(function(){
                             }
                         })
                         .done(function(result) {
+                            function showPopup(tpl){
+                                $('#beginSpike').removeClass('open');
+                                $('#spikeStatusPopup').html('').append(tpl).addClass('open');
+                            }
                             switch (result){
                                 case '10001':
                                     console.log("验证码错误");
@@ -135,8 +139,7 @@ $(function(){
                                 case '3':
                                     console.log("秒杀中");
                                     var tpl = SetPopupTpl('ing');
-                                    $('#beginSpike').removeClass('open');
-                                    $('#spikeStatusPopup').html('').append(tpl).addClass('open');
+                                    showPopup(tpl);
                                     setTimeout(spikeIntoTheBowl(),2000);
                                     break;
                                 case '5':
@@ -146,14 +149,12 @@ $(function(){
                                 case '6':
                                     console.log("失败");
                                     var tpl = SetPopupTpl('fail');
-                                    $('#beginSpike').removeClass('open');
-                                    $('#spikeStatusPopup').html('').append(tpl).addClass('open');
+                                    showPopup(tpl);
                                     break;
                                 case '8':
                                     console.log("成功！");
                                     var tpl = SetPopupTpl('ok');
-                                    $('#beginSpike').removeClass('open');
-                                    $('#spikeStatusPopup').html('').append(tpl).addClass('open');
+                                    showPopup(tpl);
                                     break;
                             }
                         })
