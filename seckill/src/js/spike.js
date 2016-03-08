@@ -221,7 +221,7 @@ $(function(){
         var $this = $(this);
         $(this).parents('.J-popup:first').removeClass("open");
         if ($this.siblings('.stats').hasClass('stats-fail')){
-            //////////////
+            window.location.href = nextActiveKey;s
         }
     })
 
