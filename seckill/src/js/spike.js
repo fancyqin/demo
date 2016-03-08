@@ -110,7 +110,6 @@ $(function(){
         $('#awardWrap').on('click', '.J-btn.btn-main', function() {
             $('#beginSpike').addClass('open');
             productID = $(this).attr('data-prod');
-            console.log(productID);
         });
 
         function spikeIntoTheBowl(){
@@ -131,6 +130,7 @@ $(function(){
                                 $('#beginSpike').removeClass('open');
                                 $('#spikeStatusPopup').html('').append(tpl).addClass('open');
                             }
+                            var tpl;
                             switch (result){
                                 case '10001':
                                     console.log("验证码错误");
@@ -138,7 +138,7 @@ $(function(){
                                     break;
                                 case '3':
                                     console.log("秒杀中");
-                                    var tpl = SetPopupTpl('ing');
+                                    tpl = SetPopupTpl('ing');
                                     showPopup(tpl);
                                     setTimeout(spikeIntoTheBowl(),2000);
                                     break;
@@ -148,12 +148,12 @@ $(function(){
                                     break;
                                 case '6':
                                     console.log("失败");
-                                    var tpl = SetPopupTpl('fail');
+                                    tpl = SetPopupTpl('fail');
                                     showPopup(tpl);
                                     break;
                                 case '8':
                                     console.log("成功！");
-                                    var tpl = SetPopupTpl('ok');
+                                    tpl = SetPopupTpl('ok');
                                     showPopup(tpl);
                                     break;
                             }
@@ -190,9 +190,7 @@ $(function(){
 
     //goto活动规则
     $('#goToRules').click(function(){
-        var addrs = $(this).attr('href');
-        var scroll = $(addrs).offset().top;
-        console.log(scroll);
+        var scroll = $('#rulesTitle').offset().top;
         $('body').animate({ scrollTop: scroll }, 300);
     });
 
@@ -219,14 +217,12 @@ $(function(){
         return popupTpl;
     }
 
-
-
-
-
-
     $('.J-popup').on('click','.J-popupClose',function(){
+        var $this = $(this);
         $(this).parents('.J-popup:first').removeClass("open");
-        return false;
+        if ($this.siblings('.stats').hasClass('stats-fail')){
+            //////////////
+        }
     })
 
 
