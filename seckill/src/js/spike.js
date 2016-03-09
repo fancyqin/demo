@@ -1,6 +1,4 @@
-
-$(function(){
-
+$(function () {
 
     var $beforeTime = $('.J-beforeTime');
     var $countdown = $('.J-countdown');
@@ -13,45 +11,46 @@ $(function(){
     var nextActiveKey = $('#nextActiveKey').val();//下一次活动码
 
     //时间校验
-    var valiateTime = setInterval(function(){
+    var validateTime = setInterval(function () {
         $.ajax({
-            url: 'http://m.made-in-china.com/validateTime/'+ activeKey
-        })
-        .done(function(results) {
-            var data = JSON.parse(results);
-            if(data.time){
-                thisTime = data.time
-            }else{
+                url: 'http://m.made-in-china.com/validateTime/' + activeKey
+            })
+            .done(function (results) {
+                var data = JSON.parse(results);
+                if (data.time) {
+                    thisTime = data.time
+                } else {
+                    thisTime = new Date().getTime();
+                }
+            })
+            .fail(function () {
                 thisTime = new Date().getTime();
-            }
-        })
-        .fail(function() {
-            thisTime = new Date().getTime();
-        })
-    },5000);
+            })
+    }, 5000);
 
 
     //倒计时
-    function countdown(nowTime,beginTime){
+    function countdown(nowTime, beginTime) {
 
-    	var diff = beginTime - nowTime;
+        var diff = beginTime - nowTime;
         var dd = parseInt(diff / 1000 / 60 / 60 / 24, 10);
         var hh = parseInt(diff / 1000 / 60 / 60 % 24, 10);
         var mm = parseInt(diff / 1000 / 60 % 60, 10);
         var ss = parseInt(diff / 1000 % 60, 10);
 
-        function strTime(i){
+        function strTime(i) {
             if (i < 10) {
                 i = "0" + i;
-            }else {
+            } else {
                 i = i.toString();
             }
             return i;
         }
-        function showCountdown(time,str){
+
+        function showCountdown(time, str) {
             var $borad = $(time);
-            var firstNum = str.substring(1,0);
-            var lastNum = str.substring(2,1);
+            var firstNum = str.substring(1, 0);
+            var lastNum = str.substring(2, 1);
             $borad.find('.num:first').text(firstNum);
             $borad.find('.num:last').text(lastNum);
         }
@@ -59,172 +58,174 @@ $(function(){
         hh = strTime(hh);
         mm = strTime(mm);
         ss = strTime(ss);
-        if (diff < 0){
+        if (diff < 0) {
             getSpikeStatus();
 
             beginSpikeStatus();///////////////////
-        }else{
+        } else {
             if (dd > 0) {
                 $beforeTime.show().text(dd);
                 $countdown.hide();
-            }else if (dd === 0){
+            } else if (dd === 0) {
                 $countdown.show();
                 $beforeTime.hide();
-                showCountdown('.J-hour',hh);
-                showCountdown('.J-min',mm);
-                showCountdown('.J-sec',ss);
+                showCountdown('.J-hour', hh);
+                showCountdown('.J-min', mm);
+                showCountdown('.J-sec', ss);
                 $countdownTxt.text('距离活动开始时间还剩');
-                if (hh === mm && mm === ss && ss === '00'){
+                if (hh === mm && mm === ss && ss === '00') {
                     getSpikeStatus();
-                
-                	beginSpikeStatus();////////////////
+
+                    beginSpikeStatus();////////////////
                 }
             }
         }
     }
 
-    function getSpikeStatus(){
+    function getSpikeStatus() {
         $.ajax({
-                url: 'http://m.made-in-china.com/comeIntoTheBowl/' + activeKey,
+                url: 'http://m.made-in-china.com/comeIntoTheBowl/' + activeKey
             })
-            .done(function(result) {
+            .done(function (result) {
                 if (result === '3') {
                     //开始
                     beginSpikeStatus();
-                }else if (result === '5') {
+                } else if (result === '5') {
                     //已结束
                     window.location.href = nextActiveKey;////////////////
 
-                }else if (result === '2') {
+                } else if (result === '2') {
                     //未开始
                 }
             })
     }
 
-    function beginSpikeStatus(){
+    function beginSpikeStatus() {
         $countdownTxt.text('秒杀进行中');
         clearInterval(firstCountdown);
         $countdown.show().find('.num').text('-');
         $('.J-btn').addClass('btn-main').text('开始秒杀');
         var productID;
-        $('#awardWrap').on('click', '.J-btn.btn-main', function() {
+        $('#awardWrap').on('click', '.J-btn.btn-main', function () {
             $('#beginSpike').addClass('open');
             productID = $(this).attr('data-prod');
         });
 
-        function spikeIntoTheBowl(){
+        function spikeIntoTheBowl() {
             var verCode = $('#verCode').val();
             if (verCode) {
-                    $.ajax({
-                            url: 'http://m.made-in-china.com/comeIntoTheBowl',
-                            type: 'POST',
-                            dataType: 'json',
-                            data: {
-                                activeKey: activeKey,
-                                verCode: verCode,
-                                productID:productID
-                            }
-                        })
-                        .done(function(result) {
-                            function showPopup(tpl){
-                                $('#beginSpike').removeClass('open');
-                                $('#spikeStatusPopup').html('').append(tpl).addClass('open');
-                            }
-                            var tpl;
-                            switch (result){
-                                case '10001':
-                                    console.log("验证码错误");
-                                    $('#verCode').addClass('error');
-                                    break;
-                                case '3':
-                                    console.log("秒杀中");
-                                    tpl = SetPopupTpl('ing');
-                                    showPopup(tpl);
-                                    setTimeout(spikeIntoTheBowl(),2000);
-                                    break;
-                                case '5':
-                                    console.log("秒杀已结束");
-                                    window.location.href = nextActiveKey;
-                                    break;
-                                case '6':
-                                    console.log("失败");
-                                    tpl = SetPopupTpl('fail');
-                                    showPopup(tpl);
-                                    break;
-                                case '8':
-                                    console.log("成功！");
-                                    tpl = SetPopupTpl('ok');
-                                    showPopup(tpl);
-                                    break;
-                            }
-                        })
-                }
+                $.ajax({
+                        url: 'http://m.made-in-china.com/comeIntoTheBowl',
+                        type: 'POST',
+                        dataType: 'json',
+                        data: {
+                            activeKey: activeKey,
+                            verCode: verCode,
+                            productID: productID
+                        }
+                    })
+                    .done(function (result) {
+                        function showPopup(tpl) {
+                            $('#beginSpike').removeClass('open');
+                            $('#spikeStatusPopup').html('').append(tpl).addClass('open');
+                        }
+
+                        var tpl;
+                        switch (result) {
+                            case '10001':
+                                console.log("验证码错误");
+                                $('#verCode').addClass('error');
+                                break;
+                            case '3':
+                                console.log("秒杀中");
+                                tpl = SetPopupTpl('ing');
+                                showPopup(tpl);
+                                setTimeout(spikeIntoTheBowl(), 2000);
+                                break;
+                            case '5':
+                                console.log("秒杀已结束");
+                                window.location.href = nextActiveKey;
+                                break;
+                            case '6':
+                                console.log("失败");
+                                tpl = SetPopupTpl('fail');
+                                showPopup(tpl);
+                                break;
+                            case '8':
+                                console.log("成功！");
+                                tpl = SetPopupTpl('ok');
+                                showPopup(tpl);
+                                $('.J-btn[data-prod=' + productID + ']').removeClass('btn-main').text('感谢参与');
+                                break;
+                        }
+                    })
+            }
 
         }
-        $('#spikePost').click(function(){
+
+        $('#spikePost').click(function () {
             spikeIntoTheBowl();
         });
     }
 
-    
 
     //倒计时开始
-    var firstCountdown = setInterval(function(){
+    var firstCountdown = setInterval(function () {
         countdown(thisTime, beginTime);
         thisTime = parseInt(thisTime) + 1000;
-    },1000);
+    }, 1000);
 
 
     //设置当天的圆点
-    function setDayDot (){
+    function setDayDot() {
         var today = new Date().getDate();
         var beginDay = 14;
         var num = today - beginDay;
-        if (num >= 0 && num <= 4){
+        if (num >= 0 && num <= 4) {
             $timeline.find('.J-day').removeClass('today').eq(num).addClass('today');
-        }else{
+        } else {
             $timeline.find('.J-day').removeClass('today');
         }
     }
+
     setDayDot();
 
     //goto活动规则
-    $('#goToRules').click(function(){
+    $('#goToRules').click(function () {
         var scroll = $('#rulesTitle').offset().top;
-        $('body').animate({ scrollTop: scroll }, 300);
+        $('body').animate({scrollTop: scroll}, 300);
     });
 
 
     //弹框
-    function SetPopupTpl (stats){
-        var status,txt;
-        if (stats === 'ok'){
+    function SetPopupTpl(stats) {
+        var status, txt;
+        if (stats === 'ok') {
             status = 'stats-ok';
             txt = '恭喜，秒杀成功，好运爆棚！'
-        }else if (stats === 'fail'){
+        } else if (stats === 'fail') {
             status = 'stats-fail';
             txt = 'Sorry，手慢了点，明天再来！'
-        }else if(stats === 'ing'){
+        } else if (stats === 'ing') {
             status = 'stats-ing';
             txt = '秒杀中...'
         }
         var popupTpl =
             '<div class="popup spike-stats">' +
             '<span class="popup-close J-popupClose"></span>' +
-            '<div class="stats '+ status +'"></div>' +
-            '<div class="stats-txt">'+ txt +'</div>' +
+            '<div class="stats ' + status + '"></div>' +
+            '<div class="stats-txt">' + txt + '</div>' +
             '</div>';
         return popupTpl;
     }
 
-    $('.J-popup').on('click','.J-popupClose',function(){
+    $('.J-popup').on('click', '.J-popupClose', function () {
         var $this = $(this);
         $(this).parents('.J-popup:first').removeClass("open");
-        if ($this.siblings('.stats').hasClass('stats-fail')){
-            window.location.href = nextActiveKey;s
+        if ($this.siblings('.stats').hasClass('stats-fail')) {
+            window.location.href = nextActiveKey;
         }
     })
-
 
 
 });
