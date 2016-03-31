@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Compare salary with football players</title>
+	<script type="text/javascript" src="https://cdn.jsdelivr.net/vue/latest/vue.js"></script>
+	<style type="text/css">
+		body{
+			font: 12px/1.5 Arial,'Microsoft Yahei'
+		}
+		#app h3{
+			
+		}
+		#app>ul{
+			padding: 0;
+		}
+		#app>ul>li{
+			display: inline-block;
+			margin-bottom: 6px;
+		}
+		.starman{
+			border: 1px solid #aaa;
+			background: #fff;
+			margin: 0 3px;
+			width: 100px;
+			height:30px;
+			outline: none;
+		}
+		.starman.current{
+			background: #FAE2D1;
+			border: 1px solid #A0775A;
+		}
+		.input{
+			box-sizing: border-box;
+			border: 1px solid #ccc;
+			width:100%;
+			height: 30px;
+			padding: 0 10px;
+		}
+		.result{
+			font-size: 1.2em;
+		}
+		.result b{
+			font-size: 1.4em;
+			color: #f60;
+
+		}
+	</style>
+</head>
+<body>
+
+	<div id="app">
+
+
+		<h3>请输入你的月薪(元)：</h3>
+		<form action=""><input class="input" oninput="maxLengthCheck(this)" id="your" type="number" min="1" max="999999" maxlength="6" v-model="msg" placeholder="Input your salary by RMB"></form>
+		<h3>点击你要对比的球星：</h3>
+		<ul>
+			<li v-for="star in stars"><button class="starman" v-on:click="compare($index)">{{star.name}}</button></li>
+		</ul>
+
+
+
+		<div class="result" id="result" style="display: none;">
+			<p>{{current.name}}的年薪是 <b>{{current.salary}} </b>元。<br> 他每 <b>{{perMin}}</b> 分钟就可以挣到你<b>一个月</b>的薪水。</p>
+			<p>你要从公元<b>{{year}}</b>年挣到现在才能挣到{{current.name}}一年的薪水。</p>
+			<p>{{current.name}} <b>{{houseMonth}}</b>个月的薪水可以买一套100㎡的中关村学区房，你需要<b>{{houseYear}}</b>年才能购买同一套同样的房子。</p>
+
+		</div>
+	</div>
+</body>
+
+<script type="text/javascript">
+	function maxLengthCheck(i){
+		if (i.value.length > i.maxLength)
+			i.value = i.value.slice(0, i.maxLength)
+	}
+	var datas = {
+		msg:'',
+		stars:[
+			{name: '梅西', salary: 146338000},
+			{name:'C罗',salary:131706000},
+			{name:'贝尔',salary:69218820},
+			{name:'鲁尼',salary:56497210}
+		],
+		current:{
+			name:'',
+			salary: 0
+		}
+	};
+	var vm = new Vue({
+		el:'#app',
+		data: datas,
+		methods:{
+			compare: function(index){
+				if (document.getElementById('your').value ===''){
+					alert('请输入后再比较');
+				}else {
+					var now = document.getElementsByClassName('starman current')[0];
+					if(now){
+						now.className = 'starman';
+					}
+					document.getElementsByClassName('starman')[index].className = 'starman current';
+					document.getElementById('result').style.display = 'block';
+				}
+				datas.current.name = datas.stars[index].name;
+				datas.current.salary = datas.stars[index].salary;
+			}
+		},
+		computed:{
+			perMin: function(){
+				return Math.round(this.msg /(this.current.salary/(356*24*60)))
+			},
+			year: function(){
+				var youryear = this.msg*12;
+				var years = Math.round(this.current.salary/youryear);
+				var diff = 2015 - years;
+				return diff>0 ? diff: '前'+ (-diff);
+			},
+			houseMonth: function(){
+				return (20000000/(this.current.salary/12)).toFixed(1)
+			}
+		}
+	})
+	
+</script>
+</html>
