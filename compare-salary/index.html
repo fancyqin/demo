@@ -2,7 +2,7 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>Compare salary with football players</title>
+	<title>跟球星比工资</title>
 	<script type="text/javascript" src="https://cdn.jsdelivr.net/vue/latest/vue.js"></script>
 	<style type="text/css">
 		body{
@@ -42,8 +42,10 @@
 		}
 		.result b{
 			font-size: 1.4em;
-			color: #f60;
-
+			color: #262c7e;
+		}
+		.result p{
+			margin: 20px 0;
 		}
 	</style>
 </head>
@@ -53,78 +55,127 @@
 
 
 		<h3>请输入你的月薪(元)：</h3>
-		<form action=""><input class="input" oninput="maxLengthCheck(this)" id="your" type="number" min="1" max="999999" maxlength="6" v-model="msg" placeholder="Input your salary by RMB"></form>
+		<form action=""><input class="input" id="your" type="number" min="1" max="999999" maxlength="6" v-model="msg" placeholder="Input your salary by RMB"></form>
 		<h3>点击你要对比的球星：</h3>
 		<ul>
-			<li v-for="star in stars"><button class="starman" v-on:click="compare($index)">{{star.name}}</button></li>
+			<li v-for="star in stars"><button v-bind:class="starmanObj" v-on:click="compare(this)">{{star.name}}</button></li>
 		</ul>
-
-
-
 		<div class="result" id="result" style="display: none;">
-			<p>{{current.name}}的年薪是 <b>{{current.salary}} </b>元。<br> 他每 <b>{{perMin}}</b> 分钟就可以挣到你<b>一个月</b>的薪水。</p>
-			<p>你要从公元<b>{{year}}</b>年挣到现在才能挣到{{current.name}}一年的薪水。</p>
-			<p>{{current.name}} <b>{{houseMonth}}</b>个月的薪水可以买一套100㎡的中关村学区房，你需要<b>{{houseYear}}</b>年才能购买同一套同样的房子。</p>
-
+			<p>{{current.name}}的年薪是 <b>{{salaryShow}} </b>元。<br> 他每 <b>{{perMin}} 分钟</b>就可以挣到你<b>一个月</b>的薪水。</p>
+			<p>你要从公元<b>{{year}}年</b>挣到现在才能挣到{{current.name}}一年的薪水。</p>
+			<p>{{current.name}} <b>{{houseMonth}}个月</b>的薪水可以买一套100㎡的中关村学区房，你需要<b>{{houseYear}}年</b>才能购买同一套同样的房子。</p>
+			<p>你的工资相当于<br>中国平均工资的 <b>{{chinaMult}}倍</b><br>世界平均工资的<b>{{worldMult}}倍</b></p>
+			<p>开始比较的到现在过去的<b>{{sec}}秒</b>中<br>你已经挣了<b>￥{{yourM}}</b>。<br>而人家{{current.name}}已经挣了<b>￥{{hisM}}</b>。</p>
 		</div>
 	</div>
 </body>
 
 <script type="text/javascript">
-	function maxLengthCheck(i){
-		if (i.value.length > i.maxLength)
-			i.value = i.value.slice(0, i.maxLength)
-	}
-	var datas = {
-		msg:'',
-		stars:[
-			{name: '梅西', salary: 146338000},
-			{name:'C罗',salary:131706000},
-			{name:'贝尔',salary:69218820},
-			{name:'鲁尼',salary:56497210}
-		],
-		current:{
-			name:'',
-			salary: 0
+	void function(){
+
+		var datas = {
+			msg:'',
+			starmanObj:{
+				'starman': true,
+				'current': false
+			},
+			stars:[
+				{name: '梅西', salary: 146338000},
+				{name:'C罗',salary:131706000},
+				{name:'鲁尼',salary:56497210},
+				{name:'郜林',salary:10150000},
+				{name:'王大雷',salary:7520000},
+				{name:'武磊',salary:5000000}
+			],
+			current:{
+				name:'',
+				salary: 0
+			},
+			sec:0,
+			yourM: 0.00,
+			hisM: 0.00,
+			salaryShow:0
+		};
+		var secTick,yourTick,hisTick;
+
+		function timeAndMakeM (){
+			datas.sec = 0;
+			datas.yourM = 0;
+			datas.hisM = 0;
+			clearInterval(secTick);
+			clearInterval(yourTick);
+			clearInterval(hisTick);
+			secTick = setInterval(function(){
+				datas.sec ++;
+			},1000);
+			yourTick = setInterval(function(){
+				var a = datas.yourM*100;
+				a++;
+				datas.yourM = (a/100).toFixed(2);
+			},(30*24*3600*1000*0.01)/datas.msg);
+			hisTick = setInterval(function(){
+				var a = datas.hisM*100;
+				a++;
+				datas.hisM = (a/100).toFixed(2);
+			},(30*24*3600*1000*0.01)/(datas.current.salary/12))
 		}
-	};
-	var vm = new Vue({
-		el:'#app',
-		data: datas,
-		methods:{
-			compare: function(index){
-				if (document.getElementById('your').value ===''){
-					alert('请输入后再比较');
-				}else {
-					var now = document.getElementsByClassName('starman current')[0];
-					if(now){
-						now.className = 'starman';
+		var vm = new Vue({
+			el:'#app',
+			data: datas,
+			methods:{
+				compare: function(currentItem){
+					var index = currentItem.$index;
+					datas.current.name = datas.stars[index].name;
+					datas.current.salary = datas.stars[index].salary;
+					datas.salaryShow = (datas.current.salary + '').replace(/\d{1,4}(?=(\d{4})+(\.\d*)?$)/g, '$&,');
+					if (document.getElementById('your').value ===''){
+						alert('请输入后再比较');
+					}else {
+//						datas.starmanObj.current = false;
+						var it = document.getElementsByClassName('starman current')[0];
+						it && (it.className = 'starman');
+						currentItem.$event.target.className = 'starman current';
+						document.getElementById('result').style.display = 'block';
+						timeAndMakeM();
 					}
-					document.getElementsByClassName('starman')[index].className = 'starman current';
-					document.getElementById('result').style.display = 'block';
+
 				}
-				datas.current.name = datas.stars[index].name;
-				datas.current.salary = datas.stars[index].salary;
+			},
+			computed:{
+				perMin: function(){
+					return Math.round(this.msg /(this.current.salary/(356*24*60)))
+				},
+				year: function(){
+					var youryear = this.msg*12;
+					var years = Math.round(this.current.salary/youryear);
+					var diff = 2015 - years;
+					return diff>0 ? diff: '前'+ (-diff);
+				},
+				houseMonth: function(){
+					return (20000000/(this.current.salary/12)).toFixed(1)
+				},
+				houseYear: function(){
+					return (20000000/this.msg/12).toFixed(1);
+				},
+				chinaMult: function(){
+					return (this.msg/2750).toFixed(2);
+				},
+				worldMult: function(){
+					return (this.msg/5833).toFixed(2);
+				}
 			}
-		},
-		computed:{
-			perMin: function(){
-				return Math.round(this.msg /(this.current.salary/(356*24*60)))
-			},
-			year: function(){
-				var youryear = this.msg*12;
-				var years = Math.round(this.current.salary/youryear);
-				var diff = 2015 - years;
-				return diff>0 ? diff: '前'+ (-diff);
-			},
-			houseMonth: function(){
-				return (20000000/(this.current.salary/12)).toFixed(1)
-			},
-			houseYear: function(){
-				return (20000000/this.msg/12).toFixed(0);
+		});
+
+		document.getElementById('your').oninput = function maxLengthCheck(){
+			if (this.value.length > this.maxLength){
+				this.value = this.value.slice(0, this.maxLength);
 			}
-		}
-	})
-	
+			if(document.getElementsByClassName('starman current')[0]){
+				timeAndMakeM ();
+			}
+		};
+
+	}();
+
 </script>
 </html>
