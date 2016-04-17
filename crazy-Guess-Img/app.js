@@ -50,11 +50,11 @@ function readDir (){
         }else {
             var len =  files.length;
             var imgbase64 =  base64_encode(imgSrc + '/' + files[0]);
-            console.log(len);
-
             //todo
+            var imgName = files[0].split('.')[0].replace(/\s+/,'');
+
         }
-    });
+    })
 }
 
 readDir();

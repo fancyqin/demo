@@ -7,4 +7,16 @@ void function(){
         data:datas
     });
 
+    function changeImg(){
+        $.ajax({
+            url:'/change',
+            success: function(data){
+
+            }
+        })
+    }
+
+
+
+
 }();
