@@ -17,7 +17,7 @@ void function(){
                 datas.answers = data.answerBox;
                 $('.J-inputBox').html('');
                 for (var i = 0 ; i< data.nameLength; i++){
-                    $('.J-inputBox').append('<span class=""></span>')
+                    $('.J-inputBox').append('<span class="blank" data-index=""></span>')
                 }
             },
             error: function(){
@@ -28,7 +28,24 @@ void function(){
     changeImg();
 
     $('.J-aBox').on('click','button',function(e){
-        //todo
+        var $blank = $('.J-inputBox').find('.blank:first');
+        if($blank.length > 0){
+            var num = $(this).index();
+            $blank.html($(this).text())
+                .removeClass('blank')
+                .attr('data-index',num);
+            $(this).addClass('hide');
+        }
+    });
+
+    $('.J-inputBox').on('click','span',function(){
+        var $this = $(this);
+        var ind = $this.attr('data-index');
+        var txt = $this.text();
+        if($this.html() !==''&& ind!== ''){
+            $('.J-aBox').find('button').eq(ind).removeClass('hide');
+            $this.text('').addClass('blank').attr('data-index','');
+        }
     });
 
     $('.J-fresh').click(function(){
