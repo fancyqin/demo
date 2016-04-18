@@ -40,7 +40,6 @@ function *changeImg(next){
     var nameLength = nowName.length;
     this.response.body = {newImg:imgbase64,eName:eName,answerBox:aBox,nameLength:nameLength};
     yield next;
-    //todo 名字
 
 }
 
@@ -52,10 +51,6 @@ function *checkName(){
 
 
 var imgSrc = 'src/img';
-var firstNameArray = ['李','王','张','刘','陈','杨','赵','黄','周','吴','徐','孙'];
-var lastNameArray = ['小','明','伟','红','宝','刚','杰','伦','文','翔','姗','珊','娟',
-    '雷','磊','静','阳','飞','璐','振','珍','勇','波','海','帆','娜','芳','敏',
-    '丽','国','春','艳','洋','强','军','英','华','金'];
 var fileBox,folderLen,nowName;
 
 //读取本地目录图片
@@ -103,6 +98,12 @@ function getName (file){
 //获取答案组 8 firstName 16 lastName
 
 function getAnswerBox(nowName){
+
+    var firstNameArray = ['李','王','张','刘','陈','杨','赵','黄','周','吴','徐','孙'];
+    var lastNameArray = ['小','明','伟','红','宝','刚','杰','伦','文','翔','姗','珊','娟',
+        '雷','磊','静','阳','飞','璐','振','珍','勇','波','海','帆','娜','芳','敏',
+        '丽','国','春','艳','洋','强','军','英','华','金'];
+
     var nameArray = nowName.split('');
     var nameLen = nameArray.length;
     var n = firstNameArray.indexOf(nameArray[0]);//es5
@@ -111,7 +112,7 @@ function getAnswerBox(nowName){
     if (n === -1){
         newFirstNameArray = firstNameArray;
     }else {
-        newFirstNameArray = firstNameArray.slice(0,n).concat(firstName.slice(n+1,firstName.length));
+        newFirstNameArray = firstNameArray.slice(0,n).concat(firstNameArray.slice(n+1,firstNameArray.length));
     }
     newLastNameArray = lastNameArray;
     for (var i = 0 ; i<7; i++){

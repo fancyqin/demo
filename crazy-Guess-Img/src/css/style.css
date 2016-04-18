@@ -2,4 +2,36 @@ body{
     margin: 0;
     padding: 0;
 }
+.app{
+    width: 250px;
+    margin: 0 auto;
+}
+.img-box{
 
+}
+.img-box img{
+    vertical-align: top;
+    width: 100%;
+}
+.input-box{
+    text-align: center;
+    padding: 10px 0;
+}
+.input-box span{
+    display: inline-block;
+    width: 40px;
+    height:40px;
+    margin: 0 5px;
+    border: 1px solid #ccc;
+    line-height: 40px;
+    cursor: pointer;
+}
+.answer-box{
+    width: 260px;
+}
+.answer-box button{
+    display: inline-block;
+    width:30px;
+    height:30px;
+    cursor: pointer;
+}

@@ -1,6 +1,7 @@
 void function(){
     var datas = {
-        imgSrc: ''
+        imgSrc: '',
+        answers:[]
     };
     var vm =new Vue({
         el:'#app',
@@ -13,6 +14,11 @@ void function(){
             dataType:'json',
             success: function(data){
                 datas.imgSrc = 'data:image/'+data.eName+';base64,'+data.newImg;
+                datas.answers = data.answerBox;
+                $('.J-inputBox').html('');
+                for (var i = 0 ; i< data.nameLength; i++){
+                    $('.J-inputBox').append('<span class=""></span>')
+                }
             },
             error: function(){
                 console.log('error')
@@ -21,6 +27,12 @@ void function(){
     }
     changeImg();
 
+    $('.J-aBox').on('click','button',function(e){
+        //todo
+    });
 
+    $('.J-fresh').click(function(){
+        changeImg();
+    })
 
 }();
