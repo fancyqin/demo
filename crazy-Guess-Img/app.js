@@ -109,24 +109,23 @@ function getAnswerBox(nowName){
     var n = firstNameArray.indexOf(nameArray[0]);//es5
     var newFirstNameArray,newLastNameArray;
     var answerName = [];
-    if (n === -1){
-        newFirstNameArray = firstNameArray;
-    }else {
-        newFirstNameArray = firstNameArray.slice(0,n).concat(firstNameArray.slice(n+1,firstNameArray.length));
-    }
+    newFirstNameArray = (n === -1)? firstNameArray:firstNameArray.slice(0,n).concat(firstNameArray.slice(n+1,firstNameArray.length));
     newLastNameArray = lastNameArray;
+    //随机取姓
     for (var i = 0 ; i<7; i++){
         var len = newFirstNameArray.length;
         var num = parseInt(Math.random()*len);
         answerName = answerName.concat(newFirstNameArray[num]);
         newFirstNameArray.splice(num,1);
     }
+    //随机取名 todo ABB~
     for (var j = 0 ; j< 17 - nameLen; j++){
         var len2 = newLastNameArray.length;
         var num2 = parseInt(Math.random()*len2);
         answerName = answerName.concat(newLastNameArray[num2]);
         newLastNameArray.splice(num2,1);
     }
+    //随机放入正确姓名
     for (var k = 0; k< nameLen; k++){
         var len3 = answerName.length;
         var num3 = parseInt(Math.random()*len3);
