@@ -10,12 +10,16 @@ void function(){
     function changeImg(){
         $.ajax({
             url:'/change',
+            dataType:'json',
             success: function(data){
-
+                datas.imgSrc = 'data:image/'+data.eName+';base64,'+data.newImg;
+            },
+            error: function(){
+                console.log('error')
             }
         })
     }
-
+    changeImg();
 
 
 
