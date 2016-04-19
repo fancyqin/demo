@@ -27,32 +27,8 @@ app.use(route.get('/check',checkName));
 
 
 
-function *index(){
-    this.body = yield render('index')
-}
-
-function *changeImg(next){
-    var file = fileBox[0];
-    var eName = getExtensionName(file);
-    var imgbase64 =  base64_encode(imgSrc + '/' + file);
-    nowName = getName(file);
-    var aBox = getAnswerBox(nowName);
-    var nameLength = nowName.length;
-    this.response.body = {newImg:imgbase64,eName:eName,answerBox:aBox,nameLength:nameLength};
-    yield next;
-
-}
-
-function *checkName(){
-
-}
-
-
-
-
 var imgSrc = 'src/img';
 var fileBox,folderLen,nowName;
-
 //读取本地目录图片
 function readDir (){
     fs.readdir(imgSrc,function(err,files){
@@ -66,6 +42,38 @@ function readDir (){
     })
 }
 readDir();
+
+
+function *index(){
+    this.body = yield render('index',{
+        totalLv: folderLen
+    })
+}
+
+function *changeImg(next){
+    var lv = this.query.lv;
+    var isLast = (lv == folderLen)?1:0;
+    var file = fileBox[lv - 1];
+    var eName = getExtensionName(file);
+    var imgBase64 =  base64_encode(imgSrc + '/' + file);
+    nowName = getName(file);
+    var aBox = getAnswerBox(nowName);
+    var nameLength = nowName.length;
+    this.response.body = {newImg:imgBase64,eName:eName,answerBox:aBox,nameLength:nameLength,isLast:isLast};
+    yield next;
+
+}
+
+function *checkName(next){
+    var getName = this.query.name;
+    this.response.body = {status: (getName === nowName)?1:0};
+    yield next;
+}
+
+
+
+
+
 
 //图片base64编码
 function base64_encode(file){
