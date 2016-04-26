@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<link rel="stylesheet" type="text/css" href="/miracle/css/full-screen-popup-v2.css">
+	<style type="text/css">
+		.full-screen-header,.full-screen-footer{
+			height:100px;
+			width: 100%;
+			background: #666;
+			color: #fff;
+			font-size: 60px;
+			line-height:100px;
+			text-align: center;
+		}
+		.full-screen-content pre{
+			padding: 20px;
+			font-size: 20px;
+		}
+
+	</style>
+</head>
+<body>
+
+	<div style="text-align: center;padding: 100px 0;"><button style="padding: 20px;" class="J-fullsreen">点我弹出</button></div>
+
+
+	<!--全屏弹层-->
+
+	<div class="full-screen-popup full-screen-animate full-screen-init" init-pos="top" close-pos="bottom">
+		<div class="full-screen-header">
+			头部
+			<span class="close J-fullclose">×</span>
+		</div>
+		<div class="full-screen-content">
+			<pre>
+				Raised On Rock
+
+				Music:Mikael Nord Andersson, Martin Hansen
+				Lyrics:Martin Hansen, Klaus Meine
+
+
+				I was born in a hurricane
+				Nothing to lose and everything to gain
+				Ran before I walked
+				Reaching for the top
+				Out of control just like a runaway train
+
+				I never walked on the narrow path
+				I always wanted what I didn’t have
+				All was not enough
+				Riding lady luck
+				Driving in the fast lane and just stepped on the gas
+
+				Cause I was raised on rock
+				My dad was howling but my heart was a rolling stone
+				Yeah I was raised on rock
+				My mama said I had a devil to scratch my soul
+				And I was raised on rock
+
+				Raised on rock
+
+				Shoot me up baby make me high
+				And hit the jackpot in the heat of the night
+				Wanna kiss your lips
+				Wanna move your hips
+				See my desire in your laser-beam eyes
+
+				You shake me up got me spinning ‘round
+				You know what’s going up must come down
+				Tomorrow I’ll be gone
+				A million miles from home
+				The only road I know leads out of town
+
+				Cause I was raised on rock
+				My dad was howling but my heart was a rolling stone
+				Yeah I was raised on rock
+				My mama said I had a devil to scratch my soul
+				And I was raised on rock
+
+				Raised on rock
+
+				Growing up with the guitar men
+				Growing up way too fast
+				Follow the sound of a rock’n’roll band
+				This call will always last
+
+				Cause I was raised on rock
+				My dad was howling but my heart was a rolling stone
+				Yeah I was raised on rock
+				My mama said I had a devil to scratch my soul
+				Cause I was raised on rock
+
+				Cause I was raised on rock
+			</pre>
+		</div>
+		<div class="full-screen-footer">
+			尾部
+		</div>
+
+	</div>
+
+	<script type="text/javascript" src="/common/js/libs/jquery.js"></script>
+	<script type="text/javascript">
+
+
+
+		$(function(){
+			var headHeight = $('.full-screen-header').height();
+			var footHeight = $('.full-screen-footer').height();
+			var contentHeight = $('.full-screen-content').height();
+			var screenHeight = window.innerHeight;
+
+			if ((headHeight + footHeight + contentHeight) > screenHeight) {
+				$('.full-screen-popup').addClass('full-screen-overheight');
+				$('.full-screen-content').css({
+					top: headHeight,
+					bottom: footHeight
+				});
+			}else{
+				$('.full-screen-popup').removeClass('full-screen-overheight');
+			}
+
+			var $fullscreen = $('.full-screen-popup');
+			$('.J-fullsreen').click(function(e){
+				$fullscreen.removeClass('full-screen-close').addClass('full-screen-open');
+				$('body').addClass('full-screen-body');
+
+
+				e.preventDefault();
+
+
+			});
+			$fullscreen.on('click','.J-fullclose',function(){
+				$fullscreen.addClass('full-screen-close');
+				$('body').removeClass('full-screen-body')
+			});
+
+
+			$(window).resize(function(e) {
+				screenHeight = window.innerHeight;
+
+				if ((headHeight + footHeight + contentHeight) > screenHeight) {
+					$('.full-screen-popup').addClass('full-screen-overheight');
+					$('.full-screen-content').css({
+						top: headHeight,
+						bottom: footHeight
+					});
+				}else{
+					$('.full-screen-popup').removeClass('full-screen-overheight');
+				}
+			});
+		})
+
+
+	</script>
+</body>
+</html>

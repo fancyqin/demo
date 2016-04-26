@@ -1,0 +1,112 @@
+//add by qf 16-3-30
+
+//全屏弹窗框
+
+//tips：header content footer 高度覆盖调整
+
+@import "/common/css/_base.scss";
+
+
+.full-screen-body{
+    overflow: hidden;
+}
+.full-screen-popup{
+    position: fixed;
+    top:0;
+    left:0;
+    right:0;
+    bottom:0;
+    background: #fff;
+    z-index:200;//高于最高值
+    .full-screen-header{
+        height: 80px;
+        .close{
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 40px;
+            height: 40px;
+            font-size: 40px;
+            line-height: 40px;
+            cursor: pointer;
+            text-align: center;
+            color: #ccc;
+            transition:transform .4s;
+            .micon{
+                font-size: 40px;
+                margin-right: 0;
+                vertical-align: top;
+            }
+            &:hover{
+                @include transform(rotate(360deg));
+            }
+        }
+    }
+    .full-screen-content{
+        // position: absolute;
+        // top:80px;
+        // left: 0;
+        // right:0;
+        // bottom: 0;
+        // overflow: auto;
+        // z-index:201;
+    }
+    .full-screen-footer{
+        // position: absolute;
+        // bottom: 0;
+    }
+}
+
+.full-screen-init{
+    top: 100%;
+}
+
+@function fullScreenPos($pos){
+    @if $pos == 'top'{
+        //@return @include transform(translate(0,100%));
+    }
+
+}
+
+.full-screen-animate{
+    transition: all .5s;
+    &.full-screen-init{
+        top:0;
+        @include transform(translate(0,100%));
+    }
+    &.full-screen-open{
+        @include transform(translate(0,0));
+    }
+    &.full-screen-close{
+        @include transform(translate(0,100%));
+    }
+    &[init-pos='top'].full-screen-init{
+        @include transform(translate(0,100%));
+    }
+}
+
+.full-screen-open{
+    top: 0;
+}
+
+//.full-screen-close{
+//    bottom: 100%;
+//}
+
+
+
+.full-screen-overheight.full-screen-open{
+    .full-screen-content{
+        position: absolute;
+        top: 80px;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        overflow: auto;
+        z-index: 201;
+    }
+    .full-screen-footer{
+        position: absolute;
+        bottom: 0;
+    }
+}
