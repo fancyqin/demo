@@ -3,18 +3,68 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Document</title>
-	<link rel="stylesheet" type="text/css" href="/miracle/css/full-screen-popup-v2.css">
+	<!--<link rel="stylesheet" type="text/css" href="full-screen-popup-v2.css">-->
 	<style type="text/css">
-		.full-screen-header,.full-screen-footer{
-			height:100px;
+
+		.full-screen-body{
+			overflow: hidden;
+		}
+		.full-screen-popup{
+			position: fixed;
+			top:0;
+			left:0;
+			right:0;
+			bottom:0;
+			background: #fff;
+			z-index:200;/*高于最高值*/
+			visibility: hidden;
+		}
+		.full-screen-content{
+			overflow: auto;
+		}
+		.full-screen-open{
+			visibility: visible;
+		}
+
+
+
+
+
+
+
+
+		/*private*/
+
+		.full-screen-popup .close{
+			position: absolute;
+			top: 10px;
+			right: 10px;
+			width: 40px;
+			height: 40px;
+			font-size: 40px;
+			line-height: 40px;
+			cursor: pointer;
+			text-align: center;
+			color: #ccc;
+			transition:transform .4s;
+		}
+		.full-screen-popup .close:hover{
+			transform:rotate(360deg);
+		}
+		html{
+			background: #f2f2f2;
+		}
+		.full-screen-header, .full-screen-footer {
+			height: 100px;
 			width: 100%;
 			background: #666;
 			color: #fff;
 			font-size: 60px;
-			line-height:100px;
+			line-height: 100px;
 			text-align: center;
 		}
-		.full-screen-content pre{
+
+		.full-screen-content pre {
 			padding: 20px;
 			font-size: 20px;
 		}
@@ -23,23 +73,20 @@
 </head>
 <body>
 
-	<div style="text-align: center;padding: 100px 0;"><button style="padding: 20px;" class="J-fullsreen">点我弹出</button></div>
+<div style="text-align: center;padding: 100px 0;">
+	<button style="padding: 20px;" class="J-fullsreen">全屏点我弹出</button>
+</div>
 
 
-	<!--全屏弹层-->
+<!--全屏弹层-->
 
-	<div class="full-screen-popup full-screen-animate full-screen-init" init-pos="top" close-pos="bottom">
-		<div class="full-screen-header">
-			头部
-			<span class="close J-fullclose">×</span>
-		</div>
-		<div class="full-screen-content">
+<div class="full-screen-popup">
+	<div class="full-screen-header">
+		<span class="close J-fullclose">×</span>
+	</div>
+	<div class="full-screen-content">
 			<pre>
 				Raised On Rock
-
-				Music:Mikael Nord Andersson, Martin Hansen
-				Lyrics:Martin Hansen, Klaus Meine
-
 
 				I was born in a hurricane
 				Nothing to lose and everything to gain
@@ -47,113 +94,137 @@
 				Reaching for the top
 				Out of control just like a runaway train
 
-				I never walked on the narrow path
-				I always wanted what I didn’t have
-				All was not enough
-				Riding lady luck
-				Driving in the fast lane and just stepped on the gas
-
-				Cause I was raised on rock
-				My dad was howling but my heart was a rolling stone
-				Yeah I was raised on rock
-				My mama said I had a devil to scratch my soul
-				And I was raised on rock
-
-				Raised on rock
-
-				Shoot me up baby make me high
-				And hit the jackpot in the heat of the night
-				Wanna kiss your lips
-				Wanna move your hips
-				See my desire in your laser-beam eyes
-
-				You shake me up got me spinning ‘round
-				You know what’s going up must come down
-				Tomorrow I’ll be gone
-				A million miles from home
-				The only road I know leads out of town
-
-				Cause I was raised on rock
-				My dad was howling but my heart was a rolling stone
-				Yeah I was raised on rock
-				My mama said I had a devil to scratch my soul
-				And I was raised on rock
-
-				Raised on rock
-
-				Growing up with the guitar men
-				Growing up way too fast
-				Follow the sound of a rock’n’roll band
-				This call will always last
-
-				Cause I was raised on rock
-				My dad was howling but my heart was a rolling stone
-				Yeah I was raised on rock
-				My mama said I had a devil to scratch my soul
-				Cause I was raised on rock
-
-				Cause I was raised on rock
+				I was born in a hurricane
+				Nothing to lose and everything to gain
+				Ran before I walked
+				Reaching for the top
+				Out of control just like a runaway train
 			</pre>
-		</div>
-		<div class="full-screen-footer">
-			尾部
-		</div>
-
+	</div>
+	<div class="full-screen-footer">
 	</div>
 
-	<script type="text/javascript" src="/common/js/libs/jquery.js"></script>
-	<script type="text/javascript">
+</div>
 
+<script src="http://cdn.bootcss.com/jquery/1.11.1/jquery.min.js"></script>
+<script type="text/javascript">
 
+(function ($) {
+	$.extend({
+		'fullScreenPopup': function(options){
 
-		$(function(){
-			var headHeight = $('.full-screen-header').height();
-			var footHeight = $('.full-screen-footer').height();
-			var contentHeight = $('.full-screen-content').height();
-			var screenHeight = window.innerHeight;
+			var opts = $.extend({},defaluts,options);
 
-			if ((headHeight + footHeight + contentHeight) > screenHeight) {
-				$('.full-screen-popup').addClass('full-screen-overheight');
-				$('.full-screen-content').css({
-					top: headHeight,
-					bottom: footHeight
-				});
-			}else{
-				$('.full-screen-popup').removeClass('full-screen-overheight');
-			}
 
 			var $fullscreen = $('.full-screen-popup');
-			$('.J-fullsreen').click(function(e){
-				$fullscreen.removeClass('full-screen-close').addClass('full-screen-open');
-				$('body').addClass('full-screen-body');
+			var $fs_head = $('.full-screen-header');
+			var $fs_content = $('.full-screen-content');
+			var $fs_foot = $('.full-screen-footer');
+			var $fsOpen = $(opts.enterEl);
 
 
-				e.preventDefault();
+			var headHeight = $fs_head.height();
+			var footHeight = $fs_foot.height();
+			var screenHeight = $fullscreen.height();
 
-
+			$fs_content.css({
+				maxHeight: screenHeight - headHeight - footHeight
 			});
-			$fullscreen.on('click','.J-fullclose',function(){
-				$fullscreen.addClass('full-screen-close');
-				$('body').removeClass('full-screen-body')
+
+			$(window).resize(function () {
+				screenHeight = $fullscreen.height();
+				$fs_content.css({
+					maxHeight: screenHeight - headHeight - footHeight
+				})
 			});
 
 
-			$(window).resize(function(e) {
-				screenHeight = window.innerHeight;
+			function fullscreenToggle() {
+				var init = opts.initPos;
+				var close = opts.closePos;
 
-				if ((headHeight + footHeight + contentHeight) > screenHeight) {
-					$('.full-screen-popup').addClass('full-screen-overheight');
-					$('.full-screen-content').css({
-						top: headHeight,
-						bottom: footHeight
-					});
-				}else{
-					$('.full-screen-popup').removeClass('full-screen-overheight');
+				function getvl(vl) {
+					var initVal;
+					switch (vl) {
+						case 'top':
+							initVal = '(0,-100%)';
+							break;
+						case 'bottom':
+							initVal = '(0,100%)';
+							break;
+						case 'left':
+							initVal = '(-100%,0)';
+							break;
+						case 'right':
+							initVal = '(100%,0)';
+							break;
+						default:
+							initVal = '(0,100%)';
+							break;
+					}
+					return initVal;
 				}
-			});
-		})
+
+				//init
+				$fullscreen.css({
+					'transform': 'translate' + getvl(init),
+					'webkitTransform': 'translate' + getvl(init)
+				});
+
+				$fsOpen.click(function (e) {
+
+					$fullscreen.css({
+						'transform': 'translate(0,0)',
+						'webkitTransform': 'translate(0,0)',
+						'transition': 'transform '+ opts.duration +'ms',
+						'webkitTransition': 'transform '+ opts.duration +'ms'
+					}).addClass('full-screen-open');
+					$('body').addClass('full-screen-body');
+					e.preventDefault();
+				});
+
+				$fullscreen.on('click', opts.closeEl, function (e) {
+					$fullscreen.css({
+						'transform': 'translate' + getvl(close),
+						'webkitTransform': 'translate' + getvl(close),
+						'transition': 'transform '+ opts.duration +'ms',
+						'webkitTransition': 'transform '+ opts.duration +'ms'
+					});
+					setTimeout(function () {
+						$fullscreen.removeClass('full-screen-open')
+					}, opts.duration - 100);
+					$('body').removeClass('full-screen-body');
 
 
-	</script>
+					e.preventDefault();
+
+				});
+
+
+			}
+
+			fullscreenToggle();
+
+
+		}
+	});
+	var defaluts = {
+		enterEl: '.J-fullsreen',
+		closeEl: '.J-fullclose',
+		initPos:'bottom',
+		closePos: 'bottom',
+		duration: 400
+	}
+})(window.jQuery);
+
+
+
+
+$.fullScreenPopup({
+	initPos:'top',
+	closePos: 'left'
+});
+
+</script>
 </body>
 </html>
