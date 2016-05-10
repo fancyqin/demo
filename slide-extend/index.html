@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>slide</title>
+    <style type="text/css">
+        ul, ol {
+            margin: 0;
+            padding: 0;
+        }
+
+        li {
+            list-style: none;
+        }
+
+        .slider {
+            width: 480px;
+            margin-right: 30px
+        }
+
+        .slider .cnt {
+            width: 480px;
+            height: 300px;
+            overflow: hidden;
+            margin-bottom: 10px
+        }
+
+        .slider .slector {
+            text-align: center;
+            position: relative;
+            z-index: 1
+        }
+
+        .slider .slector li {
+            display: inline-block;
+            *display: inline;
+            zoom: 1;
+            width: 8px;
+            height: 8px;
+            border: 2px solid #ccc;
+            border-radius: 100%;
+            cursor: pointer;
+            margin: 0 4px;
+            overflow: hidden;
+            text-indent: 9999em;
+        }
+
+        .slider .slector .selected {
+            background: #ce302d;
+            border-color: #ce302d;
+        }
+
+
+    </style>
+</head>
+<body>
+<div class="slider fl">
+    <ul class="cnt J-images">
+        <li><img
+                src="http://www.micstatic.com/en/img/special/delixi-aerospace-electrical-supplier/info-slider-1.jpg?_v=1462860755554"
+                alt=""></li>
+        <li><img
+                src="http://www.micstatic.com/en/img/special/delixi-aerospace-electrical-supplier/info-slider-2.jpg?_v=1462860755554"
+                alt=""></li>
+        <li><img
+                src="http://www.micstatic.com/en/img/special/delixi-aerospace-electrical-supplier/info-slider-3.jpg?_v=1462860755554"
+                alt=""></li>
+        <li><img
+                src="http://www.micstatic.com/en/img/special/delixi-aerospace-electrical-supplier/info-slider-4.jpg?_v=1462860755554"
+                alt=""></li>
+    </ul>
+    <ol class="slector J-selector">
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ol>
+</div>
+
+
+<script type="text/javascript" src="js/jquery.js" charset="utf-8"></script>
+<script type="text/javascript" src="js/class.0.3.2.js" charset="utf-8"></script>
+<script type="text/javascript" src="js/slider.js" charset="utf-8"></script>
+
+
+<script type="text/javascript">
+    var slide = new Slider({
+        autoPlay: !0,
+        speed: 300,
+        parallelPreLoad: !0,
+        naturalOrder: 0,
+        animationType: "scrollX",
+        bannerEventType: "click",
+        bannerEventMouseoverDelay: 300,
+        imgPlaceholderSrc: "",
+        carrier: {
+            content: ".slider .J-images",
+            banner: ".slider .J-selector"
+        },
+        extend: {
+            switchSpot: function (outObj, inObj, motionDir, motionTime, callback) {
+                //outObj:消失的幻灯片,inObj:显示的幻灯片，motionDir:动画的方向,motionTime:动画的完成时间,callback:动画执行完后回调函数（须手动调用）
+                var parent = outObj.parent();
+                var cssStay = new this.util.cssStay(['position', 'overflow']);
+                cssStay.saveCss([parent, inObj]);
+                parent.css('position', 'relative');
+
+                $.each(this._.sliderMembers, function (i, n) {
+                    n.sliderObj.hide();
+                });
+
+                outObj.show().css('zIndex', 0);
+                inObj.show().css({position: 'absolute', width: parent.outerWidth(), left: parent.outerWidth(), top: 0})
+                        .animate({left: '0px'}, motionTime, '', function () {
+                            cssStay.restoreCss([parent, inObj]);
+                            inObj.css('width', 'auto');
+                            outObj.hide();
+                            callback.call(this);
+                        });
+            }
+        }
+    });
+
+</script>
+</body>
+</html>
