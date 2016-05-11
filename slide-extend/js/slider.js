@@ -420,7 +420,7 @@
 
             //motion
             that._.inner.motioning = true;
-            var _callback = callback && typeof(callback) == "function" ? callback : function () {
+            var _callback = callback && typeof(callback) == "funct ion" ? callback : function () {
             };
             var __endSpot = function (index, spotCompleted) {
                 that._.inner.currentIndex = index;
