@@ -238,7 +238,7 @@
 }
 
 
-/*self  dizzy rotate*/
+/*qf  dizzy rotate*/
 
 .dizzy-rotate .s-init{
     visibility: hidden;
@@ -257,16 +257,61 @@
     animation: dizzyShow 0.6s ease-in forwards;
 }
 
-@-webkit-keyframes dizzyShow {
-    0% { -webkit-transform: scale(0);opacity: 0; }
-    50%{-webkit-transform: rotate(180deg) scale(0);opacity: 1;}
-    100% { visibility: visible; -webkit-transform: rotate(360deg) scale(1)}
-}
 
+@-webkit-keyframes dizzyShow {
+     0% { -webkit-transform: scale(0);opacity: 0; }
+     50%{-webkit-transform: rotate(180deg) scale(0);opacity: 1;}
+     100% { visibility: visible; -webkit-transform: rotate(360deg) scale(1)}
+ }
+@keyframes dizzyShow {
+    0% {transform: scale(0);opacity: 0; }
+    50%{transform: rotate(180deg) scale(0);opacity: 1;}
+    100% { visibility: visible; transform: rotate(360deg) scale(1)}
+}
 @-webkit-keyframes dizzyHide {
     0% { -webkit-transform:rotate(0deg) scale(1); }
-    50%{-webkit-transform: rotate(180deg) scale(0);}
+    50%{-webkit-transform: rotate(180deg) scale(0);opacity: 0}
+    100% { visibility: hidden; opacity: 0; }
+}
+@keyframes dizzyHide {
+    0% { transform:rotate(0deg) scale(1); }
+    50%{ transform: rotate(180deg) scale(0);opacity: 0}
     100% { visibility: hidden; opacity: 0; }
 }
 
+/*qf blur*/
+
+.cut-2-in .s-init{
+    display: none;
+}
+.cut-2-in .s-show img{
+    -webkit-animation: blurIn 0.8s ease-in forwards;
+    animation: blurIn 0.8s ease-in forwards;
+}
+
+.cut-2-in .s-hide img{
+    -webkit-animation: blurOut 0.8s ease-in forwards;
+    animation: blurOut 0.8s ease-in forwards;
+}
+
+@-webkit-keyframes blurIn {
+    0% {-webkit-filter:blur(6px); opacity: 0; }
+    50%{-webkit-filter:blur(6px);opacity: 1;}
+    100% { -webkit-filter:blur(0);visibility: visible;}
+}
+@keyframes blurIn {
+    0% {-webkit-filter:blur(6px);filter:blur(6px); opacity: 0; }
+    50%{-webkit-filter:blur(6px);filter:blur(6px);opacity: 1;}
+    100% {-webkit-filter:blur(0);filter:blur(0);visibility: visible;}
+}
+@keyframes blurOut {
+    0% { -webkit-filter:blur(0);filter:blur(0);opacity: 1}
+    50%{-webkit-filter:blur(6px);filter:blur(6px);opacity: 0;}
+    100% { visibility: hidden;opacity: 0; }
+}
+@-webkit-keyframes blurOut {
+    0% { -webkit-filter:blur(0);opacity: 1}
+    50%{-webkit-filter:blur(6px);opacity: 0;}
+    100% { visibility: hidden;opacity: 0; }
+}
 
