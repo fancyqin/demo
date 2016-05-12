@@ -2,9 +2,13 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>slide</title>
+    <title>Slide Extend</title>
     <link rel="stylesheet" href="css/animate.css">
     <style type="text/css">
+        body{
+            background: #37BC9B;
+            color: #14493B;
+        }
         ul, ol {
             margin: 0;
             padding: 0;
@@ -14,8 +18,20 @@
             list-style: none;
         }
 
+        h1{
+            text-align: center;
+            font-family: Impact,sans-serif;
+            font-weight: normal;
+            padding: 20px;
+            font-size: 60px;
+            margin-top: 0;
+            border-bottom: 1px solid #14493B;
+            text-shadow: 1px 1px #fff;
+        }
         h2{
             text-align: center;
+            font-family: Impact,sans-serif;
+            font-weight: normal;
         }
 
         .slider {
@@ -27,6 +43,10 @@
             width: 480px;
             height: 300px;
             margin-bottom: 10px
+        }
+
+        .slider li img{
+            vertical-align: top;
         }
 
         .slider .slector {
@@ -41,7 +61,7 @@
             zoom: 1;
             width: 8px;
             height: 8px;
-            border: 2px solid #ccc;
+            border: 2px solid #14493B;
             border-radius: 100%;
             cursor: pointer;
             margin: 0 4px;
@@ -51,14 +71,15 @@
         }
 
         .slider .slector .selected {
-            background: #ce302d;
-            border-color: #ce302d;
+            background: #14493B;
+            border-color: #14493B;
         }
 
     </style>
 </head>
 <body>
-<h2>center flip</h2>
+<h1>Slide Animate Extend</h1>
+<h2>Center Flip (from Codrops)</h2>
 <div class="slider">
     <ul class="cnt J-box-1 center-flip">
         <li><img
@@ -81,9 +102,9 @@
         <li></li>
     </ol>
 </div>
-
+<h2>Bring Back (from Codrops)</h2>
 <div class="slider">
-    <ul class="cnt J-box-2">
+    <ul class="cnt J-box-2 bring-back">
         <li><img
                 src="http://www.micstatic.com/en/img/special/delixi-aerospace-electrical-supplier/info-slider-1.jpg?_v=1462860755554"
                 alt=""></li>
@@ -98,6 +119,101 @@
                 alt=""></li>
     </ul>
     <ol class="slector J-trigger-2">
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ol>
+</div>
+<h2>Flip 3D (from Codrops)</h2>
+<div class="slider">
+    <ul class="cnt J-box-3 flip-3d">
+        <li><img
+                src="http://www.micstatic.com/en/img/special/delixi-aerospace-electrical-supplier/info-slider-1.jpg?_v=1462860755554"
+                alt=""></li>
+        <li><img
+                src="http://www.micstatic.com/en/img/special/delixi-aerospace-electrical-supplier/info-slider-2.jpg?_v=1462860755554"
+                alt=""></li>
+        <li><img
+                src="http://www.micstatic.com/en/img/special/delixi-aerospace-electrical-supplier/info-slider-3.jpg?_v=1462860755554"
+                alt=""></li>
+        <li><img
+                src="http://www.micstatic.com/en/img/special/delixi-aerospace-electrical-supplier/info-slider-4.jpg?_v=1462860755554"
+                alt=""></li>
+    </ul>
+    <ol class="slector J-trigger-3">
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ol>
+</div>
+
+<h2>Front Row (from Codrops)</h2>
+<div class="slider">
+    <ul class="cnt J-box-4 front-row">
+        <li><img
+                src="http://www.micstatic.com/en/img/special/delixi-aerospace-electrical-supplier/info-slider-1.jpg?_v=1462860755554"
+                alt=""></li>
+        <li><img
+                src="http://www.micstatic.com/en/img/special/delixi-aerospace-electrical-supplier/info-slider-2.jpg?_v=1462860755554"
+                alt=""></li>
+        <li><img
+                src="http://www.micstatic.com/en/img/special/delixi-aerospace-electrical-supplier/info-slider-3.jpg?_v=1462860755554"
+                alt=""></li>
+        <li><img
+                src="http://www.micstatic.com/en/img/special/delixi-aerospace-electrical-supplier/info-slider-4.jpg?_v=1462860755554"
+                alt=""></li>
+    </ul>
+    <ol class="slector J-trigger-4">
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ol>
+</div>
+
+<h2>Rotate Fall (from Codrops)</h2>
+<div class="slider">
+    <ul class="cnt J-box-5 fall-rotate">
+        <li><img
+                src="http://www.micstatic.com/en/img/special/delixi-aerospace-electrical-supplier/info-slider-1.jpg?_v=1462860755554"
+                alt=""></li>
+        <li><img
+                src="http://www.micstatic.com/en/img/special/delixi-aerospace-electrical-supplier/info-slider-2.jpg?_v=1462860755554"
+                alt=""></li>
+        <li><img
+                src="http://www.micstatic.com/en/img/special/delixi-aerospace-electrical-supplier/info-slider-3.jpg?_v=1462860755554"
+                alt=""></li>
+        <li><img
+                src="http://www.micstatic.com/en/img/special/delixi-aerospace-electrical-supplier/info-slider-4.jpg?_v=1462860755554"
+                alt=""></li>
+    </ul>
+    <ol class="slector J-trigger-5">
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ol>
+</div>
+
+<h2>Dizzy Rotate</h2>
+<div class="slider">
+    <ul class="cnt J-box-6 dizzy-rotate">
+        <li><img
+                src="http://www.micstatic.com/en/img/special/delixi-aerospace-electrical-supplier/info-slider-1.jpg?_v=1462860755554"
+                alt=""></li>
+        <li><img
+                src="http://www.micstatic.com/en/img/special/delixi-aerospace-electrical-supplier/info-slider-2.jpg?_v=1462860755554"
+                alt=""></li>
+        <li><img
+                src="http://www.micstatic.com/en/img/special/delixi-aerospace-electrical-supplier/info-slider-3.jpg?_v=1462860755554"
+                alt=""></li>
+        <li><img
+                src="http://www.micstatic.com/en/img/special/delixi-aerospace-electrical-supplier/info-slider-4.jpg?_v=1462860755554"
+                alt=""></li>
+    </ul>
+    <ol class="slector J-trigger-6">
         <li></li>
         <li></li>
         <li></li>
@@ -123,7 +239,7 @@
         if (len){
             for (var i = 0;i< len;i++){
                 new Slider({
-                    autoPlay: !0,
+                    autoPlay: 0,
                     speed: 800,
                     parallelPreLoad: !0,
                     naturalOrder: 0,
@@ -136,17 +252,16 @@
                     },
                     extend: {
                         switchSpot: function (outObj, inObj, motionDir, motionTime, callback) {
-                            //outObj:消失的幻灯片,inObj:显示的幻灯片，motionDir:动画的方向,motionTime:动画的完成时间,callback:动画执行完后回调函数（须手动调用）
                             var parent = outObj.parent();
                             var cssStay = new this.util.cssStay(['position', 'overflow']);
                             cssStay.saveCss([parent, inObj]);
                             parent.css('position','relative');
                             $.each(this._.sliderMembers, function (i, n) {
-                                n.sliderObj.addClass('hide').css('position','absolute');
+                                n.sliderObj.addClass('s-init').css('position','absolute');
                             });
 
-                            inObj.show().removeClass('hide').addClass('show');
-                            outObj.removeClass('show').addClass('hide');
+                            inObj.show().removeClass('s-init s-show s-hide').addClass('s-show');
+                            outObj.removeClass('s-init s-show s-hide').addClass('s-hide');
                             callback.call(this);
                         }
                     }
@@ -154,39 +269,17 @@
             }
         }
     }
-    initSlider([{content:'.J-box-1',banner:'.J-trigger-1'},{content:'.J-box-2',banner:'.J-trigger-2'}])
+    initSlider([
+        {content:'.J-box-1',banner:'.J-trigger-1'},
+        {content:'.J-box-2',banner:'.J-trigger-2'},
+        {content:'.J-box-3',banner:'.J-trigger-3'},
+        {content:'.J-box-4',banner:'.J-trigger-4'},
+        {content:'.J-box-5',banner:'.J-trigger-5'},
+        {content:'.J-box-6',banner:'.J-trigger-6'}
+    ]);
 
 
 
-//    var slide1 = new Slider({
-//        autoPlay: !0,
-//        speed: 800,
-//        parallelPreLoad: !0,
-//        naturalOrder: 0,
-//        bannerEventType: "click",
-//        bannerEventMouseoverDelay: 300,
-//        imgPlaceholderSrc: "",
-//        carrier: {
-//            content: ".slider .J-images",
-//            banner: ".slider .J-selector"
-//        },
-//        extend: {
-//            switchSpot: function (outObj, inObj, motionDir, motionTime, callback) {
-//                //outObj:消失的幻灯片,inObj:显示的幻灯片，motionDir:动画的方向,motionTime:动画的完成时间,callback:动画执行完后回调函数（须手动调用）
-//                var parent = outObj.parent();
-//                var cssStay = new this.util.cssStay(['position', 'overflow']);
-//                cssStay.saveCss([parent, inObj]);
-//                parent.css('position','relative');
-//                $.each(this._.sliderMembers, function (i, n) {
-//                    n.sliderObj.addClass('hide').css('position','absolute');
-//                });
-//
-//                inObj.show().removeClass('hide').addClass('show');
-//                outObj.removeClass('show').addClass('hide');
-//                callback.call(this);
-//            }
-//        }
-//    });
 
 </script>
 </body>
