@@ -281,15 +281,15 @@
 
 /*qf blur*/
 
-.cut-2-in .s-init{
+.blur .s-init{
     display: none;
 }
-.cut-2-in .s-show img{
+.blur .s-show img{
     -webkit-animation: blurIn 0.8s ease-in forwards;
     animation: blurIn 0.8s ease-in forwards;
 }
 
-.cut-2-in .s-hide img{
+.blur .s-hide img{
     -webkit-animation: blurOut 0.8s ease-in forwards;
     animation: blurOut 0.8s ease-in forwards;
 }
@@ -315,3 +315,35 @@
     100% { visibility: hidden;opacity: 0; }
 }
 
+/*qf clip 2 ways in*/
+
+.clip-2-in .s-init{
+    display: none;
+}
+.clip-2-in .s-show img{
+    -webkit-animation: clip2In .8s ease-in forwards;
+    animation: clip2In .8s ease-in forwards;
+}
+
+.clip-2-in .s-hide img{
+    -webkit-animation: clip2Out .8s ease-in forwards;
+    animation: clip2Out .8s ease-in forwards;
+}
+/*polygon(0 100%,0 0,50% 0,0 50%,0 100%,100% 100%,100% 50%,50% 100%); 中线切割例子*/
+
+@-webkit-keyframes clip2In {
+    0% {-webkit-transform: scale(0.5); opacity: 0; }
+    50%{-webkit-transform: scale(1); opacity: 1;}
+    100% { visibility: visible;}
+}
+@keyframes clip2In {
+    0% {transform: scale(0.5);-webkit-filter:blur(2px); opacity: 0; }
+    50%{transform: scale(1);-webkit-filter:blur(0); opacity: 1;}
+    100% { visibility: visible;}
+}
+/*clip-path firefox 只支持 url()*/
+@-webkit-keyframes clip2Out {
+    0% {   -webkit-clip-path: polygon(0 100%,0 0,100% 0,0 100%,0 100%,100% 100%,100% 0,0 100%);opacity: 1;}
+    75%{   -webkit-clip-path: polygon(0 100%,0 0,0 0,0 0,0 100%,100% 100%,100% 100%,100% 100%);opacity: 0;}
+    100% { visibility: hidden;opacity: 0; }
+}
