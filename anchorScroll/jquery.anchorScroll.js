@@ -10,12 +10,12 @@
     };
     var AnchorScroll = function(config){
         this.conf = $.extend(defaults,config);
-        var el = this.conf.el;
-        var acrAttr = this.conf.acrAttr;
-        var sCls = this.conf.selectedClass;
-        var spd = this.conf.speed;
-        var btop = this.conf.blankTop;
-        var item = this.conf.item;
+        var el = this.conf.el,
+            acrAttr = this.conf.acrAttr,
+            sCls = this.conf.selectedClass,
+            spd = this.conf.speed,
+            btop = this.conf.blankTop,
+            item = this.conf.item;
         //scroll anchor
         var $el = $(el);
         $el.on('click', item, function(e) {
@@ -41,36 +41,31 @@
         function scrollChange(){
             var top = $(window).scrollTop();
             var fixedA = $el.find(item);
-            var sArray = [];
-            $el.find('a').each(function() {
+            //var sArray = [];
+            $el.find(item).each(function(){
                 var acr = $(this).attr(acrAttr);
-                var acrtop = $(acr).offset().top - btop;
-                sArray.push(acrtop);
+                $(acr).attr('acr-itm','');
             });
-
-            var index;
-            for (var i = 0;i< sArray.length; i++) {
-                if (top + $(window).height() === $('html').height()){
-                    index = sArray.length;
-                }else {
-                    if (top < sArray[i]) {
-                        index = i;
-                        break;
-                    }else{
-                        index = sArray.length;
-                    }
+            $el.find(item).each(function() {
+                var acr = $(this).attr(acrAttr);
+                var acrTop = $(acr).offset().top;
+                var acrBot = acrTop + $(acr).innerHeight();
+                var calTop = acrTop - btop;
+                var calBot = acrBot - btop;
+                //$(acr).addClass('J-acrItm');
+                fixedA.removeClass(sCls);
+                if (top < calBot && top > calTop){
+                    $(this).addClass(sCls);
+                    return false;
                 }
-            }
-            fixedA.removeClass(sCls);
-            if (index!==0){
-                fixedA.eq(index - 1).addClass(sCls);
+            });
+            var lastItm = $('[acr-itm]:last');
+            if (top + $(window).height() === $(document).height() && lastItm.offset().top + lastItm.innerHeight() > top){
+                var id = lastItm.attr('id');
+                $el.find(item).removeClass(sCls);
+                $el.find(item).filter('['+acrAttr+'="#'+id+'"]').addClass(sCls);
             }
         }
-
-
-
-
-
 
     };
     window.AnchorScroll = AnchorScroll;
