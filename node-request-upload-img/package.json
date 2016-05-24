@@ -1,0 +1,22 @@
+{
+  "name": "node-requset-upload-img",
+  "version": "0.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "qinfan",
+  "license": "ISC",
+  "dependencies": {
+    "cheerio": "^0.20.0",
+    "co-views": "^2.1.0",
+    "ejs": "^2.4.1",
+    "formidable": "^1.0.17",
+    "koa": "^1.2.0",
+    "koa-logger": "^1.3.0",
+    "koa-route": "^2.4.2",
+    "koa-static": "^2.0.0",
+    "request": "^2.69.0"
+  }
+}

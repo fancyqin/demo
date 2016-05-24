@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>upload</title>
+</head>
+<body>
+<!--<h1>aaaa</h1>-->
+
+<!--<div id="file"></div>-->
+
+<form action="/uploadImg" id="uploadform" method="post" enctype="multipart/form-data">
+
+<p>
+    <input type="file" id="file" name="file">
+    <input type="submit" id="upload" value="上传">
+</p>
+
+</form>
+
+
+<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+<!--<script src="/lib/upload.min.js"></script>-->
+<!--<script>-->
+    <!--var Upload = FOCUS.widget.Upload;-->
+    <!--var MODE = Upload.MODE;-->
+
+    <!--var uploader = new Upload({-->
+        <!--priority: [ MODE.HTML5, MODE.FLASH, MODE.IFRAME ], // 上传核心的初始化优先顺序-->
+        <!--placeholder: '#file', // 占位元素-->
+        <!--uploadURL: '/uploadImg', // 上传的目标URL-->
+        <!--filePostName: 'docfile', // 上传时文件使用的 name-->
+        <!--fileTypes: '*.png, *.jpg, *.gif', // 允许选择的文件类型-->
+        <!--sizeLimit: '1MB', // 单个文件尺寸限制-->
+        <!--timeout: 100000, // 单次上传操作超时设置(ms)-->
+        <!--charset: 'UTF-8', // 上传使用的编码格式，不建议使用 UTF-8 以外的参数-->
+        <!--button: {-->
+            <!--text: 'Upload Docs' // 按钮显示的文字-->
+        <!--},-->
+        <!--debug: true // 调试开关-->
+    <!--});-->
+
+<!--</script>-->
+</body>
+</html>
