@@ -9,12 +9,11 @@ var logger = require('koa-logger');
 var route = require('koa-route');
 var views = require('co-views');
 var serve = require('koa-static');
-var formidable = require('formidable');
+var parse = require('co-busboy');
 
 var fs = require('fs');
 var path = require('path');
-var util = require('util');
-var http = require('http');
+var os = require('os');
 
 
 
@@ -38,38 +37,29 @@ app.use(route.post('/uploadImg',uploadImg));
 function *index(){
     this.body = yield render('index',{})
 }
+var cookie = 'JSESSIONID=abcxXKXC8Du7C_VC66Ctv; TTNET=326b385074505338392f485154475a677873754b38413d3d0d0a; _ttnet_session=eyJfY3NyZiI6Ikt0YjBCazRWZW9pQXdYSTFGS1JjV1E9PSIsIl9sb2duYW1lIjoicWluZmFuIn0=--4paPK+p/W1Yw2Sr+QUWvIKtsW2U=; TTNETLVT=684d45474a586f7774737846536f6e5533782b704378737030424c6e7947426e0d0a';
 
 function *uploadImg(next){
 
-    var form = new formidable.IncomingForm();
-    console.log(form);
-    form.uploadDir = "/src";
-    form.keepExtensions = true;
-    form.parse(req, function(err, fields, files) {
-        res.writeHead(200, {'content-type': 'text/plain'});
-        res.write('received upload:\n\n');
-        res.end(util.inspect({fields: fields, files: files}));
-    });
-    //todo https://cnodejs.org/topic/4f16442ccae1f4aa2700104d
-    //todo https://github.com/felixge/node-formidable
-    var lv = this.query.lv;
+    if ('POST' != this.method) return yield next;
 
+    var parts = parse(this);
+    var part;
 
-    yield next;
+    while (part = yield parts) {
+
+        var name = part.filename;
+        var stream = fs.createWriteStream(path.join(__dirname, name));
+        part.pipe(stream).on('finish',function(){
+            var aa = fs.createReadStream(name);
+            Upload(cookie, aa,function(){
+                fs.unlink(name);
+            });
+        });
+
+    }
+
+    this.redirect('/');
+
 }
 
-app.use
-
-//上传
-
-
-
-
-
-
-
-
-//var cookie = 'JSESSIONID=abcxXKXC8Du7C_VC66Ctv;TTNET=326b385074505338392f485154475a677873754b38413d3d0d0a;_ttnet_session=eyJfY3NyZiI6Ikt0YjBCazRWZW9pQXdYSTFGS1JjV1E9PSIsIl9sb2duYW1lIjoicWluZmFuIn0=--4paPK+p/W1Yw2Sr+QUWvIKtsW2U=;TTNETLVT=625753743737347870774539505162386e6f2b3456356f576c473565556754770d0a';
-//var fileName = 'avv.png';
-//
-//Upload(cookie,fileName);
