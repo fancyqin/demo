@@ -37,7 +37,7 @@ app.use(route.post('/uploadImg',uploadImg));
 function *index(){
     this.body = yield render('index',{})
 }
-var cookie = 'JSESSIONID=abcxXKXC8Du7C_VC66Ctv; TTNET=326b385074505338392f485154475a677873754b38413d3d0d0a; _ttnet_session=eyJfY3NyZiI6Ikt0YjBCazRWZW9pQXdYSTFGS1JjV1E9PSIsIl9sb2duYW1lIjoicWluZmFuIn0=--4paPK+p/W1Yw2Sr+QUWvIKtsW2U=; TTNETLVT=684d45474a586f7774737846536f6e5533782b704378737030424c6e7947426e0d0a';
+var cookie = '=abcxXKXC8Du7C_VC66Ctv; TTNET=326b385074505338392f485154475a677873754b38413d3d0d0a; _ttnet_session=eyJfY3NyZiI6Ikt0YjBCazRWZW9pQXdYSTFGS1JjV1E9PSIsIl9sb2duYW1lIjoicWluZmFuIn0=--4paPK+p/W1Yw2Sr+QUWvIKtsW2U=; TTNETLVT=684d45474a586f7774737846536f6e5533782b704378737030424c6e7947426e0d0a';
 
 function *uploadImg(next){
 
@@ -45,10 +45,10 @@ function *uploadImg(next){
 
     var parts = parse(this);
     var part;
-
+    var name;
     while (part = yield parts) {
 
-        var name = part.filename;
+        name = part.filename;
         var stream = fs.createWriteStream(path.join(__dirname, name));
         part.pipe(stream).on('finish',function(){
             var aa = fs.createReadStream(name);
@@ -58,8 +58,10 @@ function *uploadImg(next){
         });
 
     }
-
-    this.redirect('/');
-
+    this.response.body = {
+        name: name
+    };
+    // this.redirect('/');
+    yield next;
 }
 
