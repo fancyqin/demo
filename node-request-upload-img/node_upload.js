@@ -12,15 +12,7 @@ module.exports = function(cookie,file,cb){
         month: nowDate.getMonth() + 1,
         file: file
     };
-    //get cookie
-    // request({
-    //     url:'http://edm.focuschina.com/'
-    // },function(error,response,body){
-    //     if(!error && response.statusCode == 200){
-    //         var $ = cheerio.load(body);
-    //         console.log(body)
-    //     }
-    // });
+    
 
     request.post({
         url:'http://edm.focuschina.com/uploadImg',
