@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>upload</title>
+</head>
+<body>
+<h1>你瞅啥！？</h1>
+<div id="upload"></div>
+
+<div id="target"></div>
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="/lib/upload.min.js"></script>
+<script type="text/javascript">
+
+    var uploader = new FOCUS.widget.Upload({
+        priority: ['iframe'],
+        placeholder: '#upload',
+        uploadURL:'http://edm.focuschina.com/uploadImg',
+        filePostName:'file',
+        fileTypes:'*.gif, *.jpg, *.png, *.jpeg',
+        postParams:{
+            month: new Date().getMonth()+1+'',
+            mailTypeCode:'MICEN'
+        }
+    }).on('dialogComplete',function(){
+        this.startUpload();
+    }).on('uploadComplete', function(file){
+        var nowDate = new Date();
+        var imgUrl = 'http://edm.made-in-china.com/MICEN/'+ nowDate.getFullYear()+'/'+(nowDate.getMonth()+1)+'/'+  file.fullname;
+
+
+        $.ajax({
+            url:'/checkImg',
+            data:{
+                imgurl: imgUrl
+            },
+            success: function(data){
+                if (data){
+                    if (data.width ===0 || data.height ===0){
+                        alert('上传失败');
+                    }else{
+                        $('#target').html('').append('<div>'+imgUrl+'</div><img src ="'+imgUrl+'">');
+                    }
+                }
+            }
+        })
+    })
+</script>
+</body>
+</html>
