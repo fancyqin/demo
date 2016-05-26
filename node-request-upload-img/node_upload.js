@@ -24,9 +24,16 @@ module.exports = function(cookie,file,cb){
         if (err) {
             return console.error('upload failed:', err);
         }
-        console.log('Upload successful!  Server responded with:', body);
+        var $ = cheerio.load(body);
+
+        if ($('body').html() === ''){
+            console.log('Upload successful!');
+            cb();
+        }else {
+            console.log('上传失败，请联系管理员更换cookie');
+            return 'error';
+        }
     });
 
-    cb();
 
 }

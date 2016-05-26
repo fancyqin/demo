@@ -21,26 +21,23 @@
 
 <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 <script type="text/javascript">
-//    $("#uploadform").submit(function(){
-//        var file = $("#file").val();
-//        if(file==""){
-//            alert("请选择文件!");
-//            return false;
-//        }
-//        var perfix = file.substring(file.lastIndexOf("."));
-//        if(perfix!=".jpg"&&perfix!=".jpeg"&&perfix!=".png"&&perfix!=".gif"){
-//            alert("文件的格式不正确,请选择jpg、jpeg、png、gif格式图片!");
-//            return false;
-//        }
-//
-//    });
 
     $('#upload').click(function (e) {
         e.stopPropagation();
         e.preventDefault();
+        var file = $("#file").val();
+        var perfix = file.substring(file.lastIndexOf("."));
         var formData = new FormData();
-        formData.append( 'file', $('#file')[0].files[0] );
         var nowDate = new Date();
+        if(file==""){
+            alert("请选择文件!");
+            return false;
+        }
+        if(perfix!=".jpg"&&perfix!=".jpeg"&&perfix!=".png"&&perfix!=".gif"){
+            alert("文件的格式不正确,请选择jpg、jpeg、png、gif格式图片!");
+            return false;
+        }
+        formData.append( 'file', $('#file')[0].files[0] );
         $.ajax({
             url: '/uploadImg',
             data: formData,
