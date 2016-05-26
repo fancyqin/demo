@@ -59,7 +59,12 @@ function getImgInfo(options,cb){
             chunks.push(chunk);
         }).on('end', function() {
             var buffer = Buffer.concat(chunks);
-            cb(sizeOf(buffer));
+            if (buffer.length > 0){
+                cb(sizeOf(buffer));
+            }else{
+                cb(null)
+            }
+
         });
     });
 }
