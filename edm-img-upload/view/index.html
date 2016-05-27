@@ -43,7 +43,12 @@
                         $('#target').html('').append('<div>'+imgUrl+'</div><img src ="'+imgUrl+'">');
                     }
                 }else{
-                    alert('上传失败');
+                    var href = window.location.href;
+                    if (confirm('上传失败，未登录批邮业务系统，是否暂存并跳转至登录界面？')){
+                        //todo 暂存操作 去除关闭提示
+                        window.location = "http://edm.focuschina.com/loginIndex?nextUrl=" + href;
+                    }
+
                 }
             }
         })
