@@ -1,0 +1,19 @@
+.pager a {
+  display: inline-block;
+  height: 28px;
+  line-height: 28px;
+  padding: 0 10px;
+  border: 1px solid #ced3d9;
+  background: #f5f7fa;
+  margin: 0 2px;
+  border-radius: 2px;
+  text-decoration: none;
+  color: #222;
+  vertical-align: top; }
+.pager .dot {
+  display: inline-block;
+  height: 30px;
+  line-height: 30px;
+  padding: 0 6px; }
+
+/*# sourceMappingURL=pager.css.map */
