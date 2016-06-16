@@ -2,41 +2,20 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
-    <style type="text/css">
-        body{
-            font: 12px/1.5 Arial,sans-serif;
-        }
-        .box{
-            width: 100%;
-            max-width: 990px;
-            margin: 20px auto;
-        }
-        .box h2{
-            padding: 10px;
-        }
-        .box h3{
-            padding: 10px;
-            background: #C7E3D1;
-        }
-        .box table{
-            margin: 30px 0;
-        }
-    </style>
-    <link rel="stylesheet" href="src/css/table.css">
-    <link rel="stylesheet" href="src/css/pager.css">
-    <link rel="stylesheet" href="src/css/steps.css">
+    <title>table</title>
+    <link rel="stylesheet" href="src/final/style.css">
+
 </head>
 <body>
 
     <div class="box">
         <h2>Table</h2>
-        <h3>table-base</h3>
-        <table class="table-base">
+        <h3>table-base table-hover</h3>
+        <table class="table table-base table-hover">
             <tr>
-                <th>Tottenham Hotspur</th>
-                <th>Real Madrid</th>
-                <th>Barcelona</th>
+                <th width="33%">Tottenham Hotspur</th>
+                <th width="33%">Real Madrid</th>
+                <th width="">Barcelona</th>
             </tr>
             <tr>
                 <td>Harry Kane</td>
@@ -55,11 +34,11 @@
             </tr>
         </table>
         <h3>table-normal</h3>
-        <table class="table-normal">
+        <table class="table table-normal">
             <tr>
-                <th>Tottenham Hotspur</th>
-                <th>Real Madrid</th>
-                <th>Barcelona</th>
+                <th width="">Tottenham Hotspur</th>
+                <th width="200">Real Madrid</th>
+                <th width="">Barcelona</th>
             </tr>
             <tr>
                 <td>Harry Kane</td>
@@ -68,7 +47,7 @@
             </tr>
             <tr>
                 <td>Christian Eriksen</td>
-                <td>Gareth Bale</td>
+                <td>GarethBaleIsAVeryNBFootballPlayerGarethBaleIsAVeryNBFootballPlayer</td>
                 <td>Neymar da Silva Santos</td>
             </tr>
             <tr>
@@ -78,7 +57,7 @@
             </tr>
         </table>
         <h3>table-base table-stripe</h3>
-        <table class="table-base table-stripe">
+        <table class="table table-base table-stripe">
             <tr>
                 <th>Tottenham Hotspur</th>
                 <th>Real Madrid</th>
@@ -101,7 +80,7 @@
             </tr>
         </table>
         <h3>table-normal table-stripe</h3>
-        <table class="table-normal table-stripe">
+        <table class="table table-normal table-stripe">
             <tr>
                 <th>Tottenham Hotspur</th>
                 <th>Real Madrid</th>
@@ -124,12 +103,57 @@
             </tr>
         </table>
 
+        <h3>table-normal</h3>
+        <table class="table table-vertical table-stripe">
+            <tr>
+                <th>Tottenham Hotspur</th>
+                <td>Harry Kane</td>
+                <td>Christian Eriksen</td>
+                <td>Dele Alli</td>
+            </tr>
+            <tr>
+                <th>Real Madrid</th>
+                <td>Cristiano Ronaldo</td>
+                <td>Gareth Bale</td>
+                <td>James Rodríguez</td>
+            </tr>
+            <tr>
+                <th>Barcelona</th>
+                <td>Lionel Messi</td>
+                <td>Neymar da Silva Santos</td>
+                <td>Luis Suárez</td>
+            </tr>
+        </table>
+        <table class="table table-vertical table-stripe">
+            <tr>
+                <th>Tottenham Hotspur</th>
+                <td>Harry Kane</td>
+                <td>Christian Eriksen</td>
+                <td>Dele Alli</td>
+                <td>Érik Lamela</td>
+            </tr>
+            <tr>
+                <th>Real Madrid</th>
+                <td>Cristiano Ronaldo</td>
+                <td>Gareth Bale</td>
+                <td>James Rodríguez</td>
+                <td>Luka Modrić</td>
+            </tr>
+            <tr>
+                <th>Barcelona</th>
+                <td>Lionel Messi</td>
+                <td>Neymar da Silva Santos</td>
+                <td>Luis Suárez</td>
+                <td>Andrés Iniesta</td>
+            </tr>
+        </table>
+
         <hr>
 
         <h2>Pager</h2>
         <h3>normal</h3>
         <div class="pager">
-            <a href="">icon</a>
+            <a href=""><i class="micon">&#xe009;</i></a>
             <a href="">1</a>
             <a href="">2</a>
             <a href="">3</a>
@@ -138,9 +162,9 @@
             <a href="">6</a>
             <a href="">7</a>
             <a href="">8</a>
-            <span class="dot">...</span>
+            <span class="dot"><i class="micon">&#xe060;</i></span>
             <a href="">999</a>
-            <a href="">Next icon</a>
+            <a href="">Next <i class="micon">&#xe008;</i></a>
         </div>
     </div>
 </body>

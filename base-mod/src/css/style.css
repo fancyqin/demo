@@ -1,0 +1,97 @@
+@font-face {
+  font-family: 'Mic-icon';
+  src: url("../../font/micon2.eot?v=20160408");
+  src: url("../../font/micon2.eot?#iefix&v=20160408") format("embedded-opentype"), url("../../font/micon2.woff?v=20160408") format("woff"), url("../../font/micon2.ttf?v=20160408") format("truetype");
+  font-weight: normal;
+  font-style: normal; }
+.micon {
+  font-family: 'Mic-icon';
+  font-weight: normal;
+  font-style: normal;
+  text-decoration: inherit;
+  -webkit-font-smoothing: antialiased;
+  display: inline-block;
+  *display: inline;
+  *zoom: 1;
+  font-size: 16px;
+  line-height: 1;
+  margin-right: 5px;
+  vertical-align: middle;
+  text-decoration: none !important; }
+
+.table {
+  max-width: 100%;
+  background-color: transparent;
+  border-collapse: collapse;
+  border-spacing: 0; }
+  .table th {
+    font-weight: bold;
+    text-align: left; }
+  .table th, .table td {
+    padding: 10px;
+    word-break: break-word; }
+
+.table-base {
+  width: 100%; }
+  .table-base td {
+    border-bottom: 1px solid #dae0e6; }
+  .table-base th {
+    border-bottom: 1px solid #ced3d9; }
+
+.table-normal, .table-vertical {
+  width: 100%; }
+  .table-normal td, .table-vertical td {
+    border: 1px solid #dae0e6; }
+  .table-normal th, .table-vertical th {
+    border: 1px solid #ced3d9;
+    background: #f5f7fa; }
+
+.table-stripe.table-normal tr:nth-child(2n - 1) td {
+  background: #f5f7fa; }
+.table-stripe.table-base tr:nth-child(2n) td {
+  background: #f5f7fa; }
+.table-stripe.table-vertical td:nth-child(2n -1) {
+  background: #f5f7fa; }
+
+.table-hover tr:hover td {
+  background: #f5f7fa; }
+
+.pager a {
+  display: inline-block;
+  height: 28px;
+  line-height: 28px;
+  padding: 0 10px;
+  border: 1px solid #ced3d9;
+  background: #f5f7fa;
+  margin: 0 2px;
+  border-radius: 2px;
+  text-decoration: none;
+  color: #222;
+  vertical-align: top; }
+.pager .dot {
+  display: inline-block;
+  height: 30px;
+  line-height: 30px;
+  padding: 0 6px; }
+.pager .micon {
+  margin-right: 0; }
+
+body {
+  font: 12px/1.5 Arial,sans-serif; }
+
+.box {
+  width: 100%;
+  max-width: 990px;
+  margin: 20px auto; }
+
+.box h2 {
+  padding: 10px; }
+
+.box h3 {
+  padding: 10px;
+  background: #C7E3D1; }
+
+.box table {
+  margin: 30px 0; }
+
+/*# sourceMappingURL=style.css.map */
