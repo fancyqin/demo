@@ -13,7 +13,7 @@ gulp.task('sass', function () {
             includeContent: false,
             sourceRoot: 'source'
         }))
-        .pipe(gulp.dest('src/final'));
+        .pipe(gulp.dest('dist/css'));
 });
 
 gulp.task('watch', function () {

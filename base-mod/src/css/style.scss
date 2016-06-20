@@ -8,7 +8,7 @@ body{
 .box{
     width: 100%;
     max-width: 990px;
-    margin: 20px auto;
+    margin: 80px auto;
 }
 .box h2{
     padding: 10px;
@@ -22,3 +22,117 @@ body{
 }
 
 
+
+$eye : 70px !default;
+.cube{
+    width: 300px;
+    margin: 200px auto;
+    height: 300px;
+    position: relative;
+    .front,.top,.right{
+        position: absolute;
+        box-sizing: border-box;
+        border: 2px solid #b57d01;
+        background: #ffe09b;
+    }
+    .front{
+        width: 300px;
+        height: 240px;
+        .m{
+            position: absolute;
+            top: 75%;
+            left: 0;
+            right: 0;
+            width: 50px;
+            height: 2px;
+            margin: auto;
+            background: #000;
+        }
+        .e {
+            width: $eye;
+            height: $eye;
+            position: relative;
+            border-radius: 50%;
+            background-color: #fff;
+            animation: eye 3.5s infinite;
+            overflow: hidden;
+            border: 2px solid #000;
+        }
+        .e:after {
+            content: "";
+            width: 51%;
+            height: 51%;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate3d(-50%, -50%, 0);
+            border-radius: 50%;
+            background: #000;
+            animation: eyeglobe 17.5s infinite;
+        }
+        .e-c {
+            width: 75%;
+            display: flex;
+            display: -webkit-box;
+            display: -webkit-flex;
+            justify-content: space-between;
+            -webkit-justify-content: space-between;
+            -moz-justify-content: space-between;
+            position: absolute;
+            left: 50%;
+            top: 33%;
+            transform: translate3d(-50%, -50%, 0);
+            -webkit-transform: translate3d(-50%, -50%, 0);
+            -moz-transform: translate3d(-50%, -50%, 0);
+        }
+
+
+    }
+    .top{
+        width: 300px;
+        height:80px;
+        top: -78px;
+        left: -1px;
+        transform: skewX(-45deg);
+        transform-origin: bottom left;
+
+    }
+    .right{
+        width: 80px;
+        height: 240px;
+        left: 298px;
+        transform: skewY(-45deg);
+        transform-origin: top left;
+    }
+}
+
+
+
+
+
+
+@keyframes eye {
+    0%, 5%, 30%, 37%, 100% {
+        height: $eye;
+        transform: translate3d(0, 0, 0);
+    }
+    3%, 33% {
+        height: 0;
+        transform: translate3d(0, -50%, 0);
+    }
+}
+
+@keyframes eyeglobe {
+    0%, 20% {
+        transform: translate3d(-100%, -50%, 0);
+    }
+    21%, 40%, 81%, 100% {
+        transform: translate3d(-50%, -50%, 0);
+    }
+    41%, 60% {
+        transform: translate3d(0%, -50%, 0);
+    }
+    61%, 80% {
+        transform: translate3d(-50%, 0%, 0);
+    }
+}
