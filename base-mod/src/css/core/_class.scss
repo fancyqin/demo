@@ -1,0 +1,49 @@
+
+.clear {
+    clear: both;
+    display: block;
+    overflow: hidden;
+    visibility: hidden;
+    width: 0;
+    height: 0;
+}
+
+.cf{
+    @extend %clearfix;
+}
+
+/* Layout */
+.grid {
+    @extend %clearfix;
+    width: 990px;
+    margin: 0 auto;
+}
+.res-wrapper {
+    .grid {
+        width: auto;
+        max-width: 1200px;
+        min-width: 990px;
+        padding: 0 10px;
+    }
+}
+
+
+.fl,.pull-left {
+    float: left;
+}
+
+.fr,.pull-right {
+    float: right;
+}
+
+.c {
+    text-align: center;
+}
+
+.l {
+    text-align: left;
+}
+
+.r {
+    text-align: right;
+}
