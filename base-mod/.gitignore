@@ -2,3 +2,4 @@ node_modules/
 .sass-cache/
 .idea/
 .map
+dist/css
