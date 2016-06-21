@@ -1,14 +1,12 @@
 @import "_base";
 @import "components/_table";
 @import "components/_pager";
+@import "components/_step";
 
-body{
-    font: 12px/1.5 Arial,sans-serif;
-}
 .box{
     width: 100%;
     max-width: 990px;
-    margin: 80px auto;
+    margin: 0 auto;
 }
 .box h2{
     padding: 10px;

@@ -11,15 +11,67 @@
         text-decoration: none;
         color: #222;
         vertical-align: top;
+        &:hover{
+            opacity: .7;
+        }
     }
-    .dot{
+    .dot,.current{
         display: inline-block;
         height: 30px;
         line-height: 30px;
         padding: 0 6px;
-
+    }
+    .current{
+        min-width: 18px;
+        color: #e64545;
+        text-align: center;
+    }
+    a[disabled],a[disabled]:hover{
+        cursor: not-allowed;
+        background: #edf0f2;
+        border:1px solid #dae0e6;
+        opacity: 1;
     }
     .micon{
         margin-right: 0;
+    }
+    .main{
+        background: #e64545;
+        border: 1px solid #e64545;
+        color: #fff;
+        &:hover{
+            opacity: .7;
+        }
+    }
+}
+
+.pager-simple{
+    .pager-box{
+        display: inline-block;
+        width: 68px;
+        height: 28px;
+        border: 1px solid #ced3d9;
+        border-radius: 2px;
+        vertical-align: top;
+        a{
+            float: left;
+            width: 50%;
+            text-align: center;
+            line-height: 28px;
+        }
+        a:first-child{
+            border-right: 1px solid #ced3d9;
+            margin-left: -1px;
+        }
+        .micon{
+            margin-right: 0;
+        }
+    }
+    .page-num{
+        display: inline-block;
+        line-height: 30px;
+        vertical-align: top;
+        color: #555;
+        margin-right: 6px;
     }
 }
