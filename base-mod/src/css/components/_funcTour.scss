@@ -1,0 +1,27 @@
+
+$z-in: 100000;
+
+
+.func-tour{
+    .ft-cover{
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: #{$z-in - 2};
+        background: #000;
+        opacity: .4;
+        filter: alpha(opacity=40);
+    }
+    .ft-highlight{
+        position: absolute;
+        width: 990px;
+        height: 47px;
+        top: 15px;
+        left: 297px;
+        z-index: #{$z-in - 1};
+        background: #fff;
+    }
+}
+
