@@ -11,17 +11,47 @@ $z-in: 100000;
         bottom: 0;
         z-index: #{$z-in - 2};
         background: #000;
-        opacity: .4;
-        filter: alpha(opacity=40);
+        opacity: .7;
+        filter: alpha(opacity=70);
     }
     .ft-highlight{
         position: absolute;
-        width: 990px;
-        height: 47px;
-        top: 15px;
-        left: 297px;
         z-index: #{$z-in - 1};
         background: #fff;
+        transition: all .4s;
+    }
+    .ft-box{
+        position: absolute;
+        top: -10px;
+        left:-10px;
+        width:100%;
+        background: transparent;
+        height: 100%;
+        padding: 9px;
+        border: 1px dashed #fff;
+        z-index: #{$z-in + 1};
+        .ft-close{
+            position: absolute;
+            display: block;
+            width: 16px;
+            height: 16px;
+            top: -9px;
+            right: -9px;
+            color: #555;
+            font-size: 14px;
+            line-height: 16px;
+            text-align: center;
+            margin: 0;
+            background: #fff;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+        .ft-inner{
+            position: absolute;
+            color: #fff;
+            top:100%;
+            width:250px;
+        }
     }
 }
 
