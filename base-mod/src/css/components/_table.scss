@@ -2,7 +2,7 @@
 $table-clr-th-bd:       #ced3d9;
 $table-clr-td-bd:       #dae0e6;
 $table-clr-bg:          #f5f7fa;
-
+$table-clr-txt:         #555;
 .table {
     max-width: 100%;
     background-color: transparent;
@@ -15,6 +15,7 @@ $table-clr-bg:          #f5f7fa;
     }
     th,td{
         padding: 10px;
+        color: $table-clr-txt;
         word-break: break-word;
     }
 }

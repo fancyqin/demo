@@ -8,6 +8,7 @@ $pager-clr-n-hover-bg:  #e6ecf2;
 
 $pager-clr-disable-bd:  #dae0e6;
 $pager-clr-disable-bg:  #edf0f2;
+$pager-clr-disable-txt: #b2b2b2;
 
 $pager-clr-txt-xx:      #222;
 $pager-clr-txt-x:       #555;
@@ -45,6 +46,7 @@ $pager-clr-txt-x:       #555;
         cursor: not-allowed;
         background: $pager-clr-disable-bg;
         border:1px solid $pager-clr-disable-bd;
+        color: $pager-clr-disable-txt;
     }
     .micon{
         margin-right: 0;
@@ -74,6 +76,7 @@ $pager-clr-txt-x:       #555;
             text-align: center;
             line-height: 28px;
             background: $pager-clr-n-bg;
+            color: $pager-clr-txt-x;
             &:hover{
                 background: $pager-clr-n-hover-bg;
             }
