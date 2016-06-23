@@ -3,6 +3,7 @@ $table-clr-th-bd:       #ced3d9;
 $table-clr-td-bd:       #dae0e6;
 $table-clr-bg:          #f5f7fa;
 $table-clr-txt:         #555;
+$table-clr-hover:       #e6ecf2;
 .table {
     max-width: 100%;
     background-color: transparent;
@@ -15,8 +16,10 @@ $table-clr-txt:         #555;
     }
     th,td{
         padding: 10px;
-        color: $table-clr-txt;
         word-break: break-word;
+    }
+    td{
+        color: $table-clr-txt;
     }
 }
 .table-base{
@@ -60,7 +63,7 @@ $table-clr-txt:         #555;
 .table-hover{
     tr:hover{
         td{
-            background: $table-clr-bg;
+            background: $table-clr-hover!important;
         }
     }
 }

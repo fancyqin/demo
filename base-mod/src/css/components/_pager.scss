@@ -23,7 +23,7 @@ $pager-clr-txt-x:       #555;
         border: 1px solid $pager-clr-n-bd;
         background: $pager-clr-n-bg;
         margin: 0 2px;
-        border-radius: 2px;
+        border-radius: 3px;
         text-decoration: none;
         color: $pager-clr-txt-xx;
         vertical-align: top;
@@ -56,6 +56,7 @@ $pager-clr-txt-x:       #555;
         border: 1px solid $pager-clr-main-bg;
         color: #fff;
         &:hover{
+            border-color: $pager-clr-main-hover-bg;
             background: $pager-clr-main-hover-bg;
         }
     }
@@ -67,7 +68,7 @@ $pager-clr-txt-x:       #555;
         width: 67px;
         height: 28px;
         border: 1px solid $pager-clr-n-bd;
-        border-radius: 2px;
+        border-radius: 3px;
         vertical-align: top;
         overflow: hidden;
         a{
