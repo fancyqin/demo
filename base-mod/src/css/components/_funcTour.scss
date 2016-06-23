@@ -50,9 +50,25 @@ $z-in: 100000;
             position: absolute;
             color: #fff;
             top:100%;
-            width:250px;
-            padding-top: 80px;
-            
+            width:210px;
+            padding:0 20px;
+            left: 50%;
+            margin-left: -125px;
+            .ft-arr{
+                height: 80px;
+                width: 60px;
+                margin: 0 auto;
+                background: url("/base-mod/dist/img/funcTour/arr-c-b.png") no-repeat center;
+            }
+            .ft-txt{
+                margin: 0;
+                font-size: 14px;
+                line-height: 24px;
+            }
+            .ft-btnwrap{
+                margin-top: 10px;
+
+            }
         }
     }
 }
