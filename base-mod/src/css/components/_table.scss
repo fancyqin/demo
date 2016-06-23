@@ -1,8 +1,14 @@
+
+$table-clr-th-bd:       #ced3d9;
+$table-clr-td-bd:       #dae0e6;
+$table-clr-bg:          #f5f7fa;
+
 .table {
     max-width: 100%;
     background-color: transparent;
     border-collapse: collapse;
     border-spacing: 0;
+    table-layout: fixed;
     th{
         font-weight: bold;
         text-align: left;
@@ -15,45 +21,45 @@
 .table-base{
     width: 100%;
     td{
-        border-bottom:1px solid #dae0e6;
+        border-bottom:1px solid $table-clr-td-bd;
     }
     th{
-        border-bottom: 1px solid #ced3d9;
+        border-bottom: 1px solid $table-clr-th-bd;
     }
 }
 
 .table-normal,.table-vertical{
     width: 100%;
     td{
-        border:1px solid #dae0e6;
+        border:1px solid $table-clr-td-bd;
     }
     th{
-        border: 1px solid #ced3d9;
-        background: #f5f7fa;
+        border: 1px solid $table-clr-th-bd;
+        background: $table-clr-bg;
     }
 }
 
 .table-stripe{
     &.table-normal{
         tr:nth-child(2n - 1) td{
-            background: #f5f7fa;
+            background: $table-clr-bg;
         }
     }
     &.table-base{
         tr:nth-child(2n) td{
-            background: #f5f7fa;
+            background: $table-clr-bg;
         }
     }
     &.table-vertical{
         td:nth-child(2n -1){
-            background: #f5f7fa;
+            background: $table-clr-bg;
         }
     }
 }
 .table-hover{
     tr:hover{
         td{
-            background: #f5f7fa;
+            background: $table-clr-bg;
         }
     }
 }

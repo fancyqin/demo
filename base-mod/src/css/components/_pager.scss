@@ -1,18 +1,33 @@
+
+$pager-clr-main-bg:     #e64545;
+$pager-clr-main-hover-bg: #d92121;
+
+$pager-clr-n-bd:        #ced3d9;
+$pager-clr-n-bg:        #f5f7fa;
+$pager-clr-n-hover-bg:  #e6ecf2;
+
+$pager-clr-disable-bd:  #dae0e6;
+$pager-clr-disable-bg:  #edf0f2;
+
+$pager-clr-txt-xx:      #222;
+$pager-clr-txt-x:       #555;
+
+
 .pager{
     a{
         display: inline-block;
         height: 28px;
         line-height: 28px;
         padding: 0 10px;
-        border: 1px solid #ced3d9;
-        background: #f5f7fa;
+        border: 1px solid $pager-clr-n-bd;
+        background: $pager-clr-n-bg;
         margin: 0 2px;
         border-radius: 2px;
         text-decoration: none;
-        color: #222;
+        color: $pager-clr-txt-xx;
         vertical-align: top;
         &:hover{
-            opacity: .7;
+            background: $pager-clr-n-hover-bg;
         }
     }
     .dot,.current{
@@ -23,24 +38,23 @@
     }
     .current{
         min-width: 18px;
-        color: #e64545;
+        color: $pager-clr-main-bg;
         text-align: center;
     }
     a[disabled],a[disabled]:hover{
         cursor: not-allowed;
-        background: #edf0f2;
-        border:1px solid #dae0e6;
-        opacity: 1;
+        background: $pager-clr-disable-bg;
+        border:1px solid $pager-clr-disable-bd;
     }
     .micon{
         margin-right: 0;
     }
     .main{
-        background: #e64545;
-        border: 1px solid #e64545;
+        background: $pager-clr-main-bg;
+        border: 1px solid $pager-clr-main-bg;
         color: #fff;
         &:hover{
-            opacity: .7;
+            background: $pager-clr-main-hover-bg;
         }
     }
 }
@@ -48,20 +62,24 @@
 .pager-simple{
     .pager-box{
         display: inline-block;
-        width: 68px;
+        width: 67px;
         height: 28px;
-        border: 1px solid #ced3d9;
+        border: 1px solid $pager-clr-n-bd;
         border-radius: 2px;
         vertical-align: top;
+        overflow: hidden;
         a{
             float: left;
-            width: 50%;
+            width: 33px;
             text-align: center;
             line-height: 28px;
+            background: $pager-clr-n-bg;
+            &:hover{
+                background: $pager-clr-n-hover-bg;
+            }
         }
         a:first-child{
-            border-right: 1px solid #ced3d9;
-            margin-left: -1px;
+            border-right: 1px solid $pager-clr-n-bd;
         }
         .micon{
             margin-right: 0;
@@ -71,7 +89,7 @@
         display: inline-block;
         line-height: 30px;
         vertical-align: top;
-        color: #555;
+        color: $pager-clr-txt-x;
         margin-right: 6px;
     }
 }
