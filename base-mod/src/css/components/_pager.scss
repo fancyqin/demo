@@ -33,6 +33,7 @@ $pager-clr-txt-x:       #555;
     }
     .dot,.current{
         display: inline-block;
+        vertical-align: top;
         height: 30px;
         line-height: 30px;
         padding: 0 6px;
@@ -76,6 +77,7 @@ $pager-clr-txt-x:       #555;
             width: 33px;
             text-align: center;
             line-height: 28px;
+            height:28px;
             background: $pager-clr-n-bg;
             color: $pager-clr-txt-x;
             &:hover{

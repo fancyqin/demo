@@ -67,7 +67,35 @@ $z-in: 100000;
             }
             .ft-btnwrap{
                 margin-top: 10px;
-
+            }
+            .tour-btn{
+                float: left;
+                width: 72px;
+                height:30px;
+                margin: 0 10px 0 0;
+                padding: 0;
+                font-size: 12px;
+                line-height: 30px;
+                text-align: center;
+                background: #f5f7fa;
+                border:0;
+                color: #222;
+                border-radius: 3px;
+            }
+            .tour-dot{
+                float: left;
+                height: 30px;
+                i{
+                    float: left;
+                    width: 4px;
+                    height: 4px;
+                    border: 1px solid #ced3d9;
+                    margin: 12px 5px 0 0;
+                    border-radius: 50%;
+                }
+                i.on{
+                    background: #ced3d9;
+                }
             }
         }
     }

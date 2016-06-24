@@ -16,7 +16,7 @@ $table-clr-hover:       #e6ecf2;
     }
     th,td{
         padding: 10px;
-        word-break: break-word;
+        word-wrap:break-word;
     }
     td{
         color: $table-clr-txt;
@@ -67,7 +67,5 @@ $table-clr-hover:       #e6ecf2;
         }
     }
 }
-
-
 
 

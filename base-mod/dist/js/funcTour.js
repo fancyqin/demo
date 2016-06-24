@@ -40,8 +40,13 @@
         var el = $el[0];
         var direction = item[1] || 'center bottom';
         var txt = item[2] || 'please set some words';
-
-        var el_pos = el.style.position || window.getComputedStyle(el).position || el.currentStyle.position;
+        var el_pos;
+        //if (window.getComputedStyle){
+        //    el_pos = el.style.position || window.getComputedStyle(el).position
+        //}else{
+        //    el_pos = el.style.position || el.currentStyle.position;
+        //}
+        el_pos = el.style.position || (window.getComputedStyle && window.getComputedStyle(el).position) || el.currentStyle.position;
         var elInfo = {
             width :  el.clientWidth,
             height : el.clientHeight,
