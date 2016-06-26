@@ -9,7 +9,11 @@
 <body>
 
     <div class="box">
-        <h2 class="J-steps-1">Table</h2>
+
+        <h2>Tour</h2>
+        <p><button class="J-beginTour">begin TOUR</button></p>
+        <hr>
+        <h2 class="J-step-1">Table</h2>
         <h3>table-base table-hover</h3>
         <table class="table table-base table-hover">
             <tr>
@@ -56,7 +60,7 @@
                 <td>Luis Suárez</td>
             </tr>
         </table>
-        <h3 class="J-steps-2">table-base table-stripe</h3>
+        <h3 class="J-step-2">table-base table-stripe</h3>
         <table class="table table-base table-stripe">
             <tr>
                 <th>Tottenham Hotspur</th>
@@ -157,82 +161,82 @@
 
         <hr>
 
-        <h2>Steps</h2>
+        <h2>step</h2>
         <h3>normal</h3>
-        <div class="steps steps-4 cf">
-            <div class="steps-item step-ed">
+        <div class="step step-4 cf">
+            <div class="step-item step-ed">
                 <span class="dot"></span>
                 <i class="line"></i>
             </div>
-            <div class="steps-item step-ed">
+            <div class="step-item step-ed">
                 <span class="dot"></span>
                 <i class="line"></i>
             </div>
-            <div class="steps-item step-ing">
+            <div class="step-item step-ing">
                 <span class="dot"></span>
                 <i class="line"></i>
             </div>
-            <div class="steps-item">
+            <div class="step-item">
                 <span class="dot"></span>
             </div>
         </div>
 
         <h3>normal with text</h3>
-        <div class="steps steps-5 cf">
-            <div class="steps-item step-ed">
+        <div class="step step-5 cf">
+            <div class="step-item step-ed">
                 <span class="dot"></span>
                 <i class="line"></i>
                 <div class="txt-box">Messages</div>
             </div>
-            <div class="steps-item step-ed">
+            <div class="step-item step-ed">
                 <span class="dot"></span>
                 <i class="line"></i>
                 <div class="txt-box">Order Confirmation</div>
             </div>
-            <div class="steps-item step-ing">
+            <div class="step-item step-ing">
                 <span class="dot"></span>
                 <i class="line"></i>
                 <div class="txt-box">Payment</div>
             </div>
-            <div class="steps-item">
+            <div class="step-item">
                 <span class="dot"></span>
                 <i class="line"></i>
                 <div class="txt-box">Shipping</div>
             </div>
-            <div class="steps-item">
+            <div class="step-item">
                 <span class="dot"></span>
                 <div class="txt-box">Completed</div>
             </div>
         </div>
 
-        <h3>steps-big with text</h3>
-        <div class="steps steps-big steps-6 cf">
-            <div class="steps-item step-ed">
+        <h3>step-big with text</h3>
+        <div class="step step-big step-6 cf">
+            <div class="step-item step-ed">
                 <a href="" class="dot">1</a>
                 <i class="line"></i>
                 <div class="txt-box">Messages</div>
             </div>
-            <div class="steps-item step-ed">
+            <div class="step-item step-ed">
                 <a href="" class="dot">2</a>
                 <i class="line"></i>
                 <div class="txt-box">Order Confirmation</div>
             </div>
-            <div class="steps-item step-ing">
+            <div class="step-item step-ing">
                 <a href="" class="dot">3</a>
                 <i class="line"></i>
                 <div class="txt-box">Payment</div>
             </div>
-            <div class="steps-item">
+            <div class="step-item">
                 <a href="" class="dot">4</a>
                 <i class="line"></i>
                 <div class="txt-box">Shipping</div>
             </div>
-            <div class="steps-item">
+            <div class="step-item">
                 <a href="" class="dot">5</a>
                 <i class="line"></i>
                 <div class="txt-box">Shipping</div>
             </div>
-            <div class="steps-item">
+            <div class="step-item">
                 <a href="" class="dot">6</a>
                 <div class="txt-box">Completed</div>
             </div>
@@ -248,7 +252,7 @@
 
                 <div class="ft-inner">
                     <div class="ft-arr"></div>
-                    <p class="ft-txt">选择需要编辑的页面选择需要编辑的页面选择需要编辑的页面</p>
+                    <p class="ft-txt"></p>
                     <div class="ft-btnwrap cf">
                         <button class="tour-btn">下一步</button>
 
@@ -267,5 +271,11 @@
 
     <script src="dist/js/jquery-1.11.1.min.js"></script>
     <script src="dist/js/funcTour.js"></script>
+    <script>
+        var tour = new FuncTour();
+        $('.J-beginTour').click(function () {
+            tour.beginTour();
+        })
+    </script>
 </body>
 </html>

@@ -1,13 +1,13 @@
 
-$steps-clr-ed:              #00bf00;
-$steps-clr-normal:          #ced3d9;
-$steps-clr-ing:             #009900;
-$steps-clr-normal-hover:    #b6babf;
-$steps-clr-ed-hover:        #00a600;
+$step-clr-ed:              #00bf00;
+$step-clr-normal:          #ced3d9;
+$step-clr-ing:             #009900;
+$step-clr-normal-hover:    #b6babf;
+$step-clr-ed-hover:        #00a600;
 
-.steps{
+.step{
     margin: 30px -10px;
-    .steps-item{
+    .step-item{
         float: left;
         min-height:15px;
         position: relative;
@@ -15,7 +15,7 @@ $steps-clr-ed-hover:        #00a600;
             display: block;
             position: absolute;
             left: 50%;
-            background: $steps-clr-normal;
+            background: $step-clr-normal;
         }
         .dot{
             top:0;
@@ -40,7 +40,7 @@ $steps-clr-ed-hover:        #00a600;
     }
     .step-ed{
         .dot,.line{
-            background: $steps-clr-ed;
+            background: $step-clr-ed;
         }
         .txt-box{
             color: #555;
@@ -48,7 +48,7 @@ $steps-clr-ed-hover:        #00a600;
     }
     .step-ing{
         .dot{
-            background: $steps-clr-ed;
+            background: $step-clr-ed;
         }
         .txt-box{
             color: #555;
@@ -57,18 +57,18 @@ $steps-clr-ed-hover:        #00a600;
 
 }
 
-$steps : 2;
+$step : 2;
 @for $i from 2 to 7 {
-    .steps-#{$i}{
-        .steps-item{
+    .step-#{$i}{
+        .step-item{
             width: 100%/$i;
         }
     }
-    $steps: $steps + 1;
+    $step: $step + 1;
 }
 
-.steps-big{
-    .steps-item{
+.step-big{
+    .step-item{
         min-height: 30px;
         .dot{
             width: 26px;
@@ -76,14 +76,14 @@ $steps : 2;
             line-height: 26px;
             text-align: center;
             font-size: 18px;
-            color: $steps-clr-normal;
+            color: $step-clr-normal;
             background: #fff;
-            border: 2px solid $steps-clr-normal;
+            border: 2px solid $step-clr-normal;
             margin: 0 0 0 -15px;
             text-decoration: none;
             &:hover{
-                color: $steps-clr-normal-hover;
-                border-color: $steps-clr-normal-hover;
+                color: $step-clr-normal-hover;
+                border-color: $step-clr-normal-hover;
             }
         }
         .line{
@@ -95,20 +95,20 @@ $steps : 2;
     }
     .step-ed{
         .dot{
-            background: $steps-clr-ed;
-            border-color: $steps-clr-ed;
+            background: $step-clr-ed;
+            border-color: $step-clr-ed;
             color: #fff;
             &:hover{
-                background: $steps-clr-ed-hover;
-                border-color: $steps-clr-ed-hover;
+                background: $step-clr-ed-hover;
+                border-color: $step-clr-ed-hover;
                 color: #fff;
             }
         }
     }
     .step-ing{
         .dot,.dot:hover{
-            background: $steps-clr-ing;
-            border-color: $steps-clr-ing;
+            background: $step-clr-ing;
+            border-color: $step-clr-ing;
             color: #fff;
         }
     }
