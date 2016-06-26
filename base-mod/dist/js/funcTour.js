@@ -86,7 +86,7 @@
     };
 
     FuncTour.prototype.tourTo = function (num) {
-        
+        //todo
     }
 
     window.FuncTour = FuncTour;
