@@ -29,7 +29,6 @@
             (item.length<1) && console.error('err');
 
         }
-        _this.tourTo(0);
 
         $tour.on('click','.ft-close',function (e) {
             e.stopPropagation();
