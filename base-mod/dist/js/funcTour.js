@@ -82,17 +82,20 @@
 
 
 
+        setTimeout(function () {
+            if (el_pos ==='static'){
+                $el.css({
+                    'position':'relative',
+                    'z-index': zindex
+                })
+            }else {
+                $el.css({
+                    'z-index': zindex
+                })
+            }
 
-        if (el_pos ==='static'){
-            $el.css({
-                'position':'relative',
-                'z-index': zindex
-            })
-        }else {
-            $el.css({
-                'z-index': zindex
-            })
-        }
+        },400);
+
         $highLight.css({
             width: elInfo.width,
             height: elInfo.height,
