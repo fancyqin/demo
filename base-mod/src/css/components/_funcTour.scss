@@ -71,10 +71,9 @@ $z-in: 100000;
             }
             .tour-btn{
                 float: left;
-                width: 72px;
                 height:30px;
                 margin: 0 10px 0 0;
-                padding: 0;
+                padding: 0 15px;
                 font-size: 12px;
                 line-height: 30px;
                 text-align: center;
@@ -82,6 +81,16 @@ $z-in: 100000;
                 border:0;
                 color: #222;
                 border-radius: 3px;
+            }
+            .ft-close{
+                position: relative;
+                top:auto;
+                right: auto;
+                width: auto;
+            }
+            .main-btn{
+                background: #e64545;
+                color: #fff;
             }
             .tour-dot{
                 float: left;

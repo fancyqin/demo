@@ -10,6 +10,11 @@
     var $tour = $('.J-funcTour');
     var $highLight = $tour.find('.ft-highlight');
     var $txtBox = $tour.find('.ft-txt');
+    var $tourDot = $tour.find('.tour-dot');
+    var $next =  $tour.find('.ft-next');
+    var $prev = $tour.find('.ft-prev');
+    var $done = $tour.find('.ft-done');
+
 
     var FuncTour = function(config){
         var _this = this;
@@ -38,7 +43,23 @@
             var lastNum = _this.lastNum;
             e.stopPropagation();
             e.preventDefault();
-            _this.tourTo(lastNum + 1);
+            (lastNum + 1 != stepNum) && _this.tourTo(lastNum + 1);
+        }).on('click','.ft-prev',function(e){
+            var lastNum = _this.lastNum;
+            e.stopPropagation();
+            e.preventDefault();
+            (lastNum != 0) && _this.tourTo(lastNum - 1);
+        }).on('click','.ft-again',function(e){
+            e.stopPropagation();
+            e.preventDefault();
+            _this.beginTour();
+        })
+
+        $tourDot.on('click','i',function(e){
+            e.stopPropagation();
+            e.preventDefault();
+            var index = $(e.target).index();
+            _this.tourTo(index);
         })
 
     };
@@ -47,6 +68,13 @@
 
     FuncTour.prototype.beginTour = function () {
         this.tourTo(0);
+
+        var stepNum = this.conf.item.length;
+        $tourDot.html('');
+        for (var j = 0;j< stepNum; j++){
+            $tourDot.append('<i></i>')
+        }
+        $tourDot.find('i:first').addClass('on');
         $tour.show();
     };
 
@@ -57,31 +85,45 @@
 
     FuncTour.prototype.tourTo = function (num) {
         var lastNum = this.lastNum;
-
+        var stepNum = this.conf.item.length;
         var items = this.conf.item;
         var item = items[num];
         var $el = $(item[0]);
         var el = $el[0];
         var zindex = this.conf.zindex;
         var txt = item[1] || 'please set some words';
-        var direction = item[2] || 'center bottom';
-        //var el_pos =  (window.getComputedStyle && window.getComputedStyle(el)['position']) || el.currentStyle['position'] || el.style['position'];
+        var direction = item[2] || 'center bottom';//todo
         var el_pos = getCssStyle(el,'position');
-        var el_zindex = getCssStyle(el,'z-index');
+        //var el_zindex = getCssStyle(el,'z-index');
         var elInfo = {
             width :  el.clientWidth,
             height : el.clientHeight,
-            top :el.offsetTop,
-            left : el.offsetLeft
+            top :el.offsetTop || el.offsetParent.offsetTop,
+            left : el.offsetLeft || el.offsetParent.offsetLeft
         };
 
         //clear lastNum styles
         var $lastEl = $(items[lastNum][0]);
-        $lastEl[0].style.zIndex = 0;
-        console.log($lastEl[0].style);
+        $lastEl[0].style.zIndex = 'auto';
+        //console.log($lastEl[0].style);
 
+        //button show hide
+        if (num === 0){
 
+            $next.show();
+            $prev.hide();
+            $done.hide();
+        }else if (num === stepNum - 1){
+            $next.hide();
+            $prev.hide();
+            $done.show();
+        }else{
+            $next.show();
+            $prev.show();
+            $done.hide();
+        }
 
+        //style position
         setTimeout(function () {
             if (el_pos ==='static'){
                 $el.css({
@@ -94,15 +136,22 @@
                 })
             }
 
-        },400);
+        },200);
 
+        //locate
         $highLight.css({
             width: elInfo.width,
             height: elInfo.height,
             top: elInfo.top,
             left: elInfo.left
         });
+
+        $('html,body').animate({scrollTop: el.offsetTop - 50},400);
+
         $txtBox.text(txt);
+
+        $tourDot.find('i').eq(num).addClass('on').siblings().removeClass('on');
+
         this.lastNum = num;
     };
 
