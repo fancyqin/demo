@@ -66,6 +66,11 @@
 
     FuncTour.prototype.lastNum = 0;
 
+    FuncTour.prototype.lastCssStyle = {
+        position: '',
+        zIndex:''
+    }
+
     FuncTour.prototype.beginTour = function () {
         this.tourTo(0);
 
@@ -84,7 +89,7 @@
     };
 
     FuncTour.prototype.tourTo = function (num) {
-        var lastNum = this.lastNum;
+
         var stepNum = this.conf.item.length;
         var items = this.conf.item;
         var item = items[num];
@@ -93,8 +98,13 @@
         var zindex = this.conf.zindex;
         var txt = item[1] || 'please set some words';
         var direction = item[2] || 'center bottom';//todo
+
+
+
         var el_pos = getCssStyle(el,'position');
-        //var el_zindex = getCssStyle(el,'z-index');
+        var el_zindex = getCssStyle(el,'z-index');
+
+
         var elInfo = {
             width :  el.clientWidth,
             height : el.clientHeight,
@@ -103,9 +113,11 @@
         };
 
         //clear lastNum styles
+        var lastNum = this.lastNum;
         var $lastEl = $(items[lastNum][0]);
-        $lastEl[0].style.zIndex = 'auto';
-        //console.log($lastEl[0].style);
+
+        $lastEl[0].style.zIndex = this.lastCssStyle.zIndex;
+        $lastEl[0].style.position = this.lastCssStyle.position;
 
         //button show hide
         if (num === 0){
@@ -153,6 +165,8 @@
         $tourDot.find('i').eq(num).addClass('on').siblings().removeClass('on');
 
         this.lastNum = num;
+        this.lastCssStyle.position = el_pos;
+        this.lastCssStyle.zIndex = el_zindex;
     };
 
 
