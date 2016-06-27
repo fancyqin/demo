@@ -1,6 +1,5 @@
 node_modules/
 .sass-cache/
 .idea/
-.map
+*.map
 dist/css
-src/css/*.css

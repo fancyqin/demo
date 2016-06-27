@@ -11,11 +11,11 @@
     <div class="box">
 
         <h2>Tour</h2>
-        <p><button class="J-beginTour">begin TOUR</button></p>
+        <p class="J-step-4"><button class="J-beginTour  J-step-3">begin TOUR</button> 施工中...</p>
         <hr>
         <h2 class="J-step-1">Table</h2>
         <h3>table-base table-hover</h3>
-        <table class="table table-base table-hover">
+        <table class="table table-base table-hover J-step-2">
             <tr>
                 <th width="33%">Tottenham Hotspur</th>
                 <th width="33%">Real Madrid</th>
@@ -60,7 +60,7 @@
                 <td>Luis Suárez</td>
             </tr>
         </table>
-        <h3 class="J-step-2">table-base table-stripe</h3>
+        <h3>table-base table-stripe</h3>
         <table class="table table-base table-stripe">
             <tr>
                 <th>Tottenham Hotspur</th>
@@ -148,7 +148,7 @@
             <a href="">8</a>
             <span class="dot"><i class="micon">&#xe060;</i></span>
             <a href="">999</a>
-            <a href="" class="main">Next <i class="micon">&#xe008;</i></a>
+            <a href="" class="main J-step-5">Next <i class="micon">&#xe008;</i></a>
         </div>
         <h3>simple</h3>
         <div class="pager-simple">
@@ -254,7 +254,7 @@
                     <div class="ft-arr"></div>
                     <p class="ft-txt"></p>
                     <div class="ft-btnwrap cf">
-                        <button class="tour-btn">下一步</button>
+                        <button class="tour-btn ft-next">下一步</button>
 
                         <div class="tour-dot">
                             <i class="on"></i>
@@ -272,7 +272,15 @@
     <script src="dist/js/jquery-1.11.1.min.js"></script>
     <script src="dist/js/funcTour.js"></script>
     <script>
-        var tour = new FuncTour();
+        var tour = new FuncTour({
+            item:[
+                    ['.J-step-1',"啦啦啦啦啦，我是第一步的提示！啦啦啦啦啦，我是第一步的提示！啦啦啦啦啦，我是第一步的提示！"],
+                    ['.J-step-2',"第二步第二步第二步第二步第二步第二步第二步第二步第二步第二步第二步第二步第二步"],
+                    ['.J-step-3'],
+                    ['.J-step-4'],
+                    ['.J-step-5']
+            ]
+        });
         $('.J-beginTour').click(function () {
             tour.beginTour();
         })
