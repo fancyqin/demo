@@ -14,6 +14,7 @@
     var $next =  $tour.find('.ft-next');
     var $prev = $tour.find('.ft-prev');
     var $done = $tour.find('.ft-done');
+    var $inner = $tour.find('.ft-inner');
 
 
     var FuncTour = function(config){
@@ -97,7 +98,49 @@
         var el = $el[0];
         var zindex = this.conf.zindex;
         var txt = item[1] || 'please set some words';
-        var direction = item[2] || 'center bottom';//todo
+        var dir = item[2] || 'center bottom';
+
+        $inner.removeClass(function(num,cls){
+            var arr = cls.split(' ');
+            var reg = /^ft-dir-/;
+            var delCls = '';
+            for (var k = 0;k< arr.length;k++){
+                if (reg.test(arr[k])){
+                    delCls = delCls + ' '+ arr[k]
+                }
+            }
+            return delCls;
+        });
+
+        switch (dir){
+            case 'center top':
+                $inner.addClass('ft-dir-ct');
+                break;
+            case 'center bottom':
+                $inner.addClass('ft-dir-cb');
+                break;
+            case 'left top':
+                $inner.addClass('ft-dir-lt');
+                break;
+            case 'left center':
+                $inner.addClass('ft-dir-lc');
+                break;
+            case 'left bottom':
+                $inner.addClass('ft-dir-lb');
+                break;
+            case 'right top':
+                $inner.addClass('ft-dir-rt');
+                break;
+            case 'right center':
+                $inner.addClass('ft-dir-rc');
+                break;
+            case 'right bottom':
+                $inner.addClass('ft-dir-rb');
+                break;
+            default:
+                $inner.addClass('ft-dir-cb');
+                break;
+        }
 
 
 
@@ -118,6 +161,7 @@
 
         $lastEl[0].style.zIndex = this.lastCssStyle.zIndex;
         $lastEl[0].style.position = this.lastCssStyle.position;
+
 
         //button show hide
         if (num === 0){

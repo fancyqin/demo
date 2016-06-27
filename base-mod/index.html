@@ -15,7 +15,7 @@
         <hr>
         <h2 class="J-step-1">Table</h2>
         <h3>table-base table-hover</h3>
-        <table class="table table-base table-hover J-step-2">
+        <table class="table table-base    table-hover J-step-2">
             <tr>
                 <th width="33%">Tottenham Hotspur</th>
                 <th width="33%">Real Madrid</th>
@@ -270,16 +270,17 @@
     <script>
         var tour = new FuncTour({
             item:[
-                    ['.J-step-1','啦啦啦啦啦，我是第一步的提示！啦啦啦啦啦，我是第一步的提示！啦啦啦啦啦，我是第一步的提示！'],
-                    ['.J-step-2','第二步第二步第二步第二步第二步第二步第二步第二步第二步第二步第二步第二步第二步'],
-                    ['.J-step-3','第三步第三步第三步'],
-                    ['.J-step-4','第四步第四步第四步'],
-                    ['.J-step-5','第五步第五步第五步']
+                    ['.J-step-1','啦啦啦啦啦，我是第一步的提示！啦啦啦啦啦，我是第一步的提示！','left bottom'],
+                    ['.J-step-2','第二步第二步第二步第二步第二步第二步第二步第二步第二步第二步'],
+                    ['.J-step-3','第三步第三步第三步','right center'],
+                    ['.J-step-4','第四步第四步第四步','right bottom'],
+                    ['.J-step-5','第五步第五步第五步','center top']
             ]
         });
         $('.J-beginTour').click(function () {
             tour.beginTour();
         })
+
     </script>
 </body>
 </html>
