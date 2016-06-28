@@ -20,20 +20,10 @@
         var _this = this;
         this.conf = $.extend(defaults,config);
         var items = this.conf.item;
-        var zindex = this.conf.zindex;
         var stepNum = items.length;
 
-        var w_w =  document.body.clientWidth ;
-        var w_h = window.innerHeight;
+        (stepNum < 1) && console.error('please set configs');
 
-        (stepNum < 1) && console.error('err');
-
-
-        for (var i = 0;i<stepNum;i++){
-            var item =  items[i];
-            (item.length<1) && console.error('err');
-
-        }
 
         $tour.on('click','.ft-close',function (e) {
             e.stopPropagation();
@@ -91,7 +81,6 @@
     };
 
     FuncTour.prototype.closeTour = function () {
-        console.log(this.conf);
         $tour.hide();
         //clear lastNum styles
         this.clearLastStyle();
@@ -210,8 +199,8 @@
     };
 
 
-    function getCssStyle(el,attr){
-        var attr = attr.toString();
+    function getCssStyle(el,attri){
+        var attr = attri.toString();
         var value = (window.getComputedStyle && window.getComputedStyle(el)[attr]) || el.currentStyle[attr] || el.style[attr];
         return value;
     }
