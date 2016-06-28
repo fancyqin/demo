@@ -8,14 +8,13 @@
         zindex: 100000
     };
     var $tour = $('.J-funcTour');
-    var $highLight = $tour.find('.ft-highlight');
+    var $layer = $tour.find('.ft-layer');
     var $txtBox = $tour.find('.ft-txt');
     var $tourDot = $tour.find('.tour-dot');
     var $next =  $tour.find('.ft-next');
     var $prev = $tour.find('.ft-prev');
     var $done = $tour.find('.ft-done');
     var $inner = $tour.find('.ft-inner');
-
 
     var FuncTour = function(config){
         var _this = this;
@@ -54,7 +53,7 @@
             e.stopPropagation();
             e.preventDefault();
             _this.beginTour();
-        })
+        });
 
         $tourDot.on('click','i',function(e){
             e.stopPropagation();
@@ -70,8 +69,15 @@
     FuncTour.prototype.lastCssStyle = {
         position: '',
         zIndex:''
-    }
+    };
+    FuncTour.prototype.clearLastStyle = function(){
+        var items = this.conf.item;
+        var lastNum = this.lastNum;
+        var $lastEl = $(items[lastNum][0]);
 
+        $lastEl[0].style.zIndex = this.lastCssStyle.zIndex;
+        $lastEl[0].style.position = this.lastCssStyle.position;
+    };
     FuncTour.prototype.beginTour = function () {
         this.tourTo(0);
 
@@ -87,6 +93,9 @@
     FuncTour.prototype.closeTour = function () {
         console.log(this.conf);
         $tour.hide();
+        //clear lastNum styles
+        this.clearLastStyle();
+
     };
 
     FuncTour.prototype.tourTo = function (num) {
@@ -110,58 +119,46 @@
                 }
             }
             return delCls;
-        });
-
+        }).find('.ft-arr').remove();
+        var arrHtml = '<div class="ft-arr"></div>';
         switch (dir){
             case 'center top':
-                $inner.addClass('ft-dir-ct');
+                $inner.addClass('ft-dir-ct').append(arrHtml);
                 break;
             case 'center bottom':
-                $inner.addClass('ft-dir-cb');
+                $inner.addClass('ft-dir-cb').prepend(arrHtml);
                 break;
             case 'left top':
-                $inner.addClass('ft-dir-lt');
+                $inner.addClass('ft-dir-lt').append(arrHtml);
                 break;
             case 'left center':
-                $inner.addClass('ft-dir-lc');
+                $inner.addClass('ft-dir-lc').prepend(arrHtml);
                 break;
             case 'left bottom':
-                $inner.addClass('ft-dir-lb');
+                $inner.addClass('ft-dir-lb').prepend(arrHtml);
                 break;
             case 'right top':
-                $inner.addClass('ft-dir-rt');
+                $inner.addClass('ft-dir-rt').append(arrHtml);
                 break;
             case 'right center':
-                $inner.addClass('ft-dir-rc');
+                $inner.addClass('ft-dir-rc').prepend(arrHtml);
                 break;
             case 'right bottom':
-                $inner.addClass('ft-dir-rb');
+                $inner.addClass('ft-dir-rb').prepend(arrHtml);
                 break;
             default:
-                $inner.addClass('ft-dir-cb');
+                $inner.addClass('ft-dir-cb').prepend(arrHtml);
                 break;
         }
-
 
 
         var el_pos = getCssStyle(el,'position');
         var el_zindex = getCssStyle(el,'z-index');
 
 
-        var elInfo = {
-            width :  el.clientWidth,
-            height : el.clientHeight,
-            top :el.offsetTop || el.offsetParent.offsetTop,
-            left : el.offsetLeft || el.offsetParent.offsetLeft
-        };
 
         //clear lastNum styles
-        var lastNum = this.lastNum;
-        var $lastEl = $(items[lastNum][0]);
-
-        $lastEl[0].style.zIndex = this.lastCssStyle.zIndex;
-        $lastEl[0].style.position = this.lastCssStyle.position;
-
+        this.clearLastStyle();
 
         //button show hide
         if (num === 0){
@@ -195,14 +192,13 @@
         },200);
 
         //locate
-        $highLight.css({
-            width: elInfo.width,
-            height: elInfo.height,
-            top: elInfo.top,
-            left: elInfo.left
+        setLayerLocation(el);
+        $(window).resize(function(){
+            setLayerLocation(el);
         });
 
-        $('html,body').animate({scrollTop: el.offsetTop - 50},400);
+
+        $('html,body').animate({scrollTop: el.offsetTop - 200},400);
 
         $txtBox.text(txt);
 
@@ -218,6 +214,21 @@
         var attr = attr.toString();
         var value = (window.getComputedStyle && window.getComputedStyle(el)[attr]) || el.currentStyle[attr] || el.style[attr];
         return value;
+    }
+
+    function setLayerLocation(el){
+        var elInfo = {
+            width :  el.clientWidth,
+            height : el.clientHeight,
+            top :el.offsetTop || el.offsetParent.offsetTop,
+            left : el.offsetLeft || el.offsetParent.offsetLeft
+        };
+        $layer.css({
+            width: elInfo.width + 20,
+            height: elInfo.height + 20,
+            top: elInfo.top - 10,
+            left: elInfo.left - 10
+        });
     }
 
     window.FuncTour = FuncTour;

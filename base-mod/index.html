@@ -138,10 +138,10 @@
         <h3>normal</h3>
         <div class="pager">
             <a href="" disabled><i class="micon">&#xe009;</i></a>
-            <a href="">1</a>
+            <a class="J-step-6" href="">1</a>
             <a href="">2</a>
-            <a href="">3</a>
-            <a href="">4</a>
+            <a class="J-step-7" href="">3</a>
+            <a class="J-step-8" href="">4</a>
             <span class="current">5</span>
             <a href="">6</a>
             <a href="">7</a>
@@ -246,19 +246,22 @@
 
     <div class="func-tour J-funcTour">
         <div class="ft-cover"></div>
-        <div class="ft-highlight">
+        <div class="ft-layer ft-highlight"></div>
+        <div class="ft-layer">
+            <div class="ft-fake-layer"></div>
             <div class="ft-box">
                 <i class="ft-close micon">&#xe00c;</i>
 
                 <div class="ft-inner">
-                    <div class="ft-arr"></div>
-                    <p class="ft-txt"></p>
-                    <div class="ft-btnwrap cf">
-                        <button class="tour-btn ft-prev">上一步</button>
-                        <button class="tour-btn ft-next">下一步</button>
-                        <button class="tour-btn main-btn ft-done ft-close">完成</button>
-                        <button class="tour-btn ft-done ft-again">再看一遍</button>
-                        <div class="tour-dot"></div>
+                    <div class="ft-words">
+                        <p class="ft-txt"></p>
+                        <div class="ft-btnwrap cf">
+                            <button class="tour-btn ft-prev">上一步</button>
+                            <button class="tour-btn ft-next">下一步</button>
+                            <button class="tour-btn main-btn ft-done ft-close">完成</button>
+                            <button class="tour-btn ft-done ft-again">再看一遍</button>
+                            <div class="tour-dot"></div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -272,9 +275,12 @@
             item:[
                     ['.J-step-1','啦啦啦啦啦，我是第一步的提示！啦啦啦啦啦，我是第一步的提示！','left bottom'],
                     ['.J-step-2','第二步第二步第二步第二步第二步第二步第二步第二步第二步第二步'],
-                    ['.J-step-3','第三步第三步第三步','right center'],
-                    ['.J-step-4','第四步第四步第四步','right bottom'],
-                    ['.J-step-5','第五步第五步第五步','center top']
+                    ['.J-step-3','第三步第三步第三步第三步第三步第三步','right center'],
+                    ['.J-step-4','第四步第四步第四步第四步第四步第四步','right bottom'],
+                    ['.J-step-5','第五步第五步第五步第五步第五步第五步','center top'],
+                    ['.J-step-6','第六步第六步第六步第六步第六步第六步','left top'],
+                    ['.J-step-7','第七步第七步第七步第七步第七步第七步','left center'],
+                    ['.J-step-8','第八步第八步第八步第八步第八步第八步','right top']
             ]
         });
         $('.J-beginTour').click(function () {
