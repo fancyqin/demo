@@ -448,8 +448,12 @@ $('.J-catalogPop').on('click','.J-catAuthority-country .del',function(e){
             cacheData['countryCounts'][region] --;
 
             $target.closest('.country-item').remove();
-            //todo
-            var vl = $('#countrysCanot').val().replace(/@Argentina@/g, "@")
+            var countryReg = cacheData['continentRegionMap'][region][country]['countryRegion'];
+            var reg =  RegExp("@"+ countryReg +"@",'g');
+            var reg_begin = RegExp('^'+ countryReg +'@','g');
+            var reg_end = RegExp('@'+ countryReg +'$','g');
+            var vl = $('#countrysCanot').val().replace(reg, "@").replace(reg_begin,'').replace(reg_end,'');
+
             $('#countrysCanot').val(vl);
 
             //todo
