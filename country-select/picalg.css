@@ -316,8 +316,8 @@ h1, h2, h3, h4, h5, h6 {
 */
 @font-face {
   font-family: 'Micon';
-  src: url("//www.micstatic.com:2001/gb/font/micon.eot?v=20140312");
-  src: url("//www.micstatic.com:2001/gb/font/micon.eot?#iefix&v=20140312") format("embedded-opentype"), url("//www.micstatic.com:2001/gb/font/micon.woff?v=20140312") format("woff"), url("//www.micstatic.com:2001/gb/font/micon.ttf?v=20140312") format("truetype");
+  src: url("http://www.micstatic.com/gb/font/micon.eot?v=20140312");
+  src: url("http://www.micstatic.com/gb/font/micon.eot?#iefix&v=20140312") format("embedded-opentype"), url("http://www.micstatic.com/gb/font/micon.woff?v=20140312") format("woff"), url("http://www.micstatic.com/gb/font/micon.ttf?v=20140312") format("truetype");
   font-weight: normal;
   font-style: normal;
 }
@@ -347,8 +347,8 @@ h1, h2, h3, h4, h5, h6 {
 */
 @font-face {
   font-family: 'Mic-icon';
-  src: url("//www.micstatic.com:2001/gb/font/micon2.eot?v=20160408");
-  src: url("//www.micstatic.com:2001/gb/font/micon2.eot?#iefix&v=20160408") format("embedded-opentype"), url("//www.micstatic.com:2001/gb/font/micon2.woff?v=20160408") format("woff"), url("//www.micstatic.com:2001/gb/font/micon2.ttf?v=20160408") format("truetype");
+  src: url("http://www.micstatic.com/gb/font/micon2.eot?v=20160408");
+  src: url("http://www.micstatic.com/gb/font/micon2.eot?#iefix&v=20160408") format("embedded-opentype"), url("http://www.micstatic.com/gb/font/micon2.woff?v=20160408") format("woff"), url("http://www.micstatic.com/gb/font/micon2.ttf?v=20160408") format("truetype");
   font-weight: normal;
   font-style: normal;
 }
@@ -430,35 +430,6 @@ h1, h2, h3, h4, h5, h6 {
   *vertical-align: middle;
   *display: inline;
   *zoom: 1;
-}
-
-/*
-*@module: font-icon
-*@Author: Jc 2016-01-26
-*@Update: Jc 2016-01-26
-*/
-@font-face {
-  font-family: 'Mic-icon';
-  src: url("//www.micstatic.com:2001/gb/font/micon2.eot?v=20160408");
-  src: url("//www.micstatic.com:2001/gb/font/micon2.eot?#iefix&v=20160408") format("embedded-opentype"), url("//www.micstatic.com:2001/gb/font/micon2.woff?v=20160408") format("woff"), url("//www.micstatic.com:2001/gb/font/micon2.ttf?v=20160408") format("truetype");
-  font-weight: normal;
-  font-style: normal;
-}
-
-.micon {
-  font-family: 'Mic-icon';
-  font-weight: normal;
-  font-style: normal;
-  text-decoration: inherit;
-  -webkit-font-smoothing: antialiased;
-  display: inline-block;
-  *display: inline;
-  *zoom: 1;
-  font-size: 16px;
-  line-height: 1;
-  margin-right: 5px;
-  vertical-align: middle;
-  text-decoration: none !important;
 }
 
 /*
@@ -561,7 +532,7 @@ h1, h2, h3, h4, h5, h6 {
   float: left;
   margin-left: -1px;
   padding: 0 10px;
-  background: url(//www.micstatic.com:2001/gb/img/icon/sep-line.png) right 50% no-repeat;
+  background: url(http://www.micstatic.com/gb/img/icon/sep-line.png) right 50% no-repeat;
 }
 
 #top .dropmenu {
@@ -657,7 +628,7 @@ h1, h2, h3, h4, h5, h6 {
 
 #top .quick-nav .dropmenu-list a {
   width: 155px;
-  background: url(//www.micstatic.com:2001/gb/img/icon/li-dot.png) 10px 50% no-repeat;
+  background: url(http://www.micstatic.com/gb/img/icon/li-dot.png) 10px 50% no-repeat;
   padding: 0 10px 0 20px;
 }
 
@@ -665,7 +636,7 @@ h1, h2, h3, h4, h5, h6 {
   color: #fff;
   width: 156px;
   padding: 0 10px 0 21px;
-  background: #807474 url(//www.micstatic.com:2001/gb/img/icon/li-dot-reverse.png) 11px 50% no-repeat;
+  background: #807474 url(http://www.micstatic.com/gb/img/icon/li-dot-reverse.png) 11px 50% no-repeat;
 }
 
 #top .quick-nav dl {
@@ -705,7 +676,7 @@ h1, h2, h3, h4, h5, h6 {
   display: block;
   width: 224px;
   height: 55px;
-  background-image: url(//www.micstatic.com:2001/gb/img/logo.png);
+  background-image: url(http://www.micstatic.com/gb/img/logo.png);
   text-indent: -999px;
   overflow: hidden;
 }
@@ -1345,7 +1316,7 @@ textarea {
 
 .form input.input-date {
   width: 98px;
-  background: url(//www.micstatic.com:2001/gb/img/icon/year.gif) #fff no-repeat 90px 4px;
+  background: url(http://www.micstatic.com/gb/img/icon/year.gif) #fff no-repeat 90px 4px;
   cursor: pointer;
 }
 
@@ -2460,7 +2431,7 @@ textarea {
   margin-right: 5px;
   width: 12px;
   height: 12px;
-  background: url(//www.micstatic.com:2001/mir/img/bg-ico.png) no-repeat;
+  background: url(http://www.micstatic.com/mir/img/bg-ico.png) no-repeat;
   vertical-align: top;
   margin-top: 2px;
 }
