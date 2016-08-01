@@ -52,17 +52,16 @@ void function () {
                     }
                 }
             };
-        var cacheData = this.cacheData,
-            selectedRegion = this.selectedRegion,
-            selectingData = this.selectingData;
+
+
 
         assignLang = assignLang[($('#lanCode').val() === '1' ? 'zh-CN' : 'en-US')];
         initPage();
 
         function getCountryList(cb, operatorNo) {
-            if (cacheData) {
-                cb && cb(cacheData);
-                return cacheData;
+            if (_this.cacheData) {
+                cb && cb(_this.cacheData);
+                return _this.cacheData;
             }
 
             $.ajax({
@@ -74,21 +73,23 @@ void function () {
                 success:function (contries){
                     if (!contries) {
                         alert('Query Data Error.');
-                        cacheData = null;
+                        _this.cacheData = null;
                         return false;
                     }
-                    cacheData = contries;
+                    _this.cacheData = contries;
                     cb && cb(contries);
                 },
                 error:function(error){
                     alert('Query Data Error.');
-                    cacheData = null;
+                    _this.cacheData = null;
                 }
             });
         }
 
         function initPage() {
-
+            _this.cacheData = null;
+            _this.selectedRegion = null;
+            _this.selectingData = null;
             var operatorNo = null,
                 userName = null,
                 countryDialog = null;
@@ -98,11 +99,7 @@ void function () {
             $(wrapEl).on('click',addEl, function(e) {
 
 
-                //todo
 
-                //cacheData = _this.cacheData;
-                //selectedRegion = _this.selectedRegion;
-                //selectingData = _this.selectingData;
 
                 e.preventDefault();
                 editCountry();
@@ -111,6 +108,7 @@ void function () {
 
 
             function editCountry() {
+                //todo
                 getCountryList(function(json) {
 
                     countryDialog = art.dialog({
@@ -120,11 +118,11 @@ void function () {
                         width : 800,
                         height : 510,
                         lock : true,
-                        content : viewCountryList(json, selectedRegion),
+                        content : viewCountryList(json, _this.selectedRegion),
                         init : initDialog,
                         ok : function() {
                             saveCache(this.content());
-                            var regions = cacheData['continentRegionMap'],
+                            var regions = _this.cacheData['continentRegionMap'],
                                 data = [],
                                 region, country, countries;
 
@@ -154,11 +152,11 @@ void function () {
                             postData(data.join('@'));
                         },
                         cancel: function(){
-                            cacheData = JSON.parse(selectingData);
+                            _this.cacheData = JSON.parse(_this.selectingData);
                         },
                         close : function() {
                             countryDialog = null;
-                            //countryDialog = cacheData = null;
+                            //countryDialog = _this.cacheData = null;
                         }
                     });
                 }, operatorNo);
@@ -190,22 +188,21 @@ void function () {
                 selectedAll = $('.J-checkedAll', content),
                 action = $('.J-action', content),
                 allCount = $('.J-counts', content);
-            console.log(cacheData);
-            selectingData = JSON.stringify(cacheData);
-            selectedRegion = tabs.find('.active').attr('data-region');
+            _this.selectingData = JSON.stringify(_this.cacheData);
+            _this.selectedRegion = tabs.find('.active').attr('data-region');
 
             tabs.find('a').bind('click', function(e) {
-                if (!cacheData) return;
+                if (!_this.cacheData) return;
                 var args = { 'tab' : 'none', 'action' : 'none' };
                 tabs.find('a').removeClass('active');
                 $(this).addClass('active');
-                selectedRegion = $(this).attr('data-region');
+                _this.selectedRegion = $(this).attr('data-region');
 
                 if ($(this).attr('data-flag')) {
                     args.check = 'none';
                 }
 
-                lists.html(viewCountryList(cacheData, selectedRegion, args));
+                lists.html(viewCountryList(_this.cacheData, _this.selectedRegion, args));
                 if (!args.check) {
                     saveCache(content)
                 }
@@ -252,7 +249,7 @@ void function () {
                     selectedAll.attr('checked', false);
                 }
 
-                var region = cacheData['countryCounts'];
+                var region = _this.cacheData['countryCounts'];
                 var thisRegion = tabs.find('.item.active').attr('data-region');
                 region[thisRegion] = lists.find('input[type=checkbox]:checked').length;
 
@@ -262,7 +259,7 @@ void function () {
 
             function updateCache() {
                 var items = lists.find('input[type=checkbox]:checked'),
-                    countries = cacheData['continentRegionMap'][selectedRegion],
+                    countries = _this.cacheData['continentRegionMap'][_this.selectedRegion],
                     i = 0,
                     j = 0;
 
@@ -380,7 +377,7 @@ void function () {
             var region = $target.attr('region');
             var ctry = $target.attr('country-simple');
 
-            var countries = cacheData['continentRegionMap'][region];
+            var countries = _this.cacheData['continentRegionMap'][region];
 
             var country,delItem;
 
@@ -390,11 +387,11 @@ void function () {
                     delItem = countries[country];
 
 
-                    cacheData['continentRegionMap'][region][country]['myChecked'] = "";
-                    cacheData['countryCounts'][region] --;
+                    _this.cacheData['continentRegionMap'][region][country]['myChecked'] = "";
+                    _this.cacheData['countryCounts'][region] --;
 
                     $target.closest('.country-item').remove();
-                    var countryReg = cacheData['continentRegionMap'][region][country]['countryRegion'];
+                    var countryReg = _this.cacheData['continentRegionMap'][region][country]['countryRegion'];
                     var reg =  RegExp("@"+ countryReg +"@",'g');
                     var reg_begin = RegExp('^'+ countryReg +'@','g');
                     var reg_end = RegExp('@'+ countryReg +'$','g');
@@ -413,9 +410,7 @@ void function () {
     };
 
     SelectCountry.prototype = {
-        cacheData: null,
-        selectedRegion: null,
-        selectingData: null,
+
         reset: function(){
             this.cacheData = null;
             this.selectedRegion = null;
@@ -457,6 +452,10 @@ $(function () {
         inputEl:'#countrysCan'
 
     });
+
+    $('.J-reset-1').click(function () {
+        aa.reset();
+    })
 });
 
 
