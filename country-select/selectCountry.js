@@ -11,49 +11,50 @@ void function () {
 
 
     var SelectCountry = function (config) {
+        var _this = this;
         this.conf = $.extend(defaults,config);
 
-        var wrapEl = this.conf.wrapEl;
-        var addEl = this.conf.addEl;
-        var inputEl = this.conf.inputEl;
-        var innerEl = this.conf.innerEl;
-        var assignLang = {
-            'zh-CN': {
-                'artDialog': {
-                    title: '选择国家/地区',
-                    edit: '修改',
-                    save: '保存',
-                    cancel: '取消'
+        var wrapEl = this.conf.wrapEl,
+            addEl = this.conf.addEl,
+            inputEl = this.conf.inputEl,
+            innerEl = this.conf.innerEl,
+            assignLang = {
+                'zh-CN': {
+                    'artDialog': {
+                        title: '选择国家/地区',
+                        edit: '修改',
+                        save: '保存',
+                        cancel: '取消'
+                    },
+                    confirmTip: '您确定要清空{userName}的国家/地区吗？',
+                    assignTip: '表示已分配',
+                    selectedAll: '全选',
+                    'prompt': {
+                        changeAssignSucc: '国家/地区负责人修改成功！',
+                        changeAssignErr: '系统错误！',
+                        assign: '已分配给'
+                    }
                 },
-                confirmTip: '您确定要清空{userName}的国家/地区吗？',
-                assignTip: '表示已分配',
-                selectedAll: '全选',
-                'prompt': {
-                    changeAssignSucc: '国家/地区负责人修改成功！',
-                    changeAssignErr: '系统错误！',
-                    assign: '已分配给'
+                'en-US': {
+                    'artDialog': {
+                        title: 'xxx todo',
+                        edit: 'Edit',
+                        save: 'Save',
+                        cancel: 'Cancel'
+                    },
+                    confirmTip: "Are you sure to clear {userName}'s country/region?",
+                    assignTip: 'is Already Assigned',
+                    selectedAll: 'Select All',
+                    'prompt': {
+                        changeAssignSucc: 'Person in charge of country/region  changed successfully.',
+                        changeAssignErr: 'System Error.',
+                        assign: 'Assigned to '
+                    }
                 }
-            },
-            'en-US': {
-                'artDialog': {
-                    title: 'xxx todo',
-                    edit: 'Edit',
-                    save: 'Save',
-                    cancel: 'Cancel'
-                },
-                confirmTip: "Are you sure to clear {userName}'s country/region?",
-                assignTip: 'is Already Assigned',
-                selectedAll: 'Select All',
-                'prompt': {
-                    changeAssignSucc: 'Person in charge of country/region  changed successfully.',
-                    changeAssignErr: 'System Error.',
-                    assign: 'Assigned to '
-                }
-            }
-        };
-        var cacheData = null,
-            selectedRegion = null,
-            selectingData = null;
+            };
+        var cacheData = this.cacheData,
+            selectedRegion = this.selectedRegion,
+            selectingData = this.selectingData;
 
         assignLang = assignLang[($('#lanCode').val() === '1' ? 'zh-CN' : 'en-US')];
         initPage();
@@ -66,6 +67,7 @@ void function () {
 
             $.ajax({
                 type: "GET",
+                cache: false,
                 async: true,
                 datatype: "json",
                 url: "country.json",
@@ -86,6 +88,7 @@ void function () {
         }
 
         function initPage() {
+
             var operatorNo = null,
                 userName = null,
                 countryDialog = null;
@@ -93,6 +96,13 @@ void function () {
             var country;
 
             $(wrapEl).on('click',addEl, function(e) {
+
+
+                //todo
+
+                //cacheData = _this.cacheData;
+                //selectedRegion = _this.selectedRegion;
+                //selectingData = _this.selectingData;
 
                 e.preventDefault();
                 editCountry();
@@ -388,7 +398,8 @@ void function () {
                     var reg =  RegExp("@"+ countryReg +"@",'g');
                     var reg_begin = RegExp('^'+ countryReg +'@','g');
                     var reg_end = RegExp('@'+ countryReg +'$','g');
-                    var vl = $(inputEl).val().replace(reg, "@").replace(reg_begin,'').replace(reg_end,'');
+                    var reg_last = RegExp('^'+ countryReg +'$', 'g');
+                    var vl = $(inputEl).val().replace(reg, "@").replace(reg_begin,'').replace(reg_end,'').replace(reg_last,'');
 
                     $(inputEl).val(vl);
 
@@ -399,7 +410,21 @@ void function () {
 
         });
 
+    };
+
+    SelectCountry.prototype = {
+        cacheData: null,
+        selectedRegion: null,
+        selectingData: null,
+        reset: function(){
+            this.cacheData = null;
+            this.selectedRegion = null;
+            this.selectingData = null;
+        }
     }
+
+
+
 
     window.SelectCountry = SelectCountry;
 
@@ -407,10 +432,16 @@ void function () {
 }.call(this);
 
 
+
+
+
+
+
+
 $(function () {
 
 
-    new SelectCountry({
+    var aa = new SelectCountry({
         wrapEl:'.J-catalogPop',
         innerEl:'.J-catAuthority-country',
         addEl:'.J-country-add',
@@ -419,7 +450,7 @@ $(function () {
     });
 
 
-    new SelectCountry({
+    var bb = new SelectCountry({
         wrapEl:'.J-catalogPop-2',
         innerEl:'.J-catAuthority-country-2',
         addEl:'.J-country-add-2',
