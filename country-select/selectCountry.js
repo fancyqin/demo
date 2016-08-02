@@ -110,7 +110,7 @@
                 //todo 绑定事件
 
                 //删除
-                $box.bind('click','.J-del', function (e) {
+                $box.on('click','.J-del', function (e) {
                     e.preventDefault();
                     var $target = $(e.target);
                     var region = $target.attr('region');
@@ -134,7 +134,7 @@
                     })
                 });
 
-                $box.bind('click','.J-country-add',function(){
+                $box.on('click','.J-country-add',function(){
                     countryDialog = art.dialog({
                         title : lang.artDialog.title,
                         okVal : lang.artDialog.save,
@@ -142,49 +142,24 @@
                         width : 800,
                         height : 510,
                         lock : true,
-                        content : 'fuck',
+                        content : '获取列表',
                         init : initDialog,
                         ok : function() {
-                            saveCache(this.content());
-                            var regions = _this.cacheData['continentRegionMap'],
-                                data = [],
-                                region, country, countries;
-
-
-                            var $countryBox = $(innerEl);
-                            $countryBox.find('.country-item').remove();
-
-                            for (region in regions) {
-                                countries = regions[region];
-                                for (country in countries) {
-                                    if (countries[country]['myChecked']) {
-                                        data.push(countries[country]['countryRegion']);
-                                        var html = '<div class="country-item flags">' +
-                                            '<span class="flag flag-'+countries[country].simpleCountry.toLowerCase()+'">'
-                                            +countries[country].countryName+'</span>' +
-                                            '<span class="del micon" country-simple="'+ countries[country].simpleCountry +'" region="'+region+'"></span>' +
-                                            '</div>';
-
-                                        $countryBox.find(addEl).before(html);
-
-                                    }
-                                }
-                            }
-
-
-
-                            postData(data.join('@'));
+                            //todo
                         },
                         cancel: function(){
-                            _this.cacheData = JSON.parse(_this.selectingData);
+                            //todo
                         },
                         close : function() {
                             countryDialog = null;
-                            //countryDialog = _this.cacheData = null;
+                            //todo
                         }
                     });
                 });
 
+                function initDialog() {
+                    //todo
+                }
                 
             })
 
