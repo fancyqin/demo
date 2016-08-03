@@ -8,8 +8,7 @@
 
 
     
-    var tmpl = util.templatify(util.tpl("<!--## ContentTop ##-->\r\n<div class=\"form select-country\">\r\n    <div class=\"search J-search\"><input type=\"text\"></div>\r\n    <div class=\"tab-primary J-tab\">\r\n<!--## end ##-->\r\n<!--## ContentCenter ##-->\r\n    </div>\r\n    <div class=\"act J-action\">\r\n        <label class=\"checkbox\">\r\n            <input type=\"checkbox\" class=\"input-checkbox J-checkedAll\" value=\"\">全选\r\n            (<span class=\"J-count\"></span>/<span class=\"J-counts\">56</span>)\r\n        </label>\r\n    </div>\r\n    <div class=\"country-content colspan4 J-lists flags\">\r\n<!--## end ##-->\r\n<!--## ContentBottom ##-->\r\n    </div>\r\n</div>\r\n<!--## end ##-->\r\n\r\n\r\n<!--## countryArea ##-->\r\n<div class=\"country-area J-box\">\r\n    <div class=\"country-add J-country-add\"><i class=\"micon\">&#xe005;</i></div>\r\n</div>\r\n<!--## end ##-->\r\n\r\n<!--## countryItem ##-->\r\n<div class=\"country-item flags\">\r\n    <span class=\"flag flag-{{-flag}}\">{{-countryName}}</span>\r\n    <span class=\"del J-del micon\" country-simple=\"{{-simpleCountry}}\" region=\"{{-region}}\"></span>\r\n</div>\r\n<!--## end ##-->"));
-
+    var tmpl = util.templatify(util.tpl("<!--## ContentTop ##-->\r\n<div class=\"form select-country\">\r\n    <div class=\"search J-search\"><input type=\"text\"></div>\r\n    <div class=\"tab-primary J-tab\">\r\n<!--## end ##-->\r\n<!--## ContentCenter ##-->\r\n    </div>\r\n    <div class=\"act J-action\">\r\n        <label class=\"checkbox\">\r\n            <input type=\"checkbox\" class=\"input-checkbox J-checkedAll\" value=\"\">全选\r\n            (<span class=\"J-count\"></span>/<span class=\"J-counts\">56</span>)\r\n        </label>\r\n    </div>\r\n    <div class=\"country-content colspan4 J-lists flags\">\r\n        <div class=\"search-box J-search-box\"></div>\r\n<!--## end ##-->\r\n<!--## ContentBottom ##-->\r\n    </div>\r\n</div>\r\n<!--## end ##-->\r\n\r\n\r\n<!--## countryArea ##-->\r\n<div class=\"country-area J-box\">\r\n    <div class=\"country-add J-country-add\"><i class=\"micon\">&#xe005;</i></div>\r\n</div>\r\n<!--## end ##-->\r\n\r\n<!--## countryItem ##-->\r\n<div class=\"country-item flags\">\r\n    <span class=\"flag flag-{{-flag}}\">{{-countryName}}</span>\r\n    <span class=\"del J-del micon\" country-simple=\"{{-simpleCountry}}\" region=\"{{-region}}\"></span>\r\n</div>\r\n<!--## end ##-->"));
 
     var defaults = {
         el:'.J-country-select',
@@ -190,7 +189,7 @@
                     lists.find('.countries:first').addClass('active');
                     changeNums(content);
                     tabs.on('click', '.item',function(e) {
-                        var thisRegion = $(e.target).attr('data-region');
+                        var thisRegion = $(this).attr('data-region');
                         tabs.find('.item').removeClass('active');
                         $(e.target).addClass('active');
                         lists.find('.countries').removeClass('active');
@@ -214,33 +213,33 @@
                         changeNums(content);
                     });
 
-                    $search.bind('keyup','input',function(e){
+                    $search.on('keyup','input',function(e){
+
+                        var items =  lists.find('input[type=checkbox]');
                         //todo
-                        var val = $(this).find('input').val();
+                        var val = $(this).val();
                         var reg = RegExp(val, 'gi');
-                        var data = _this.cacheData['continentRegionMap'];
-                        var searchItem;
                         if(val){
                             tabs.hide();
-                            lists.html('');
-                            $.each(data,function(i,n){
-                                $.each(n,function(j,m){
-                                    if(m['countryName'].match(reg)){
-                                        searchItem = m;
-                                        lists.append('<label class="checkbox"><input type="checkbox" class="input-checkbox"'+(m['myChecked'] && 'checked') + ' value="'+ searchItem['countryRegion'] +'"><span class="flag flag-'+ searchItem['simpleCountry'].toLowerCase() +'"></span>'+ searchItem['countryName'] +'</label>')
-                                    }
-                                })
-                            })
+                            lists.find('.active').removeClass('active');
+                            lists.find('.J-search-box').show().html('');
+                            var searchResult;
+                            for (var i=0;i<items.length;i++){
+                                if($(items[i]).val().match(reg)){
+                                    var thisHtml = $(items[i]).closest('.checkbox').prop('outerHTML');
+                                    lists.find('.J-search-box').append(thisHtml);
+                                }
+                            }
+                            // allCount.text(lists.find('.checkbox').length);
+                            // saveCache(content);
 
-                            allCount.text(lists.find('.checkbox').length);
-                            saveCache(content);
 
 
                         }else {
-                            var args = { 'tab' : 'none', 'action' : 'none','search':'none' };
+                            // var args = { 'tab' : 'none', 'action' : 'none','search':'none' };
                             tabs.show();
-                            var region = tabs.find('.item.active').attr('data-region');
-                            lists.html('').html(viewCountryList(_this.cacheData, region ,args));
+                            // var region = tabs.find('.item.active').attr('data-region');
+                            // lists.html('').html(viewCountryList(_this.cacheData, region ,args));
                         }
 
                     })

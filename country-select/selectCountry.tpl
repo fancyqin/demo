@@ -12,6 +12,7 @@
         </label>
     </div>
     <div class="country-content colspan4 J-lists flags">
+        <div class="search-box J-search-box"></div>
 <!--## end ##-->
 <!--## ContentBottom ##-->
     </div>

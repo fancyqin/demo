@@ -10,7 +10,6 @@
     var fs = require('fs');
     var tmpl = util.templatify(util.tpl(fs.readFileSync('./selectCountry.tpl', 'utf-8')));
 
-
     var defaults = {
         el:'.J-country-select',
         input:'#country-select',
@@ -190,7 +189,7 @@
                     lists.find('.countries:first').addClass('active');
                     changeNums(content);
                     tabs.on('click', '.item',function(e) {
-                        var thisRegion = $(e.target).attr('data-region');
+                        var thisRegion = $(this).attr('data-region');
                         tabs.find('.item').removeClass('active');
                         $(e.target).addClass('active');
                         lists.find('.countries').removeClass('active');
@@ -214,33 +213,33 @@
                         changeNums(content);
                     });
 
-                    $search.bind('keyup','input',function(e){
+                    $search.on('keyup','input',function(e){
+
+                        var items =  lists.find('input[type=checkbox]');
                         //todo
-                        var val = $(this).find('input').val();
+                        var val = $(this).val();
                         var reg = RegExp(val, 'gi');
-                        var data = _this.cacheData['continentRegionMap'];
-                        var searchItem;
                         if(val){
                             tabs.hide();
-                            lists.html('');
-                            $.each(data,function(i,n){
-                                $.each(n,function(j,m){
-                                    if(m['countryName'].match(reg)){
-                                        searchItem = m;
-                                        lists.append('<label class="checkbox"><input type="checkbox" class="input-checkbox"'+(m['myChecked'] && 'checked') + ' value="'+ searchItem['countryRegion'] +'"><span class="flag flag-'+ searchItem['simpleCountry'].toLowerCase() +'"></span>'+ searchItem['countryName'] +'</label>')
-                                    }
-                                })
-                            })
+                            lists.find('.active').removeClass('active');
+                            lists.find('.J-search-box').show().html('');
+                            var searchResult;
+                            for (var i=0;i<items.length;i++){
+                                if($(items[i]).val().match(reg)){
+                                    var thisHtml = $(items[i]).closest('.checkbox').prop('outerHTML');
+                                    lists.find('.J-search-box').append(thisHtml);
+                                }
+                            }
+                            // allCount.text(lists.find('.checkbox').length);
+                            // saveCache(content);
 
-                            allCount.text(lists.find('.checkbox').length);
-                            saveCache(content);
 
 
                         }else {
-                            var args = { 'tab' : 'none', 'action' : 'none','search':'none' };
+                            // var args = { 'tab' : 'none', 'action' : 'none','search':'none' };
                             tabs.show();
-                            var region = tabs.find('.item.active').attr('data-region');
-                            lists.html('').html(viewCountryList(_this.cacheData, region ,args));
+                            // var region = tabs.find('.item.active').attr('data-region');
+                            // lists.html('').html(viewCountryList(_this.cacheData, region ,args));
                         }
 
                     })
