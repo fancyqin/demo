@@ -1,0 +1,13 @@
+{
+  "name": "selectCountry",
+  "version": "1.0.0",
+  "description": "",
+  "main": "selectCountry.js",
+  "author": "QF",
+  "license": "MIT",
+  "dependencies": {
+    "gulp": "^3.9.0",
+    "gulp-brfs": "^0.1.0",
+    "gulp-rename": "^1.2.2"
+  }
+}

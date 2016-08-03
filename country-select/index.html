@@ -1,36 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="UTF-8">
-	<title>Document</title>
-	<link rel="stylesheet" href="ecatalogs.css">
-	<link rel="stylesheet" href="picalg.css">
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <link rel="stylesheet" href="ecatalogs.css">
+    <link rel="stylesheet" href="picalg.css">
+    <style>
+
+        .country-content .countries{
+            display: none;
+        }
+        .country-content .active{
+            display: block;
+        }
+    </style>
 </head>
 <body>
-	<input type="hidden" name="lanCode" id="lanCode" value="1"/>
+<input type="hidden" name="lanCode" id="lanCode" value="1"/>
 
-	<div class="J-country-select" style="width: 700px;margin: 100px auto;">
-		<input id="country-select" type="text" name="countrys" value="Aruba@Barbados" style="display: block;">
-	</div>
-	
-	<div><button class="J-reset-1">reset</button></div>
-	
-	<div class="J-catalogPop-2" style="width: 700px;margin: 100px auto;">
-		<div class="country-area J-catAuthority-country-2" data-auth="2" style="">
+<div class="J-country-select" style="width: 700px;margin: 100px auto;">
+    <input id="country-select" type="text" name="countrys" value="Aruba@Barbados@China@Faroe_Islands@Sweden" style="display: block;">
+</div>
 
-			<input id="countrysCan" type="hidden" name="countrys" disabled>
+<div>
+    <button class="J-reset-1">reset</button>
+</div>
 
-			<div class="country-add J-country-add-2">
-				<i class="micon">&#xe005;</i>
-			</div>
-		</div>
-	</div>
+<div class="J-catalogPop-2" style="width: 700px;margin: 100px auto;">
+    <div class="country-area J-catAuthority-country-2" data-auth="2" style="">
 
-	
+        <input id="countrysCan" type="hidden" name="countrys" disabled>
+
+        <div class="country-add J-country-add-2">
+            <i class="micon">&#xe005;</i>
+        </div>
+    </div>
+</div>
 
 
-	<script type="text/javascript" src="jquery.js"></script>
-	<script type="text/javascript" src="artDialog.js"></script>
-	<script type="text/javascript" src="selectCountry.js"></script>
+
+
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="util.js"></script>
+<script type="text/javascript" src="template.js"></script>
+<script type="text/javascript" src="artDialog.js"></script>
+<script type="text/javascript" src="selectCountry.js"></script>
 </body>
 </html>

@@ -7,8 +7,8 @@
 ;void function () {
 
 
-    
-    var tmpl = util.templatify(util.tpl("<!--## ContentTop ##-->\r\n<div class=\"form select-country\">\r\n    <div class=\"search J-search\"><input type=\"text\"></div>\r\n    <div class=\"tab-primary J-tab\">\r\n<!--## end ##-->\r\n<!--## ContentCenter ##-->\r\n    </div>\r\n    <div class=\"act J-action\">\r\n        <label class=\"checkbox\">\r\n            <input type=\"checkbox\" class=\"input-checkbox J-checkedAll\" value=\"\">全选\r\n            (<span class=\"J-count\"></span>/<span class=\"J-counts\">56</span>)\r\n        </label>\r\n    </div>\r\n    <div class=\"country-content colspan4 J-lists flags\">\r\n<!--## end ##-->\r\n<!--## ContentBottom ##-->\r\n    </div>\r\n</div>\r\n<!--## end ##-->\r\n\r\n\r\n<!--## countryArea ##-->\r\n<div class=\"country-area J-box\">\r\n    <div class=\"country-add J-country-add\"><i class=\"micon\">&#xe005;</i></div>\r\n</div>\r\n<!--## end ##-->\r\n\r\n<!--## countryItem ##-->\r\n<div class=\"country-item flags\">\r\n    <span class=\"flag flag-{{-flag}}\">{{-countryName}}</span>\r\n    <span class=\"del J-del micon\" country-simple=\"{{-simpleCountry}}\" region=\"{{-region}}\"></span>\r\n</div>\r\n<!--## end ##-->"));
+    var fs = require('fs');
+    var tmpl = util.templatify(util.tpl(fs.readFileSync('./selectCountry.tpl', 'utf-8')));
 
 
     var defaults = {
