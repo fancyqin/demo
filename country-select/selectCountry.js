@@ -53,7 +53,7 @@
 
 
     var SelectCountry = function (config) {
-        this.conf = $.extend(defaults,config);
+        this.conf = $.extend(true, {}, defaults,config);
         this.data = null;
 
         this.init();
@@ -61,6 +61,11 @@
     };
 
     SelectCountry.prototype = {
+        init: function(){
+            this.renderHtml();
+            this.bindEvent();
+
+        },
         getJSON: function(cb){
             var _this = this;
             var conf = this.conf;
@@ -82,246 +87,52 @@
                 }
             })
         },
-        init: function(){
+        renderHtml: function(){
             var _this = this;
-            this.getJSON(function(json){
+            var el = this.conf.el,
+                input = this.conf.input;
+            this.getJSON(
+                function(json){
 
-                var el = _this.conf.el,
-                    input = _this.conf.input,
-                    lang = _this.conf.lang['zh-CN'];
+                    var inputVal = $(input).val();
+                    var $box,$add;
 
-                var inputVal = $(input).val();
-                var $box,$add;
-                var countryDialog = null;
-                console.log(json);
-                $(el).find('.J-box').remove();
-                // if ($(input).prop('disabled')){
-                //     return false;
-                // }
-                $(input).after(tmpl.countryArea());
+                    $(el).find('.J-box').remove();
+                    // if ($(input).prop('disabled')){
+                    //     return false;
+                    // }
+                    $(input).after(tmpl.countryArea());
 
-                $box = $(el).find('.J-box');
+                    $box = $(el).find('.J-box');
 
-                $add = $box.find('.J-country-add');
+                    $add = $box.find('.J-country-add');
 
-                var inputVals = inputVal.split('@');
+                    var inputVals = inputVal.split('@');
 
-                for (var i = 0;i < inputVals.length;i++){
-                    _this.traversal(json,'countryRegion',inputVals[i],function(country){
+                    for (var i = 0;i < inputVals.length;i++){
+                        _this.traversal(json,'countryRegion',inputVals[i],function(country){
 
-                        var htmlConf = {
-                            'flag':country['simpleCountry'].toLowerCase(),
-                            'countryName': country['countryName'],
-                            'simpleCountry':country['simpleCountry'],
-                            'region':country['countinentRegion']
+                            var htmlConf = {
+                                'flag':country['simpleCountry'].toLowerCase(),
+                                'countryName': country['countryName'],
+                                'simpleCountry':country['simpleCountry'],
+                                'region':country['countinentRegion']
 
-                        };
+                            };
 
-                        country['myChecked'] = true;
-                        var counts = _this.data['countryCounts'][country['countinentRegion']];
-                        if (counts){
-                            _this.data['countryCounts'][country['countinentRegion']]++;
-                        }else {
-                            _this.data['countryCounts'][country['countinentRegion']] = 1;
-                        }
-
-                        $add.before(tmpl.countryItem(htmlConf));
-                    })
-                }
-
-                // 绑定事件
-
-                //删除
-                $(el).on('click','.J-del', function (e) {
-                    e.preventDefault();
-                    var $target = $(e.target);
-                    var region = $target.attr('region');
-                    var ctry = $target.attr('country-simple');
-                    var countries = _this.data['continentRegionMap'][region];
-
-                    $.each(countries,function(i,n){
-                        if (ctry === n['simpleCountry']){
-                            $target.closest('.country-item').remove();
-                            var countryReg = n['countryRegion'];
-
-                            var reg =  RegExp("@"+ countryReg +"@",'g'),
-                                reg_begin = RegExp('^'+ countryReg +'@','g'),
-                                reg_end = RegExp('@'+ countryReg +'$','g'),
-                                reg_last = RegExp('^'+ countryReg +'$', 'g');
-
-                            var vl = $(input).val().replace(reg, "@").replace(reg_begin,'').replace(reg_end,'').replace(reg_last,'');
-
-                            n['myChecked'] = false;
-                            _this.data['countryCounts'][n['countinentRegion']]--;
-                            $(input).val(vl);
-                        }
-                    })
-                });
-                //弹框
-                $(el).on('click','.J-country-add',function(e){
-
-                    console.log(_this.conf.el);
-                    countryDialog = art.dialog({
-                        title : lang.artDialog.title,
-                        okVal : lang.artDialog.save,
-                        cancelVal : lang.artDialog.cancel,
-                        width : 800,
-                        height : 510,
-                        lock : true,
-                        content : getContentList(),
-                        init : initDialog,
-                        ok : function(){
-                            saveData(this.content())
-                        },
-                        cancel: function(){
-                            //todo
-                        },
-                        close : function() {
-                            countryDialog = null;
-                            //todo
-                        }
-                    });
-                });
-
-                //初始化弹框
-                function initDialog() {
-                    var content = this.content();
-                    var tabs = $('.J-tab', content),
-                        lists = $('.J-lists', content),
-                        selectedAll = $('.J-checkedAll', content),
-                        action = $('.J-action', content),
-                        $search = $('.J-search',content);
-                    tabs.find('.item:first').addClass('active');
-                    lists.find('.countries:first').addClass('active');
-                    changeNums(content);
-                    tabs.on('click', '.item',function(e) {
-                        var thisRegion = $(this).attr('data-region');
-                        tabs.find('.item').removeClass('active');
-                        $(e.target).addClass('active');
-                        lists.find('.countries').removeClass('active');
-                        lists.find('.countries[data-region="'+thisRegion+'"]').addClass('active');
-
-                        changeNums(content);
-
-                        e.preventDefault();
-                    });
-
-                    lists.on('change','input[type=checkbox]', function(e) {
-                        changeNums(content);
-
-                    });
-                    selectedAll.on('change',function(){
-                        if ($(this).attr('checked')){
-                            lists.find('.countries.active input[type=checkbox]').attr('checked', true);
-                        }else{
-                            lists.find('.countries.active input[type=checkbox]').attr('checked', false);
-                        }
-                        changeNums(content);
-                    });
-
-                    $search.on('keyup','input',function(e){
-
-                        var items =  lists.find('.countries input[type=checkbox]');
-                        var $search = lists.find('.J-search-box');
-                        //todo
-                        var val = $(this).val();
-                        var reg = RegExp(val, 'gi');
-                        if(val){
-                            tabs.hide();
-                            lists.find('.active').removeClass('active');
-                            $search.addClass('.active').html('');
-                            for (var i=0;i<items.length;i++){
-                                if($(items[i]).val().match(reg)){
-                                    var thisHtml = $(items[i]).closest('.checkbox').prop('outerHTML');
-                                    $search.append(thisHtml);
-                                }
+                            country['myChecked'] = true;
+                            var counts = _this.data['countryCounts'][country['countinentRegion']];
+                            if (counts){
+                                _this.data['countryCounts'][country['countinentRegion']]++;
+                            }else {
+                                _this.data['countryCounts'][country['countinentRegion']] = 1;
                             }
 
-                            changeNums(content);
-
-
-
-                        }else {
-                            // var args = { 'tab' : 'none', 'action' : 'none','search':'none' };
-                            tabs.show();
-                            $search.removeClass('.active');
-
-
-                            // var region = tabs.find('.item.active').attr('data-region');
-                            // lists.html('').html(viewCountryList(_this.cacheData, region ,args));
-                        }
-
-                    })
-
-
-
-
-                }
-
-                //改变已选择数量
-                function changeNums(content){
-                    var tabs = $('.J-tab', content),
-                        lists = $('.J-lists', content),
-                        action = $('.J-action', content),
-                        allCount = $('.J-counts', content),
-                        $search = $('.J-search-box',content);
-                    var thisRegions = lists.find('.active input[type=checkbox]').length;
-                    var thisRegionsSel = lists.find('.active input[type=checkbox]:checked').length;
-                    allCount.html(thisRegions);
-                    tabs.find('.item.active').find('.J-count').html(thisRegionsSel);
-                    action.find('.J-count').html(thisRegionsSel);
-
-                }
-
-                //获取弹框内容
-                function getContentList(){
-                    if (!_this.data){
-                        console.error('widthout data!');
-                        return false;
+                            $add.before(tmpl.countryItem(htmlConf));
+                        })
                     }
-                    var regions =  '',lists = '';
-
-                    $.each(_this.data['continentRegionMap'],function(i,n){
-                        var num = _this.data['countryCounts'][i] || 0;
-                        var middle = '';
-                        regions = regions + '<a class="item" data-region="'+i+'" href="javascript:;">'+i+'(<span class="J-count">'+num+'</span>)</a>'
-
-                        lists = lists + '<div class="countries" data-region="'+i+'">';
-
-                        $.each(n,function(j,m){
-                            middle = middle + '<label class="checkbox"><input type="checkbox" class="input-checkbox" '+ (m['myChecked'] && 'checked') +' value="'+ m['countryRegion']+'"><span class="flag flag-'+m['simpleCountry'].toLowerCase()+'"></span>'+ m['countryName']+'</label>'
-                        });
-                        lists = lists + middle + '</div>'
-
-                    });
-
-                    var html = tmpl.ContentTop() + regions + tmpl.ContentCenter() + lists + tmpl.ContentBottom();
-
-                    return html;
-
                 }
-
-                //提交数据
-                function saveData(content){
-                    var lists = $('.J-lists', content);
-
-                    var postData = [];
-                    var checks = lists.find('.countries input[type=checkbox]:checked');
-                    for(var i = 0;i<checks.length;i++){
-                        $(checks[i]).val() && postData.push($(checks[i]).val());
-
-                    }
-                    $(input).val(postData.join('@'));
-
-                    _this.init();
-
-                }
-
-
-
-
-
-            })
+            )
 
         },
         traversal: function(json,key,value,cb){
@@ -334,14 +145,227 @@
             })
         },
         reset: function(){
-            //todo
+            $(this.conf.input).val('');
+            this.renderHtml();
+        },
+        bindEvent: function(){
+            var _this = this;
+
+            var el = _this.conf.el,
+                input = _this.conf.input,
+                lang = _this.conf.lang['zh-CN'];
+            var countryDialog = null;
+            // 绑定事件
+
+            //删除
+            $(el).on('click','.J-del', function (e) {
+                e.preventDefault();
+                var $target = $(e.target);
+                var region = $target.attr('region');
+                var ctry = $target.attr('country-simple');
+                var countries = _this.data['continentRegionMap'][region];
+
+                $.each(countries,function(i,n){
+                    if (ctry === n['simpleCountry']){
+                        $target.closest('.country-item').remove();
+                        var countryReg = n['countryRegion'];
+
+                        var reg =  RegExp("@"+ countryReg +"@",'g'),
+                            reg_begin = RegExp('^'+ countryReg +'@','g'),
+                            reg_end = RegExp('@'+ countryReg +'$','g'),
+                            reg_last = RegExp('^'+ countryReg +'$', 'g');
+
+                        var vl = $(input).val().replace(reg, "@").replace(reg_begin,'').replace(reg_end,'').replace(reg_last,'');
+
+                        n['myChecked'] = false;
+                        _this.data['countryCounts'][n['countinentRegion']]--;
+                        $(input).val(vl);
+                    }
+                })
+            });
+            //弹框
+            $(el).on('click','.J-country-add',function(e){
+                countryDialog = art.dialog({
+                    title : lang.artDialog.title,
+                    okVal : lang.artDialog.save,
+                    cancelVal : lang.artDialog.cancel,
+                    width : 800,
+                    height : 510,
+                    lock : true,
+                    content : _this.getContentList(),
+                    init : function(){
+                        var content = this.content();
+                        var tabs = $('.J-tab', content),
+                            lists = $('.J-lists', content),
+                            selectedAll = $('.J-checkedAll', content),
+                            action = $('.J-action', content),
+                            $search = $('.J-search',content);
+                        tabs.find('.item:first').addClass('active');
+                        lists.find('.countries:first').addClass('active');
+                        _this.changeNums(content);
+                        _this.bindArtDialogEvent(content);
+                    },
+                    ok : function(){
+                        _this.saveData(this.content())
+                    },
+                    cancel: function(){
+                        //todo
+                    },
+                    close : function() {
+                        countryDialog = null;
+                    }
+                });
+            });
+
+
+        },
+        bindArtDialogEvent: function(content){
+            var _this = this;
+            var tabs = $('.J-tab', content),
+                lists = $('.J-lists', content),
+                selectedAll = $('.J-checkedAll', content),
+                action = $('.J-action', content),
+                $search = $('.J-search',content);
+
+            tabs.on('click', '.item',function(e) {
+                var thisRegion = $(this).attr('data-region');
+                tabs.find('.item').removeClass('active');
+                $(e.target).addClass('active');
+                lists.find('.countries').removeClass('active');
+                lists.find('.countries[data-region="'+thisRegion+'"]').addClass('active');
+
+                _this.changeNums(content);
+
+                e.preventDefault();
+            });
+
+            lists.on('change','input[type=checkbox]', function(e) {
+                _this.changeNums(content);
+
+            });
+            selectedAll.on('change',function(){
+                if ($(this).attr('checked')){
+                    lists.find('.countries.active input[type=checkbox]').attr('checked', true);
+                }else{
+                    lists.find('.countries.active input[type=checkbox]').attr('checked', false);
+                }
+                _this.changeNums(content);
+            });
+
+            $search.on('keyup','input',function(e){
+
+                var items =  lists.find('.countries input[type=checkbox]');
+                var $search = lists.find('.J-search-box');
+                //todo
+                var val = $(this).val();
+                var reg = RegExp(val, 'gi');
+                if(val){
+                    tabs.hide();
+                    lists.find('.active').removeClass('active');
+                    $search.addClass('active').html('');
+                    for (var i=0;i<items.length;i++){
+                        if($(items[i]).val().match(reg)){
+                            var thisHtml = $(items[i]).closest('.checkbox').prop('outerHTML');
+                            $search.append(thisHtml);
+                        }
+                    }
+
+                    _this.changeNums(content);
+
+
+
+                }else {
+
+                    tabs.show();
+                    $search.removeClass('active');
+                    var region = tabs.find('.item.active').attr('data-region');
+
+                    lists.find('.countries[data-region="'+region+'"]').addClass('active');
+
+                    _this.changeNums(content);
+
+                    // var region = tabs.find('.item.active').attr('data-region');
+                    // lists.html('').html(viewCountryList(_this.cacheData, region ,args));
+                }
+
+            })
+        },
+        changeNums: function(content){
+            var tabs = $('.J-tab', content),
+                lists = $('.J-lists', content),
+                action = $('.J-action', content),
+                allCount = $('.J-counts', content);
+            var thisRegions = lists.find('.active input[type=checkbox]').length;
+            var thisRegionsSel = lists.find('.active input[type=checkbox]:checked').length;
+            allCount.html(thisRegions);
+            tabs.find('.item.active').find('.J-count').html(thisRegionsSel);
+            action.find('.J-count').html(thisRegionsSel);
+            if (thisRegions === thisRegionsSel){
+                action.find('.J-checkedAll').attr('checked',true);
+            }else{
+                action.find('.J-checkedAll').attr('checked',false);
+            }
+
+        },
+        getContentList: function(){
+            var _this = this;
+
+            if (!_this.data){
+                console.error('widthout data!');
+                return false;
+            }
+            var regions =  '',lists = '';
+
+            $.each(_this.data['continentRegionMap'],function(i,n){
+                var num = _this.data['countryCounts'][i] || 0;
+                var middle = '';
+                regions = regions + '<a class="item" data-region="'+i+'" href="javascript:;">'+i+'(<span class="J-count">'+num+'</span>)</a>'
+
+                lists = lists + '<div class="countries" data-region="'+i+'">';
+
+                $.each(n,function(j,m){
+                    middle = middle + '<label class="checkbox"><input type="checkbox" class="input-checkbox" '+ (m['myChecked'] && 'checked') +' value="'+ m['countryRegion']+'"><span class="flag flag-'+m['simpleCountry'].toLowerCase()+'"></span>'+ m['countryName']+'</label>'
+                });
+                lists = lists + middle + '</div>'
+
+            });
+
+            var html = tmpl.ContentTop() + regions + tmpl.ContentCenter() + lists + tmpl.ContentBottom();
+
+            return html;
+        },
+        saveData:function (content){
+            var input = this.conf.input;
+            var lists = $('.J-lists', content);
+
+            var postData = [];
+            var checks = lists.find('.countries input[type=checkbox]:checked');
+            for(var i = 0;i<checks.length;i++){
+                $(checks[i]).val() && postData.push($(checks[i]).val());
+
+            }
+            $(input).val(postData.join('@'));
+
+            this.renderHtml();
+
         }
+
+
     }
 
 
 
-    window.SelectCountry = SelectCountry;
 
+// exports
+    if (typeof define === "function") { // amd & cmd
+        define(function () {
+            return SelectCountry;
+        });
+    } else if (typeof module !== "undefined" && "exports" in module) { // commonJS
+        module.exports = SelectCountry;
+    } else { // global
+        window.SelectCountry = SelectCountry;
+    }
 
 }.call(this);
 
