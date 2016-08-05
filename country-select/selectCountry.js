@@ -7,7 +7,7 @@
 ;void function () {
 
     
-    var tmpl = util.templatify(util.tpl("<!--## ContentTop ##-->\r\n<div class=\"form select-country\">\r\n    <div class=\"search J-search\"><input type=\"text\"></div>\r\n    <div class=\"tab-primary J-tab\">\r\n<!--## end ##-->\r\n<!--## ContentCenter ##-->\r\n    </div>\r\n    <div class=\"act J-action\">\r\n        <label class=\"checkbox\">\r\n            <input type=\"checkbox\" class=\"input-checkbox J-checkedAll\" value=\"\">全选\r\n            (<span class=\"J-count\"></span>/<span class=\"J-counts\">56</span>)\r\n        </label>\r\n    </div>\r\n    <div class=\"country-content colspan4 J-lists flags\">\r\n        <div class=\"search-box J-search-box\"></div>\r\n<!--## end ##-->\r\n<!--## ContentBottom ##-->\r\n    </div>\r\n</div>\r\n<!--## end ##-->\r\n\r\n\r\n<!--## countryArea ##-->\r\n<div class=\"country-area J-box\">\r\n    <div class=\"country-add J-country-add\"><i class=\"micon\">&#xe005;</i></div>\r\n</div>\r\n<!--## end ##-->\r\n\r\n<!--## countryItem ##-->\r\n<div class=\"country-item flags\">\r\n    <span class=\"flag flag-{{-flag}}\">{{-countryName}}</span>\r\n    <span class=\"del J-del micon\" country-simple=\"{{-simpleCountry}}\" region=\"{{-region}}\"></span>\r\n</div>\r\n<!--## end ##-->"));
+    var tmpl = util.templatify(util.tpl("<!--## ContentTop ##-->\r\n<div class=\"obelisk-form select-country\">\r\n    <div class=\"search-box J-search\"><input type=\"text\" placeholder=\"请输入国家/地区名称\"><button>搜索</button></div>\r\n    <div class=\"tab-primary J-tab\">\r\n<!--## end ##-->\r\n<!--## ContentCenter ##-->\r\n    </div>\r\n    <div class=\"act J-action input-checkbox\">\r\n        <label class=\"checkbox\">\r\n            <input type=\"checkbox\" class=\"J-checkedAll\" value=\"\">\r\n            <span class=\"input-ctnr\"></span>\r\n            全选\r\n            (<span class=\"J-count\"></span>/<span class=\"J-counts\">56</span>)\r\n        </label>\r\n    </div>\r\n    <div class=\"country-content input-checkbox J-lists flags\">\r\n        <div class=\"search-box J-search-box\"></div>\r\n<!--## end ##-->\r\n<!--## ContentBottom ##-->\r\n    </div>\r\n</div>\r\n<!--## end ##-->\r\n\r\n\r\n<!--## countryArea ##-->\r\n<div class=\"country-area J-box\">\r\n    <div class=\"country-add J-country-add\"><i class=\"micon\">&#xe005;</i></div>\r\n</div>\r\n<!--## end ##-->\r\n\r\n<!--## countryItem ##-->\r\n<div class=\"country-item flags\">\r\n    <span class=\"flag flag-{{-flag}}\">{{-countryName}}</span>\r\n    <span class=\"del J-del micon\" country-simple=\"{{-simpleCountry}}\" region=\"{{-region}}\"></span>\r\n</div>\r\n<!--## end ##-->"));
 
 
     var defaults = {
@@ -197,9 +197,7 @@
                         var content = this.content();
                         var tabs = $('.J-tab', content),
                             lists = $('.J-lists', content),
-                            selectedAll = $('.J-checkedAll', content),
-                            action = $('.J-action', content),
-                            $search = $('.J-search',content);
+                            action = $('.J-action', content);
                         tabs.find('.item:first').addClass('active');
                         lists.find('.countries:first').addClass('active');
                         _this.changeNums(content);
@@ -265,7 +263,7 @@
                     $search.addClass('active').html('');
                     for (var i=0;i<items.length;i++){
                         if($(items[i]).val().match(reg)){
-                            var thisHtml = $(items[i]).closest('.checkbox').prop('outerHTML');
+                            var thisHtml = $(items[i]).closest('.input-wrap').prop('outerHTML');
                             $search.append(thisHtml);
                         }
                     }
@@ -324,7 +322,7 @@
                 lists = lists + '<div class="countries" data-region="'+i+'">';
 
                 $.each(n,function(j,m){
-                    middle = middle + '<label class="checkbox"><input type="checkbox" class="input-checkbox" '+ (m['myChecked'] && 'checked') +' value="'+ m['countryRegion']+'"><span class="flag flag-'+m['simpleCountry'].toLowerCase()+'"></span>'+ m['countryName']+'</label>'
+                    middle = middle + '<label class="input-wrap"><input type="checkbox" '+ (m['myChecked'] && 'checked') +' value="'+ m['countryRegion']+'"><span class="input-ctnr"></span><span class="flag flag-'+m['simpleCountry'].toLowerCase()+'"></span>'+ m['countryName']+'</label>'
                 });
                 lists = lists + middle + '</div>'
 

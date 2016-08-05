@@ -1,17 +1,19 @@
 <!--## ContentTop ##-->
-<div class="form select-country">
-    <div class="search J-search"><input type="text"></div>
+<div class="obelisk-form select-country">
+    <div class="search-box J-search"><input type="text" placeholder="请输入国家/地区名称"><button>搜索</button></div>
     <div class="tab-primary J-tab">
 <!--## end ##-->
 <!--## ContentCenter ##-->
     </div>
-    <div class="act J-action">
+    <div class="act J-action input-checkbox">
         <label class="checkbox">
-            <input type="checkbox" class="input-checkbox J-checkedAll" value="">全选
+            <input type="checkbox" class="J-checkedAll" value="">
+            <span class="input-ctnr"></span>
+            全选
             (<span class="J-count"></span>/<span class="J-counts">56</span>)
         </label>
     </div>
-    <div class="country-content colspan4 J-lists flags">
+    <div class="country-content input-checkbox J-lists flags">
         <div class="search-box J-search-box"></div>
 <!--## end ##-->
 <!--## ContentBottom ##-->

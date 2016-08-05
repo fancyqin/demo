@@ -197,9 +197,7 @@
                         var content = this.content();
                         var tabs = $('.J-tab', content),
                             lists = $('.J-lists', content),
-                            selectedAll = $('.J-checkedAll', content),
-                            action = $('.J-action', content),
-                            $search = $('.J-search',content);
+                            action = $('.J-action', content);
                         tabs.find('.item:first').addClass('active');
                         lists.find('.countries:first').addClass('active');
                         _this.changeNums(content);
@@ -265,7 +263,7 @@
                     $search.addClass('active').html('');
                     for (var i=0;i<items.length;i++){
                         if($(items[i]).val().match(reg)){
-                            var thisHtml = $(items[i]).closest('.checkbox').prop('outerHTML');
+                            var thisHtml = $(items[i]).closest('.input-wrap').prop('outerHTML');
                             $search.append(thisHtml);
                         }
                     }
@@ -324,7 +322,7 @@
                 lists = lists + '<div class="countries" data-region="'+i+'">';
 
                 $.each(n,function(j,m){
-                    middle = middle + '<label class="checkbox"><input type="checkbox" class="input-checkbox" '+ (m['myChecked'] && 'checked') +' value="'+ m['countryRegion']+'"><span class="flag flag-'+m['simpleCountry'].toLowerCase()+'"></span>'+ m['countryName']+'</label>'
+                    middle = middle + '<label class="input-wrap"><input type="checkbox" '+ (m['myChecked'] && 'checked') +' value="'+ m['countryRegion']+'"><span class="input-ctnr"></span><span class="flag flag-'+m['simpleCountry'].toLowerCase()+'"></span>'+ m['countryName']+'</label>'
                 });
                 lists = lists + middle + '</div>'
 
