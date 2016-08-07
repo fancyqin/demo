@@ -1,6 +1,6 @@
 <!--## ContentTop ##-->
 <div class="obelisk-form select-country">
-    <div class="search-box J-search"><input type="text" placeholder="请输入国家/地区名称"><button>搜索</button></div>
+    <div class="search-box J-search"><input type="text" placeholder="{{-searchPlaceholder}}"><button>{{-search}}</button></div>
     <div class="tab-primary J-tab">
 <!--## end ##-->
 <!--## ContentCenter ##-->
@@ -9,8 +9,8 @@
         <label class="checkbox">
             <input type="checkbox" class="J-checkedAll" value="">
             <span class="input-ctnr"></span>
-            全选
-            (<span class="J-count"></span>/<span class="J-counts">56</span>)
+            {{-selectAll}}
+            (<span class="J-count"></span>/<span class="J-counts"></span>)
         </label>
     </div>
     <div class="country-content input-checkbox J-lists flags">
@@ -29,8 +29,12 @@
 <!--## end ##-->
 
 <!--## countryItem ##-->
-<div class="country-item flags">
+<div class="country-item flags" title="{{-countryTitle}}" >
     <span class="flag flag-{{-flag}}">{{-countryName}}</span>
     <span class="del J-del micon" country-simple="{{-simpleCountry}}" region="{{-region}}"></span>
 </div>
+<!--## end ##-->
+
+<!--## noResult ##-->
+<div class="J-noResult">{{-noResult}}</div>
 <!--## end ##-->

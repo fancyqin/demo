@@ -23,31 +23,26 @@
                     cancel: '取消'
                 },
                 confirmTip: '您确定要清空{userName}的国家/地区吗？',
-                assignTip: '表示已分配',
-                selectedAll: '全选',
-                'prompt': {
-                    changeAssignSucc: '国家/地区负责人修改成功！',
-                    changeAssignErr: '系统错误！',
-                    assign: '已分配给'
-                }
+                selectAll: '全选',
+                searchPlaceholder: '请输入国家/地区名称',
+                search:'搜索',
+                noResult:'没有搜索到todo'
             },
             'en-US': {
                 'artDialog': {
-                    title: 'xxx todo',
+                    title: 'Select country/region',
                     edit: 'Edit',
                     save: 'Save',
                     cancel: 'Cancel'
                 },
                 confirmTip: "Are you sure to clear {userName}'s country/region?",
-                assignTip: 'is Already Assigned',
-                selectedAll: 'Select All',
-                'prompt': {
-                    changeAssignSucc: 'Person in charge of country/region  changed successfully.',
-                    changeAssignErr: 'System Error.',
-                    assign: 'Assigned to '
-                }
+                selectAll: 'Select All',
+                searchPlaceholder:'todo',
+                search:'todo',
+                noResult:'todo'
             }
-        }
+        },
+        en: false
     };
 
 
@@ -55,6 +50,7 @@
     var SelectCountry = function (config) {
         this.conf = $.extend(true, {}, defaults,config);
         this.data = null;
+        this.lang = this.conf.en ? this.conf.lang['en-US']:this.conf.lang['zh-CN'];
 
         this.init();
 
@@ -64,7 +60,6 @@
         init: function(){
             this.renderHtml();
             this.bindEvent();
-
         },
         getJSON: function(cb){
             var _this = this;
@@ -72,7 +67,7 @@
             $.ajax({
                 type: "GET",
                 cache: false,
-                async: false,
+                // async: false,
                 url: conf.url,
                 success:function (json){
                     if (!json) {
@@ -81,6 +76,7 @@
                     }
                     _this.data = json;
                     cb && cb(json);
+
                 },
                 error:function(){
                     alert('Query Data Error.');
@@ -116,9 +112,10 @@
                                 'flag':country['simpleCountry'].toLowerCase(),
                                 'countryName': country['countryName'],
                                 'simpleCountry':country['simpleCountry'],
-                                'region':country['countinentRegion']
-
+                                'region':country['countinentRegion'],
+                                'countryTitle':country['longCountryName']? country['parameterValue']:''
                             };
+
 
                             country['myChecked'] = true;
                             var counts = _this.data['countryCounts'][country['countinentRegion']];
@@ -153,7 +150,7 @@
 
             var el = _this.conf.el,
                 input = _this.conf.input,
-                lang = _this.conf.lang['zh-CN'];
+                lang = this.lang;
             var countryDialog = null;
             // 绑定事件
 
@@ -238,14 +235,19 @@
             });
 
             lists.on('change','input[type=checkbox]', function(e) {
+                if($(this).closest('.J-search-box')){
+                    var _check = $(this).prop('checked');
+                    var _val = $(this).val();
+                    lists.find('.countries input[type=checkbox][value="'+ _val +'"]').attr('checked',_check);
+                }
                 _this.changeNums(content);
 
             });
             selectedAll.on('change',function(){
                 if ($(this).attr('checked')){
-                    lists.find('.countries.active input[type=checkbox]').attr('checked', true);
+                    lists.find('.active input[type=checkbox]').attr('checked', true).trigger('change');
                 }else{
-                    lists.find('.countries.active input[type=checkbox]').attr('checked', false);
+                    lists.find('.active input[type=checkbox]').attr('checked', false).trigger('change');
                 }
                 _this.changeNums(content);
             });
@@ -255,14 +257,16 @@
                 var items =  lists.find('.countries input[type=checkbox]');
                 var $search = lists.find('.J-search-box');
                 //todo
-                var val = $(this).val();
-                var reg = RegExp(val, 'gi');
+                var val = $(this).val().replace(/\s/g,'_');
+
+                // var reg = RegExp(val, 'gi');
                 if(val){
                     tabs.hide();
                     lists.find('.active').removeClass('active');
                     $search.addClass('active').html('');
                     for (var i=0;i<items.length;i++){
-                        if($(items[i]).val().match(reg)){
+                        var iN =  $(items[i]).val().toLowerCase().indexOf(val.toLowerCase());
+                        if(iN > -1){
                             var thisHtml = $(items[i]).closest('.input-wrap').prop('outerHTML');
                             $search.append(thisHtml);
                         }
@@ -282,8 +286,7 @@
 
                     _this.changeNums(content);
 
-                    // var region = tabs.find('.item.active').attr('data-region');
-                    // lists.html('').html(viewCountryList(_this.cacheData, region ,args));
+
                 }
 
             })
@@ -295,13 +298,26 @@
                 allCount = $('.J-counts', content);
             var thisRegions = lists.find('.active input[type=checkbox]').length;
             var thisRegionsSel = lists.find('.active input[type=checkbox]:checked').length;
+            var noResultTxt = {
+                noResult: this.lang.noResult
+            }
             allCount.html(thisRegions);
             tabs.find('.item.active').find('.J-count').html(thisRegionsSel);
             action.find('.J-count').html(thisRegionsSel);
+            //全选状态
             if (thisRegions === thisRegionsSel){
                 action.find('.J-checkedAll').attr('checked',true);
             }else{
                 action.find('.J-checkedAll').attr('checked',false);
+            }
+            //搜索没结果
+            if(thisRegions === 0 && $('.J-search-box.active').length>0){
+                action.hide();
+                $('.J-search-box').append(tmpl.noResult(noResultTxt));
+            }else{
+                var nr = $('.J-search-box .J-noResult');
+                action.show();
+                (nr.length >0) && nr.remove();
             }
 
         },
@@ -309,10 +325,16 @@
             var _this = this;
 
             if (!_this.data){
-                console.error('widthout data!');
+                console.error('without data!');
                 return false;
             }
             var regions =  '',lists = '';
+
+            var htmlTxt = {
+                'searchPlaceholder':this.lang.searchPlaceholder,
+                'search':this.lang.search,
+                'selectAll':this.lang.selectAll
+            }
 
             $.each(_this.data['continentRegionMap'],function(i,n){
                 var num = _this.data['countryCounts'][i] || 0;
@@ -322,13 +344,13 @@
                 lists = lists + '<div class="countries" data-region="'+i+'">';
 
                 $.each(n,function(j,m){
-                    middle = middle + '<label class="input-wrap"><input type="checkbox" '+ (m['myChecked'] && 'checked') +' value="'+ m['countryRegion']+'"><span class="input-ctnr"></span><span class="flag flag-'+m['simpleCountry'].toLowerCase()+'"></span>'+ m['countryName']+'</label>'
+                    middle = middle + '<label class="input-wrap"'+ (m['longCountryName'] && 'title="'+m['parameterValue']+'"') + '><input type="checkbox" '+ (m['myChecked'] && 'checked') +' value="'+ m['countryRegion']+'"><span class="input-ctnr"></span><span class="flag flag-'+m['simpleCountry'].toLowerCase()+'"></span>'+ m['countryName']+'</label>'
                 });
                 lists = lists + middle + '</div>'
 
             });
 
-            var html = tmpl.ContentTop() + regions + tmpl.ContentCenter() + lists + tmpl.ContentBottom();
+            var html = tmpl.ContentTop(htmlTxt) + regions + tmpl.ContentCenter(htmlTxt) + lists + tmpl.ContentBottom();
 
             return html;
         },
@@ -354,7 +376,7 @@
 
 
 
-// exports
+    // exports
     if (typeof define === "function") { // amd & cmd
         define(function () {
             return SelectCountry;
