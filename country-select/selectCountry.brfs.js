@@ -14,35 +14,39 @@
         el:'.J-country-select',
         input:'#country-select',
         url:'country.json',
-        lang: {
-            'zh-CN': {
-                'artDialog': {
-                    title: '选择国家/地区',
-                    edit: '修改',
-                    save: '保存',
-                    cancel: '取消'
-                },
-                confirmTip: '您确定要清空{userName}的国家/地区吗？',
-                selectAll: '全选',
-                searchPlaceholder: '请输入国家/地区名称',
-                search:'搜索',
-                noResult:'没有搜索到todo'
+        lang: [{
+            'artDialog': {
+                title: 'Select Country/Region',
+                edit: 'Edit',
+                save: 'Confirm',
+                cancel: 'Cancel'
             },
-            'en-US': {
-                'artDialog': {
-                    title: 'Select country/region',
-                    edit: 'Edit',
-                    save: 'Save',
-                    cancel: 'Cancel'
-                },
-                confirmTip: "Are you sure to clear {userName}'s country/region?",
-                selectAll: 'Select All',
-                searchPlaceholder:'todo',
-                search:'todo',
-                noResult:'todo'
-            }
-        },
-        en: false
+            confirmTip: "Are you sure to clear {userName}'s country/region?",
+            selectAll: 'Select All',
+            searchPlaceholder:'Please enter a country/region',
+            search:'Search',
+            noResult:'Can’t find countries or regions for “{searchWord}” .Try to search by other words.',
+            artAlert:'Warning',
+            alertTxt:'Please select at least one country or region.',
+            onlyEnglish:'Only English characters can be entered here.'
+
+        },{
+            'artDialog': {
+                title: '选择国家/地区',
+                edit: '修改',
+                save: '确认',
+                cancel: '取消'
+            },
+            confirmTip: '您确定要清空{userName}的国家/地区吗？',
+            selectAll: '全选',
+            searchPlaceholder: '请输入国家/地区名称',
+            search:'搜索',
+            noResult:'没有找到匹配 "{searchWord}" 的国家/地区，请使用其它关键词搜索。',
+            artAlert:'提示',
+            alertTxt:'请选择国家/地区。',
+            onlyEnglish:'此处仅支持输入英文字符进行搜索。'
+        }],
+        lanCode: 1
     };
 
 
@@ -50,7 +54,7 @@
     var SelectCountry = function (config) {
         this.conf = $.extend(true, {}, defaults,config);
         this.data = null;
-        this.lang = this.conf.en ? this.conf.lang['en-US']:this.conf.lang['zh-CN'];
+        this.lang = this.conf.lang[this.conf.lanCode];
 
         this.init();
 
@@ -71,7 +75,7 @@
                 url: conf.url,
                 success:function (json){
                     if (!json) {
-                        alert('Query Data Error.');
+                        console.error('Query Data Error.');
                         return false;
                     }
                     _this.data = json;
@@ -79,7 +83,7 @@
 
                 },
                 error:function(){
-                    alert('Query Data Error.');
+                    console.error('Query Data Error.');
                 }
             })
         },
@@ -103,7 +107,7 @@
 
                     $add = $box.find('.J-country-add');
 
-                    var inputVals = inputVal.split('@');
+                    var inputVals = inputVal ? inputVal.split('@'):[];
 
                     for (var i = 0;i < inputVals.length;i++){
                         _this.traversal(json,'countryRegion',inputVals[i],function(country){
@@ -201,7 +205,26 @@
                         _this.bindArtDialogEvent(content);
                     },
                     ok : function(){
-                        _this.saveData(this.content())
+                        var input = _this.conf.input;
+                        var lang = _this.lang;
+                        var lists = $('.J-lists', this.content());
+
+                        var postData = [];
+                        var checks = lists.find('.countries input[type=checkbox]:checked');
+                        if(checks.length === 0){
+                            artDialog.alert(lang.alertTxt,lang.artAlert,{type: 'tip'}).time(2)
+                            return false;
+                        }
+                        for(var i = 0;i<checks.length;i++){
+                            $(checks[i]).val() && postData.push($(checks[i]).val());
+                        }
+                        $(input).val(postData.join('@'));
+
+                        _this.renderHtml();
+
+
+
+                        //_this.saveData(this.content())
                     },
                     cancel: function(){
                         //todo
@@ -259,6 +282,9 @@
                 //todo
                 var val = $(this).val().replace(/\s/g,'_');
 
+                var noResultTxt = {
+                    noResult: _this.lang.noResult.replace('{searchWord}', $(this).val())
+                };
                 // var reg = RegExp(val, 'gi');
                 if(val){
                     tabs.hide();
@@ -271,23 +297,32 @@
                             $search.append(thisHtml);
                         }
                     }
-
                     _this.changeNums(content);
 
-
-
                 }else {
-
                     tabs.show();
                     $search.removeClass('active');
                     var region = tabs.find('.item.active').attr('data-region');
-
                     lists.find('.countries[data-region="'+region+'"]').addClass('active');
-
                     _this.changeNums(content);
 
-
                 }
+
+                //搜索没结果
+
+                if(!/^[\x00-\x7F\xB0]*$/.test($(this).val())){
+                    noResultTxt.noResult = _this.lang.onlyEnglish;
+                }
+                var thisRegions = lists.find('.active input[type=checkbox]').length;
+                if(thisRegions === 0 && $('.J-search-box.active').length>0){
+                    action.hide();
+                    $('.J-search-box').append(tmpl.noResult(noResultTxt));
+                }else{
+                    var nr = $('.J-search-box .J-noResult');
+                    action.show();
+                    (nr.length >0) && nr.remove();
+                }
+
 
             })
         },
@@ -298,9 +333,7 @@
                 allCount = $('.J-counts', content);
             var thisRegions = lists.find('.active input[type=checkbox]').length;
             var thisRegionsSel = lists.find('.active input[type=checkbox]:checked').length;
-            var noResultTxt = {
-                noResult: this.lang.noResult
-            }
+
             allCount.html(thisRegions);
             tabs.find('.item.active').find('.J-count').html(thisRegionsSel);
             action.find('.J-count').html(thisRegionsSel);
@@ -310,15 +343,7 @@
             }else{
                 action.find('.J-checkedAll').attr('checked',false);
             }
-            //搜索没结果
-            if(thisRegions === 0 && $('.J-search-box.active').length>0){
-                action.hide();
-                $('.J-search-box').append(tmpl.noResult(noResultTxt));
-            }else{
-                var nr = $('.J-search-box .J-noResult');
-                action.show();
-                (nr.length >0) && nr.remove();
-            }
+
 
         },
         getContentList: function(){
@@ -339,12 +364,19 @@
             $.each(_this.data['continentRegionMap'],function(i,n){
                 var num = _this.data['countryCounts'][i] || 0;
                 var middle = '';
-                regions = regions + '<a class="item" data-region="'+i+'" href="javascript:;">'+i+'(<span class="J-count">'+num+'</span>)</a>'
+                regions = regions + tmpl.tabItem({region:i,regionNum:num});
 
-                lists = lists + '<div class="countries" data-region="'+i+'">';
+                lists = lists + tmpl.countriesItem({region:i});
 
                 $.each(n,function(j,m){
-                    middle = middle + '<label class="input-wrap"'+ (m['longCountryName'] && 'title="'+m['parameterValue']+'"') + '><input type="checkbox" '+ (m['myChecked'] && 'checked') +' value="'+ m['countryRegion']+'"><span class="input-ctnr"></span><span class="flag flag-'+m['simpleCountry'].toLowerCase()+'"></span>'+ m['countryName']+'</label>'
+                    middle = middle + tmpl.selectItem({
+                            title:m['longCountryName']? m['parameterValue']:'' ,
+                            checked:m['myChecked']? 'checked':'' ,
+                            value:m['countryRegion'],
+                            flag:m['simpleCountry'].toLowerCase(),
+                            name:m['countryName']
+                        })
+
                 });
                 lists = lists + middle + '</div>'
 
@@ -354,22 +386,6 @@
 
             return html;
         },
-        saveData:function (content){
-            var input = this.conf.input;
-            var lists = $('.J-lists', content);
-
-            var postData = [];
-            var checks = lists.find('.countries input[type=checkbox]:checked');
-            for(var i = 0;i<checks.length;i++){
-                $(checks[i]).val() && postData.push($(checks[i]).val());
-
-            }
-            $(input).val(postData.join('@'));
-
-            this.renderHtml();
-
-        }
-
 
     }
 
