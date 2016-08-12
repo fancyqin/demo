@@ -22,7 +22,7 @@
 <!--## end ##-->
 
 <!--## tabItem ##-->
-<a class="item" data-region="{{-region}}" href="javascript:;">{{-region}}(<span class="J-count">{{-regionNum}}</span>)</a>
+<a class="item" data-region="{{-region}}" href="javascript:;">{{-regionName}}(<span class="J-count">{{-regionNum}}</span>)</a>
 <!--## end  ##-->
 
 <!--## countriesItem ##-->

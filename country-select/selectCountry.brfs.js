@@ -46,7 +46,9 @@
             alertTxt:'请选择国家/地区。',
             onlyEnglish:'此处仅支持输入英文字符进行搜索。'
         }],
-        lanCode: 1
+        lanCode: 1,
+        afterPostData: function(){return false;}//用于去除报错提示等。
+
     };
 
 
@@ -156,7 +158,6 @@
                 input = _this.conf.input,
                 lang = this.lang;
             var countryDialog = null;
-            // 绑定事件
 
             //删除
             $(el).on('click','.J-del', function (e) {
@@ -169,7 +170,7 @@
                 $.each(countries,function(i,n){
                     if (ctry === n['simpleCountry']){
                         $target.closest('.country-item').remove();
-                        var countryReg = n['countryRegion'];
+                        var countryReg = n['countryRegion'].replace('(','[(]').replace(')','[)]');
 
                         var reg =  RegExp("@"+ countryReg +"@",'g'),
                             reg_begin = RegExp('^'+ countryReg +'@','g'),
@@ -185,7 +186,7 @@
                 })
             });
             //弹框
-            $(el).on('click','.J-country-add',function(e){
+            $(el).on('click','.J-country-add',function(){
                 countryDialog = art.dialog({
                     title : lang.artDialog.title,
                     okVal : lang.artDialog.save,
@@ -211,8 +212,9 @@
 
                         var postData = [];
                         var checks = lists.find('.countries input[type=checkbox]:checked');
+                        _this.conf.afterPostData();
                         if(checks.length === 0){
-                            artDialog.alert(lang.alertTxt,lang.artAlert,{type: 'tip'}).time(2)
+                            artDialog.alert(lang.alertTxt,lang.artAlert,{type: 'tip'}).time(2);
                             return false;
                         }
                         for(var i = 0;i<checks.length;i++){
@@ -359,12 +361,17 @@
                 'searchPlaceholder':this.lang.searchPlaceholder,
                 'search':this.lang.search,
                 'selectAll':this.lang.selectAll
-            }
+            };
 
             $.each(_this.data['continentRegionMap'],function(i,n){
                 var num = _this.data['countryCounts'][i] || 0;
                 var middle = '';
-                regions = regions + tmpl.tabItem({region:i,regionNum:num});
+                regions = regions + tmpl.tabItem(
+                        {
+                            regionName:(i==='Australasia')? 'Oceania':i,
+                            region:i,
+                            regionNum:num
+                        });
 
                 lists = lists + tmpl.countriesItem({region:i});
 
@@ -385,9 +392,9 @@
             var html = tmpl.ContentTop(htmlTxt) + regions + tmpl.ContentCenter(htmlTxt) + lists + tmpl.ContentBottom();
 
             return html;
-        },
+        }
 
-    }
+    };
 
 
 
