@@ -5,6 +5,7 @@
     <title>Title</title>
     <link rel="stylesheet" href="http://membercenter.made-in-china.com/style/vo.css">
     <link rel="stylesheet" href="http://membercenter.made-in-china.com/css/vo/member.css">
+    <link rel="stylesheet" href="/micen/css/alert/alert.css">
     <style>
         .alert-box{
             padding:10px 21px;
@@ -14,6 +15,31 @@
         }
         .alert-box .frequency{
 
+        }
+        .alert-box .keywords{
+
+        }
+        .alert-box .keywords .key-item{
+            position: relative;
+            float: left;
+            height: 28px;
+            line-height: 28px;
+            color: #888;
+            border:1px solid #ced3d9;
+            border-radius: 2px;
+            margin: 5px 5px 5px 0;
+            padding: 0 10px 0 10px;
+            cursor: pointer;
+        }
+        .alert-box .keywords .key-item .micon{
+            /*position: absolute;*/
+            /*top:6px;*/
+            /*right:0;*/
+            margin: 0;
+            /*display: none;*/
+        }
+        .alert-box .keywords .key-item:hover .micon{
+            display: inline-block;
         }
     </style>
 </head>
@@ -40,6 +66,9 @@
                     </td>
                     <td>
                         <ul class="subscription-list">
+                            <!--///******************///-->
+                            <!--///******************///-->
+                            <!--///******************///-->
                             <li>
                                 <h4><span><a href="http://membercenter.made-in-china.com/catalogalert.do?xcase=subscrib"
                                              target="_blank">Manage</a><a href="javascript:void(0)" class="simple">Sample</a></span><input
@@ -48,17 +77,43 @@
                                 <p>Deliver hot &amp; fresh products.</p>
 
 
-                                <div class="alert-box J-alertBox">
+                                <div class="alert-box J-alertBox obelisk-form">
                                     <h5 class="">Email Delivery Frequency  (for  all the keywords)</h5>
-                                    <div class="frequency"></div>
+                                    <div class="frequency">
+                                        <label class="input-wrap">
+                                            <input type="radio" name="frequency">
+                                            <!--<span class="input-ctnr"></span>-->
+                                            Weekly
+                                        </label>
+                                        <label class="input-wrap">
+                                            <input type="radio" name="frequency">
+                                            <!--<span class="input-ctnr"></span>-->
+                                            Biweekly
+                                        </label>
+                                        <label class="input-wrap">
+                                            <input type="radio" name="frequency">
+                                            <!--<span class="input-ctnr"></span>-->
+                                            Monthly
+                                        </label>
+                                    </div>
                                     <h5 class="">Subscribed Product Keywords</h5>
-                                    <div class=""></div>
+                                    <div class="keywords cf">
+                                        <div class="key-item J-item">
+                                            <span class="">shoes</span>
+                                            <i class="micon J-del">&#xe00c;</i>
+                                        </div>
+                                        <div class="key-item J-item">
+                                            <span class="">bed</span>
+                                            <i class="micon J-del">&#xe00c;</i>
+                                        </div>
+                                    </div>
                                 </div>
 
-
-
-
                             </li>
+                            <!--///******************///-->
+                            <!--///******************///-->
+                            <!--///******************///-->
+
                             <li>
                                 <h4><span><a href="javascript:void(0)" class="simple">Sample</a></span><input
                                         type="checkbox" name="subscribeMail" value="13" checked="checked"> Special and
@@ -211,42 +266,53 @@
         </div>
 
 
-        <div id="qLinks">
-            <!-- <a href="/onlineorder.do">My Service Orders</a> -->
-
-
-        </div>
-
-
-        <script type="text/javascript" src="/script/chatTM/chatTM_global.js"></script>
-        <script language="javascript" type="text/javascript">
-            ;
-            void function () {
-                var standard = !!window.addEventListener;
-                var bind = function (standard) {
-                    return standard ? function (el, type, fn) {
-                        el.addEventListener(type, fn, false);
-                    } : function (el, type, fn) {
-                        el.attachEvent('on' + type, fn);
-                    }
-                }.call(this, standard);
-
-                var $ = function (id) {
-                    return document.getElementById(id);
-                };
-            }.call(this);
-        </script>
-
-
-        <div id="upgrade-to-premium">
-
-        </div>
     </div>
 
 </div>
 
 
+<script id="alertArt" type="text/html">
+    <div class="alert-art alert-new obelisk-form">
+        <div class="div"></div>
+    </div>
+</script>
+
+
 <script type="text/javascript" src="/common/js/libs/jquery.js"></script>
-<script type="text/javascript" src="/micen/js/alert/alertHome.js"></script>
+<script type="text/javascript" src="/common/js/assets/template/template.js"></script>
+<script type="text/javascript" src="/common/js/assets/artDialog/2.0.0/artDialog.js"></script>
+<script type="text/javascript">
+    ;void function(){
+        var tips = {
+            art:{
+                title:'Subscribe a Product Alert',
+                ok:'Subscribe',
+                cancel:'Cancel'
+            }
+        }
+
+
+        $(function () {
+
+
+            function getAlertArt(data){
+
+                var art = new artDialog({
+                    title : tips.art.title,
+                    okVal : tips.art.ok,
+                    cancelVal : tips.art.cancel,
+                    width : 515,
+                    lock : true,
+                    content : template($('#alertArt').html(),data)
+                })
+            }
+
+
+
+        })
+
+    }.call(this);
+
+</script>
 </body>
 </html>
