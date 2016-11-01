@@ -1,0 +1,185 @@
+<html>
+    <head>
+      <title>Special Characters</title>
+      <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+      <meta http-equiv="Expires" content="0" />
+    </head>
+    <body bottomMargin=0 leftMargin=0 topMargin=0 rightMargin=0>
+        <style type=text/css>
+            table {
+                border-collapse: separate;
+                border-spacing: 2px
+            }
+            
+            td {
+                vertical-align: top
+            }
+            
+            .Disactive {
+                BORDER-RIGHT: 1px solid;
+                BORDER-TOP: 1px solid;
+                BORDER-LEFT: 1px solid;
+                WIDTH: 1%;
+                CURSOR: hand;
+                BORDER-BOTTOM: 1px solid;
+                BACKGROUND-COLOR: #dedbd6;
+                TEXT-ALIGN: center
+            }
+            
+            .Active {
+                CURSOR: hand;
+                BACKGROUND-COLOR: #ffffcc;
+                TEXT-ALIGN: center
+            }
+            
+            .MainTable {
+                BORDER-RIGHT: #e8e8e8 5px solid;
+                BORDER-TOP: #e8e8e8 5px solid;
+                BORDER-LEFT: #e8e8e8 5px solid;
+                BORDER-BOTTOM: #e8e8e8 5px solid
+            }
+            
+            .Sample {
+                BORDER-RIGHT: 1px solid;
+                BORDER-TOP: 1px solid;
+                FONT-SIZE: 18px;
+                BORDER-LEFT: 1px solid;
+                BORDER-BOTTOM: 1px solid;
+                BACKGROUND-COLOR: #dedbd6;
+                text-align: center;
+                vertical-align: middle
+            }
+            
+            .Empty {
+                BORDER-RIGHT: 1px solid;
+                BORDER-TOP: 1px solid;
+                BORDER-LEFT: 1px solid;
+                WIDTH: 1%;
+                CURSOR: default;
+                BORDER-BOTTOM: 1px solid;
+                BACKGROUND-COLOR: #dedbd6
+            }
+            
+            body, td, th, button {
+                font-family: Arial, Helvetica, sans-serif;
+                font-size: 12px;
+            }
+        </style>
+        <h6><a href="javascript:close();" title="Close"><i class="icon">&#xf00d;</i></a>Special
+            Characters</h6>
+        <table style="width: 470px; margin: 0 auto">
+            <tbody>
+                <tr>
+                    <td>
+                        <table class=MainTable height="75" width="140">
+                            <tbody>
+                                <tr>
+                                    <td class=Sample id=SampleTD align=middle>
+                                        &nbsp;
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                    <td>
+                        Please click to select a special character. Please note that each
+                        character (e.g. &quot;&yen;&quot;) has its HTML code (e.g.
+                        &quot;&amp;yen;&quot;). After the selection, you will see the HTML
+                        code in the text box and the special character will be displayed
+                        only after the submission.
+                    </td>
+                </tr>
+                <tr>
+                    <td height="1" colspan="2" id="spchar">
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <script language=javascript>
+            //<![CDATA[
+            var aChars = ["&yen;", "&euro;", "&pound;", "&cent;", "&copy;", "&reg;", "&trade;", "&alpha;", "&beta;", "&gamma;", "&delta;", "&eta;", "&theta;", "&lambda;", "&mu;", "&nu;", "&xi;", "&pi;", "&sigma;", "&tau;", "&rho;", "&phi;", "&chi;", "&omega;", "&Delta;", "&Sigma;", "&Phi;", "&Omega;", "&macr;", "&mdash;", "&plusmn;", "&times;", "&divide;", "&le;", "&ge;", "&sect;", "&isin;", "&permil;", "&ne;", "&or;", "&and;", "&sum;", "&infin;", "&equiv;", "&radic;", "&middot;", "&lsquo;", "&acute;", "&sup2;", "&sup3;", "&frac12;", "&frac14;", "&frac34;", "&deg;", "&ordm;C", "&ordm;F", "&oslash;", "<sub>2</sub>", "<sub>3</sub>"]
+            var aCharsTxt = ["&amp;yen;", "&amp;euro;", "&amp;pound;", "&amp;cent;", "&amp;copy;", "&amp;reg;", "&amp;trade;", "&amp;alpha;", "&amp;beta;", "&amp;gamma;", "&amp;delta;", "&amp;eta;", "&amp;theta;", "&amp;lambda;", "&amp;mu;", "&amp;nu;", "&amp;xi;", "&amp;pi;", "&amp;sigma;", "&amp;tau;", "&amp;rho;", "&amp;phi;", "&amp;chi;", "&amp;omega;", "&amp;Delta;", "&amp;Sigma;", "&amp;Phi;", "&amp;Omega;", "&amp;macr;", "&amp;mdash;", "&amp;plusmn;", "&amp;times;", "&amp;divide;", "&amp;le;", "&amp;ge;", "&amp;sect;", "&amp;isin;", "&amp;permil;", "&amp;ne;", "&amp;or;", "&amp;and;", "&amp;sum;", "&amp;infin;", "&amp;equiv;", "&amp;radic;", "&amp;middot;", "&amp;lsquo;", "&amp;acute;", "&amp;sup2;", "&amp;sup3;", "&amp;frac12;", "&amp;frac14;", "&amp;frac34;", "&amp;deg;", "&amp;ordm;C", "&amp;ordm;F", "&amp;oslash;", "<sub>2</sub>", "<sub>3</sub>"]
+            
+            var cols = 6;
+            
+            var i = 0;
+            var strBuffer = "<table class= 'MainTable' height= '100%' cellSpacing= '0' cellPadding= '0'  width= '100%' align= 'center' border= '1'>";
+            while (i < aChars.length) {
+                strBuffer += "<tr>";
+                for (var j = 0; j < cols; j++) {
+                    if (aChars[i]) {
+                        strBuffer += "<td class='Disactive' onclick=insertChar(aChars[" + i + "]); onmouseover='over(this)' onmouseout='out(this)'>";
+                        strBuffer += aChars[i];
+                        strBuffer += "<br>(" + aCharsTxt[i] + ")";
+                    }
+                    else 
+                        strBuffer += "<td class='Empty'>&nbsp;";
+                    strBuffer += "</td>";
+                    i++;
+                }
+                strBuffer += "</tr>";
+            }
+            strBuffer += "<tbody></tbody>";
+            strBuffer += "</table>";
+            document.getElementById("spchar").innerHTML = strBuffer;
+            
+            var oSample = document.getElementById("SampleTD");
+            function insertChar(myValue) {
+                close();
+                var obj = 'o11';
+                var starId = 'sp';
+                var endId = 'ep';
+                var isDoubleComTextarea = false;
+                if (document.getElementById('textareaType')) {
+                    var formTypes = document.getElementsByName('formType');
+                    var formTypeLength = document.getElementsByName('formType').length;
+                    var formType = formTypes[formTypeLength - 1].checked;
+                    if (formType) {
+                        obj = document.getElementById('textareaType').value;
+                        starId = 'comSp';
+                        endId = 'comEp';
+                        isDoubleComTextarea = true;
+                    }
+                }
+                var txa = document.getElementById(obj);
+                if (txa.createTextRange) {
+                    var start = 1 * document.getElementById(starId).value;
+                    var end = 1 * document.getElementById(endId).value;
+                    var pre = txa.value.substring(0, start);
+                    var post = txa.value.substring(end);
+                    txa.value = pre + myValue + post;
+                    //change position of start after insert 
+                    start += myValue.length;
+                    var currentLength = pre.length;
+                    var trimLength = pre.replace(/\n/g, "").length;
+                    document.getElementById(starId).value = start - (currentLength - trimLength);
+                    document.getElementById(endId).value = start - (currentLength - trimLength);
+                    setPos(txa, start - (currentLength - trimLength), start - (currentLength - trimLength));
+                }
+                else {
+                    insert4ff(txa, myValue, isDoubleComTextarea);
+                }
+            }
+            
+            function over(td) {
+                oSample.innerHTML = td.innerHTML;
+                td.className = 'Active';
+            }
+            
+            function out(td) {
+                oSample.innerHTML = "&nbsp;";
+                td.className = 'Disactive';
+            }
+            
+            function close() {
+                if (document.getElementById('scharDiv')) {
+                    hidePopMenu('scharDiv')
+                }
+                hidePopMenu('pop');
+                document.getElementById('pop').innerHTML="";
+            }
+            
+            //]]>
+        </script>
+    </body>
+</html>
