@@ -1,0 +1,4 @@
+node_modules/
+.idea/
+avatar/
+package-lock.json
