@@ -3,8 +3,9 @@ const path = require('path');
 const request = require('request');
 const cheerio = require('cheerio');
 
+const domain = 'https://www.zeldadungeon.net';
 
-const requrl = 'https://www.zeldadungeon.net/wiki/Gallery:Breath_of_the_Wild_Meals';
+const requrl = domain + '/wiki/Gallery:Breath_of_the_Wild_Food';
 // var cookie = 'PHPSESSID=27b5e8c254878a4374193b75bb26a98a;fvl_id=6F6DD9B50C86A36F594A39FE003995865BFC756911FD2E23;token=MjFkNWw1UE1vM3RicW1hK1JtM2dzdnM5b3R6dEZYVWNVQkhEUjZpQjEvV2JlcVJiVmRqM1Radw';
 
 
@@ -15,8 +16,17 @@ const acquireData = data => {
     const meal = $('.gallerybox .thumb').toArray();
     
     meal.map((item,index) =>{
-        const name = item.children[0].children[0].attribs.title;
-        console.log(name);
+        const nameEn = item.children[0].children[0].attribs.title;
+        const imgDom = item.children[0].children[0].children[0]
+        const imageName = imgDom.attribs.alt;
+        const imgUrl = '/images/good/' + imageName;
+
+        const imgSrc = domain + imgDom.attribs.src;
+
+
+        downloadImg(imgSrc,imageName,function(){
+            console.log(imageName+'  done');
+        })
         
     })
     
@@ -31,6 +41,8 @@ const copyMealData = ()=>{
         }
     })
 }
+
+
 
 
 function loadImg (uid,usrName){
@@ -58,18 +70,22 @@ function parseUrlForFileName(address) {
     return filename;
 }
 
-var downloadImg = function(uri, filename, callback){
-    request.head(uri, function(err, res, body){
-        // console.log('content-type:', res.headers['content-type']);  //这里返回图片的类型
-        // console.log('content-length:', res.headers['content-length']);  //图片大小
-        if (err) {
-            console.log('err: '+ err);
-            return false;
-        }
-        request.get(uri).on('error', function(err) {
-            console.log(err)
-        }).pipe(fs.createWriteStream('avatar/11F/'+filename)).on('close', callback);  //调用request的管道来下载到 images文件夹下
-    });
+const downloadImg = (uri, filename, callback) => {
+    request.get(uri).on('error', function(err) {
+        console.log(err)
+    }).pipe(fs.createWriteStream('images/good/'+filename)).on('close', callback);
+
+    // request.head(uri, function(err, res, body){
+    //     // console.log('content-type:', res.headers['content-type']);  //这里返回图片的类型
+    //     // console.log('content-length:', res.headers['content-length']);  //图片大小
+    //     if (err) {
+    //         console.log('err: '+ err);
+    //         return false;
+    //     }
+    //     request.get(uri).on('error', function(err) {
+    //         console.log(err)
+    //     }).pipe(fs.createWriteStream('images/meals/'+filename)).on('close', callback);  //调用request的管道来下载到 images文件夹下
+    // });
 };
 
 

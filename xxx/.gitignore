@@ -2,3 +2,6 @@ node_modules/
 .idea/
 avatar/
 package-lock.json
+.DS_Store
+images/
+data/
