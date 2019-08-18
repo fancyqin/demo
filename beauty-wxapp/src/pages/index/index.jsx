@@ -33,7 +33,7 @@ export default class Index extends Component {
   componentDidHide () { }
 
   render () {
-    const tabList = [{ title: '亚洲女神' }, { title: '欧美女神' }]
+    const tabList = [{ title: 'Asian Beauty' }, { title: 'Euroen Beauty' }]
     return (
       <AtTabs current={this.state.current} tabList={tabList} onClick={this.handleClick.bind(this)}>
         <AtTabsPane current={this.state.current} index={0} >
