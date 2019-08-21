@@ -47,7 +47,12 @@ module.exports = {
                             }
                         }
                     },
-                    'sass-loader'
+                    {
+                        loader:'sass-loader',
+                        options:{
+                            implementation: require('dart-sass')
+                        }
+                    }
                 ]
             },
             {
