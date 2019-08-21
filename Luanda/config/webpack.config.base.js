@@ -41,8 +41,9 @@ module.exports = {
                     {
                         loader:'postcss-loader',
                         options:{
-                            plugins: loader => {
-                                require('autoprefixer')()
+                            sourceMap: true,
+                            config:{
+                                path: 'postcss.config.js'
                             }
                         }
                     },
@@ -63,7 +64,7 @@ module.exports = {
         ]
     },
     plugins:[
-        new CleanWebpackPlugin(),
+        // new CleanWebpackPlugin(),
         new HtmlWebpackPlugin({
             template: path.join(ROOTPATH,'/src/index.html')
         }),
