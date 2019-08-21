@@ -3,27 +3,33 @@
 ### 目前Crov前端情况
 
 
-| 项目  | 框架、库  | 打包、编译  | 组件库| 接口平台 |
+| 项目  | 框架(库)  | 打包、编译  | 组件库| 接口平台 |
 |  ----  | ----  | ---- | ---- | ---- |
-| Crov前台项目       | jQuery | mstatic | ob、mango | 无 |
-| 跨境FIE、仓储项目   | jQuery、Vue | mstatic  | ob、mango | 无 |
+| Crov前台项目       | jQuery | mstatic | obelisk、mango | 无 |
+| 跨境FIE、仓储项目   | jQuery | mstatic  | obelisk、mango | 无 |
 | Crov App项目      | React Native | React Native | crovUI、antd-design | 基于swagger搭建的 |
 
 ### 未来规划
+
+| 项目  | 框架(库)  | 打包、编译  | 组件库| 接口平台 |
+|  ----  | ----  | ---- | ---- | ---- |
+| Crov前台项目       | React | webpack | new、antd-design | ued mock平台 |
+| Crov App项目      | React Native | React Native | crovUI、antd-design | 基于swagger搭建的 |
+
 - Crov前台buyer vo和seller vo逐渐用React替换掉，前台需要推广页面应用使用SSR
 - React 组件库
 - 逐渐使用webpack替换mstatic
 - 自动化测试
 - typescript
-- 数据可视化、建模
+- 数据可视化、建模
 
 ### 其他端
 
 - 桌面端，其他客户端
 - 小程序
 - chrome插件
-   
-### 上下游流程优化
+  
+### 上下游流程优化
 
 - 产品文档归档，查询平台、库
 - 设计稿、交互稿库（ued库）
@@ -44,6 +50,6 @@
 
 
 
-### Node
+### Node
 - 开发后端应用
 - 搭建中间层，实现服务端渲染
