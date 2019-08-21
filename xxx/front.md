@@ -1,13 +1,13 @@
 ## 前端
 
-### 目前Crov前端情况
+### 目前Crov前端情况
 
 
-| 项目  | 框架、库  | 打包、编译  |
-|  ----  | ----  | ---- |
-| Crov前台项目       | jQuery | mstatic |
-| 跨境FIE、仓储项目   | jQuery、Vue | mstatic  |
-| Crov App项目      | React Native | React Native |
+| 项目  | 框架、库  | 打包、编译  | 组件库| 接口平台 |
+|  ----  | ----  | ---- | ---- | ---- |
+| Crov前台项目       | jQuery | mstatic | ob、mango | 无 |
+| 跨境FIE、仓储项目   | jQuery、Vue | mstatic  | ob、mango | 无 |
+| Crov App项目      | React Native | React Native | crovUI、antd-design | 基于swagger搭建的 |
 
 ### 未来规划
 - Crov前台buyer vo和seller vo逐渐用React替换掉，前台需要推广页面应用使用SSR
