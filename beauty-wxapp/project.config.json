@@ -1,7 +1,7 @@
 {
   "miniprogramRoot": "./dist",
   "projectname": "beauty-wxapp",
-  "description": "b wxapp",
+  "description": "beauty",
   "appid": "wx70dd0f93fc1d63ae",
   "setting": {
     "urlCheck": true,

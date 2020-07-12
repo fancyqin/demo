@@ -1,0 +1,18 @@
+{
+	"projectname": "beauty-wxapp",
+	"description": "beauty",
+	"appid": "wx70dd0f93fc1d63ae",
+	"setting": {
+		"urlCheck": true,
+		"es6": false,
+		"postcss": false,
+		"minified": false,
+		"newFeature": true,
+		"autoAudits": false,
+		"useCompilerModule": false
+	},
+	"compileType": "miniprogram",
+	"simulatorType": "wechat",
+	"simulatorPluginLibVersion": {},
+	"condition": {}
+}

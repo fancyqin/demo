@@ -1,3 +1,15 @@
-$color-brand: #F23F4C;
-/* 引入 Taro UI 默认样式 */
-@import "~taro-ui/dist/style/index.scss";
+$color-brand: #3b6978;
+$color-brand-light: #84a9ac !default;
+$color-brand-dark: #204051 !default;
+$color-border-base: #204051 !default;
+
+// #5e6f64
+// #3f4441
+// #ffdecf
+// #ba7967
+
+@import 'taro-ui/dist/style/index.scss';
+
+Page{
+  background: #e7dfd5;
+}

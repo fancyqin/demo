@@ -1,0 +1,23 @@
+<block wx:if="{{$taroCompReady}}">
+    <view bindtap="handleClick" class="{{rootClass}}">
+        <view class="at-card__header">
+            <block wx:if="{{thumb}}">
+                <view class="at-card__header-thumb">
+                    <image class="at-card__header-thumb-info" mode="scaleToFill" src="{{thumb}}"></image>
+                </view>
+            </block>{{renderIcon || ''}}
+            <block wx:if="{{!thumb && icon && icon.value}}"><text class="{{iconClass}}" style="{{anonymousState__temp}}"></text>
+            </block><text class="at-card__header-title">{{title}}</text>
+            <block wx:if="{{extra}}"><text style="{{anonymousState__temp2}}" class="at-card__header-extra">{{extra}}</text>
+            </block>
+        </view>
+        <view class="at-card__content">
+            <view class="at-card__content-info">
+                <slot></slot>
+            </view>
+            <block wx:if="{{note}}">
+                <view class="at-card__content-note">{{note}}</view>
+            </block>
+        </view>
+    </view>
+</block>

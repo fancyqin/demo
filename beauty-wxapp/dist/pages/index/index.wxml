@@ -1,0 +1,7 @@
+<block wx:if="{{$taroCompReady}}">
+    <view class="index">
+        <at-button>fafaf</at-button>
+        <at-button compid="{{$compid__4}}">按钮文案</at-button>
+        <at-card compid="{{$compid__5}}">这也是内容区 可以随意定义功能</at-card><text>Hello world!</text>
+    </view>
+</block>
